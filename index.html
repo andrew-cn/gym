@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Жим">
+<meta name="theme-color" content="#07130E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<title>Жим 8 недель</title>
+<style>
+/* Layout idea: dark forest-green gym app — glowing hero with today's session, stacked lift cards, frosted timer + tab bar */
+:root{
+  --bg:#07130E; --bg2:#0C1D15; --surface:#11261C; --surface2:#163126; --line:#21402F;
+  --ink:#E9F7EF; --muted:#8FB3A0; --mint:#3BE3A0; --lime:#C3F55A; --mint-soft:rgba(59,227,160,.14);
+  --danger:#FF6B6B; --tue:#C3F55A; --thu:#3BE3A0; --sat:#5CD6E8;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.4;-webkit-text-size-adjust:100%}
+body{padding-bottom:calc(160px + var(--safe-b));background:
+  radial-gradient(900px 500px at 85% -10%,rgba(59,227,160,.16),transparent 60%),
+  radial-gradient(700px 400px at -10% 10%,rgba(195,245,90,.08),transparent 60%),var(--bg);background-attachment:fixed;min-height:100%}
+button{font-family:inherit;cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+header{padding:calc(14px + var(--safe-t)) 0 6px;display:flex;align-items:center;gap:10px}
+header img{width:34px;height:34px;border-radius:9px}
+.brand{font-weight:800;font-size:19px;letter-spacing:-.2px;margin:0}
+.brand span{color:var(--mint)}
+.hdr-sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+.weeks{display:flex;gap:6px;overflow-x:auto;padding:10px 2px 6px;scrollbar-width:none;scroll-snap-type:x mandatory}
+.weeks::-webkit-scrollbar{display:none}
+.wk{flex:0 0 auto;scroll-snap-align:start;min-width:58px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:7px 8px;text-align:center}
+.wk b{display:block;font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.wk span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.wk.on{background:linear-gradient(160deg,var(--mint),#1FB87D);border-color:transparent;color:#04120B}
+.wk.on span{color:#04120B;opacity:.7}
+.wk.done:not(.on){border-color:rgba(59,227,160,.5)}
+.wk.done b::after{content:"✓";font-size:11px;margin-left:2px;vertical-align:top}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px}
+.day{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:9px 6px;text-align:center;position:relative;overflow:hidden}
+.day b{display:block;font-size:15px;font-weight:800}
+.day small{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.day::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--dc);opacity:.6}
+.day.on{background:var(--surface2);border-color:var(--dc);box-shadow:0 0 0 1px var(--dc) inset,0 8px 24px -10px var(--dc)}
+.day.on::before{opacity:1}
+.day.done b::after{content:" ✓";color:var(--mint)}
+.banner{border-radius:16px;padding:12px 14px;margin:0 0 12px;background:var(--mint-soft);border:1px solid rgba(59,227,160,.3);font-size:14px}
+.hero{position:relative;border-radius:22px;padding:16px;margin-bottom:14px;overflow:hidden;
+  background:linear-gradient(145deg,#15402D 0%,#0F2A1F 55%,#0B1F17 100%);border:1px solid rgba(59,227,160,.25)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(195,245,90,.25),transparent 70%)}
+.hero .kick{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--lime);font-weight:800}
+.hero h1{margin:4px 0 2px;font-size:26px;line-height:1.1;font-weight:850;letter-spacing:-.5px;text-wrap:balance}
+.hero p{margin:4px 0 0;color:#B9D6C7;font-size:13px;position:relative;z-index:1}
+.hero-row{display:flex;align-items:center;gap:14px;margin-top:12px;position:relative;z-index:1}
+.ring{flex:0 0 64px;height:64px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.hero-main{flex:1;min-width:0}
+.hero-main small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.hero-main strong{font-size:17px;font-weight:800}
+.hero-main strong em{font-style:normal;color:var(--lime)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}
+.card.main{border-color:rgba(195,245,90,.55);background:linear-gradient(180deg,rgba(195,245,90,.09),var(--surface) 90px);box-shadow:0 10px 30px -18px rgba(195,245,90,.6)}
+.card.complete{opacity:.6}
+.ch{display:flex;gap:10px;align-items:flex-start}
+.num{flex:0 0 28px;height:28px;border-radius:9px;background:var(--surface2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--muted)}
+.card.main .num{background:var(--lime);color:#0B1A06;border-color:transparent}
+.card.complete .num{background:var(--mint);color:#04120B;border-color:transparent}
+.ct{flex:1;min-width:0}
+.ct h3{margin:1px 0 0;font-size:16px;font-weight:800;line-height:1.25}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.pill{font-size:12px;border-radius:999px;padding:3px 9px;background:var(--bg2);border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+.pill.strong{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:800}
+.pill.up{background:rgba(195,245,90,.16);color:var(--lime);border-color:rgba(195,245,90,.4);font-weight:800}
+.big{font-weight:850;font-size:32px;line-height:1;color:var(--lime);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-1px}
+.big.acc{color:var(--ink);font-size:23px}
+.big small{display:block;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:0;margin-top:4px;text-transform:uppercase}
+.tip{color:var(--muted);font-size:12.5px;margin:9px 0 0}
+.last{font-size:12.5px;margin:6px 0 0}
+.last em{color:var(--muted);font-style:normal}
+.warm{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;font-size:12px;align-items:center}
+.warm b{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.warm span{background:var(--bg2);border:1px dashed var(--line);border-radius:8px;padding:3px 7px;font-variant-numeric:tabular-nums;font-weight:600}
+.sets{display:grid;gap:7px;margin-top:11px}
+.set{display:grid;grid-template-columns:24px 1fr 1fr 54px;gap:7px;align-items:center}
+.set label{font-size:12px;color:var(--muted);text-align:center;font-weight:800}
+.fld{position:relative}
+.fld input{width:100%;height:46px;border:1px solid var(--line);border-radius:13px;background:var(--bg2);color:var(--ink);font:800 18px var(--font);text-align:center;font-variant-numeric:tabular-nums;padding:0 28px 0 6px;-webkit-appearance:none}
+.fld input::placeholder{color:#55786A;font-weight:700}
+.fld i{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-style:normal;font-size:10.5px;color:var(--muted);font-weight:700}
+.ok{height:46px;border-radius:13px;border:1.5px solid var(--line);background:var(--bg2);color:var(--muted);display:grid;place-items:center}
+.ok.on{background:linear-gradient(160deg,var(--mint),#1FB87D);border-color:transparent;color:#04120B;box-shadow:0 6px 16px -8px var(--mint)}
+.set.done .fld input{background:rgba(59,227,160,.1);border-color:rgba(59,227,160,.35)}
+.section-title{font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:1px;color:var(--muted);margin:20px 4px 8px}
+.status{font-size:12px;color:var(--muted);margin:10px 4px 0}
+/* timer */
+#timer{position:fixed;left:0;right:0;bottom:calc(68px + var(--safe-b));z-index:20;transform:translateY(130%);transition:transform .25s ease}
+#timer.show{transform:none}
+.tbox{max-width:560px;margin:0 auto 8px;padding:0 12px}
+.tin{background:rgba(17,38,28,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(59,227,160,.35);border-radius:20px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.tin.end{background:linear-gradient(160deg,var(--mint),#1FB87D);color:#04120B}
+.tclock{font-size:32px;font-weight:850;font-variant-numeric:tabular-nums;min-width:84px;letter-spacing:-1px}
+.tlabel{flex:1;font-size:12px;line-height:1.25;font-weight:600}
+.tbtn{border:0;border-radius:11px;padding:9px 10px;font-weight:800;font-size:13px;background:rgba(255,255,255,.1)}
+.tin.end .tbtn{background:rgba(0,0,0,.12)}
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:21;background:rgba(7,19,14,.82);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+nav .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 16px 6px}
+nav button{border:0;background:none;color:var(--muted);padding:6px 0;border-radius:12px;font-weight:700;font-size:11.5px}
+nav button.on{color:var(--mint)}
+nav button svg{display:block;margin:0 auto 3px}
+/* forms */
+.row{display:grid;grid-template-columns:1fr 132px;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row label{font-weight:700;font-size:14px}
+.row label small{display:block;color:var(--muted);font-weight:500;font-size:12px}
+.row input{height:44px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);font:800 16px var(--font);text-align:center;width:100%;-webkit-appearance:none}
+.btn{border:0;border-radius:14px;background:linear-gradient(160deg,var(--mint),#1FB87D);color:#04120B;font-weight:800;padding:13px 14px;font-size:14.5px;width:100%}
+.btn.ghost{background:var(--bg2);color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:transparent;color:var(--danger);border:1px solid rgba(255,107,107,.4)}
+.btns{display:grid;gap:8px;margin-top:10px}
+textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);font:13px ui-monospace,Menlo,monospace;padding:10px;margin-top:8px}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0}
+.switch input{width:50px;height:30px;-webkit-appearance:none;appearance:none;background:var(--line);border-radius:30px;position:relative;transition:background .2s;flex:0 0 50px}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s}
+.switch input:checked{background:var(--mint)}
+.switch input:checked::after{transform:translateX(20px)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 8px;text-align:center}
+.stat b{display:block;font-size:24px;font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.stat:nth-child(2) b{color:var(--lime)}
+.stat span{font-size:11px;color:var(--muted);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
+tr:last-child td{border-bottom:0}
+th{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+td input{width:76px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:var(--ink);font:700 14px var(--font);text-align:center;-webkit-appearance:none}
+.chart svg{width:100%;height:auto;display:block}
+.rules{margin:0;padding-left:18px}
+.rules li{margin-bottom:7px;font-size:13.5px}
+.rules b{color:var(--lime)}
+.install{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* light theme (iPhone in light mode) */
+@media (prefers-color-scheme:light){
+  :root{--bg:#EEF6F1;--bg2:#F5FAF7;--surface:#FFFFFF;--surface2:#F1FAF5;--line:#D3E6DB;--ink:#0B2117;--muted:#557564;
+    --mint:#0FA968;--lime:#4E8A00;--mint-soft:rgba(15,169,104,.1);--tue:#6FA800;--thu:#0FA968;--sat:#0E9BB0;color-scheme:light}
+  body{background:radial-gradient(900px 500px at 85% -10%,rgba(15,169,104,.14),transparent 60%),var(--bg)}
+  .hero{background:linear-gradient(145deg,#0F5D3E,#0B3F2B);color:#E9F7EF;border-color:transparent}
+  .hero .kick{color:#C3F55A}.hero p{color:#CDE8DA}.hero-main small{color:#A9CDBA}.hero-main strong em{color:#C3F55A}
+  .card.main{border-color:rgba(78,138,0,.45);background:linear-gradient(180deg,rgba(195,245,90,.22),#fff 90px)}
+  .card.main .num{background:#C3F55A}
+  .pill.strong{background:#0B2117;color:#fff}
+  .fld input::placeholder{color:#93AFA0}
+  .tin{background:rgba(11,33,23,.92);color:#E9F7EF}
+  nav{background:rgba(255,255,255,.85)}
+  .ok.on,.btn,.wk.on{color:#fff}.wk.on span{color:#fff}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icon-192.png" alt="">
+    <p class="brand">Жим <span>8 недель</span></p>
+    <div class="hdr-sub" id="hsub">Вт · Чт · Сб</div>
+  </header>
+  <main id="view"></main>
+</div>
+
+<div id="timer" aria-live="polite"><div class="tbox"><div class="tin" id="tin">
+  <div class="tclock" id="tclock">0:00</div>
+  <div class="tlabel" id="tlabel">Отдых</div>
+  <button class="tbtn" id="tminus" type="button">−15</button>
+  <button class="tbtn" id="tplus" type="button">+30</button>
+  <button class="tbtn" id="tskip" type="button" aria-label="Закрыть таймер">✕</button>
+</div></div></div>
+
+<nav><div class="wrap">
+  <button type="button" data-tab="train"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 9v6M6 6v12M18 6v12M21 9v6M6 12h12"/></svg>Тренировка</button>
+  <button type="button" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M5 15l4-4 4 3 6-7"/><path d="M15 7h4v4"/></svg>Прогресс</button>
+  <button type="button" data-tab="settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Настройки</button>
+</div></nav>
+
+<script>
+(function(){
+"use strict";
+/* ============ ПРОГРАММА (как в Excel) ============ */
+const PHASE={1:'Объём',2:'Объём',3:'Объём',4:'Разгрузка',5:'Сила',6:'Сила',7:'Сила',8:'Тест'};
+const FOCUS={1:'Втягиваемся: веса умеренные, следи за техникой и паузой на груди.',
+2:'Чуть тяжелее, чуть меньше повторов. Всё ещё 1–2 повтора в запасе.',
+3:'Самая тяжёлая неделя объёма. Последние подходы — RPE 8–9.',
+4:'Разгрузка: меньше подходов, веса легче. Отдыхаешь, но не пропускаешь.',
+5:'Появляются тяжёлые одиночные (≈90%). Привыкаем к большим весам.',
+6:'Сингл ≈92,5%. Пауза на груди короткая, но контролируемая.',
+7:'Самая тяжёлая неделя: сингл ≈95%. Спи 8 часов, ешь достаточно.',
+8:'Вт/Чт — лёгкие, сохраняем свежесть. Суббота — тест нового максимума.'};
+const HEAVY={1:[['5×5',.80]],2:[['5×4',.825]],3:[['5×3',.85]],4:[['3×3',.70]],5:[['1×1',.90,1],['4×3',.825]],6:[['1×1',.925,1],['4×2',.85]],7:[['1×1',.95,1],['3×2',.875]],8:[['1×1',.90,1],['3×2',.80]]};
+const PAUSED={1:['4×6',.65],2:['4×6',.675],3:['4×5',.70],4:['2×5',.60],5:['4×4',.725],6:['4×3',.75],7:['3×3',.75],8:['3×3',.65]};
+const MEDIUM={1:['4×8',.70],2:['4×7',.725],3:['4×6',.75],4:['2×6',.65],5:['4×5',.775],6:['3×5',.80],7:['3×4',.80]};
+const SQUAT={1:['3×5',.70],2:['3×5',.725],3:['3×4',.75],4:['2×5',.60],5:['3×3',.775],6:['3×3',.80],7:['3×2',.80],8:['2×3',.65]};
+function acc(name,sets,reps,rest,tip,w){let s=sets;if(w===4)s=sets>2?Math.max(2,sets-1):2;if(w===8)s=2;return{name,sets:s,reps,rest,tip,pct:null};}
+function lift(name,scheme,pct,base,rest,tip,o){const [s,r]=scheme.split('×');return Object.assign({name,sets:+s,reps:r,pct,base,rest,tip},o||{});}
+function day(w,d){
+  if(d===0){const L=[];for(const h of HEAVY[w]){
+      if(h[2])L.push(lift('Жим лёжа — топ-сингл',h[0],h[1],'bench','3–5 мин','Один тяжёлый повтор после разминки. Должен идти уверенно (RPE 8–8,5)',{main:true,warm:true,heavy:true}));
+      else L.push(lift(HEAVY[w].length>1?'Жим лёжа — рабочие подходы':'Жим лёжа — тяжёлый',h[0],h[1],'bench','3–5 мин','Касание груди — стоп — жим. Лопатки сведены, ноги упираются. Последний подход — RPE 8–9',{main:true,warm:HEAVY[w].length===1,heavy:true}));}
+    return L.concat([acc('Жим гантелей на наклонной (30°)',3,'8–10','2–3 мин','Верх груди и передняя дельта — помогают сдвинуть вес с груди',w),
+      acc('Жим штанги стоя (ОНР)',3,'6–8','2–3 мин','Плечи и трицепс; ягодицы и пресс напряжены',w),
+      acc('Махи гантелями в стороны',3,'12–15','60 с','Без рывков, локти чуть согнуты, вверх до уровня плеч',w),
+      acc('Сведение рук в тренажёре / кроссовере',3,'12–15','60 с','Растяжение и пик сокращения груди',w),
+      acc('Разгибания рук на блоке (трицепс)',3,'10–12','60–90 с','Трицепс отвечает за дожим вверху',w),
+      acc('Face pull (тяга каната к лицу)',3,'15–20','60 с','Здоровье плеч при частом жиме — не пропускай',w)]);}
+  if(d===1)return [lift('Приседания со штангой',SQUAT[w][0],SQUAT[w][1],'squat','2–3 мин','Облегчённый присед: поддерживаем силу ног, не до отказа'),
+      lift('Жим лёжа с паузой 2 сек',PAUSED[w][0],PAUSED[w][1],'bench','2–3 мин','Опусти, замри 2 сек на груди, взрывно вверх. Учит старту с груди',{main:true,warm:true}),
+      acc('Жим ногами в тренажёре',3,'10–12','2 мин','Поясница прижата к спинке',w),
+      acc('Сгибания ног лёжа (бицепс бедра)',3,'10–12','90 с','Задняя поверхность бедра',w),
+      acc('Подъём штанги на бицепс (EZ-гриф)',3,'8–12','60–90 с','Бицепс 1: тяжёлое. Без раскачки, вниз 3 сек',w),
+      acc('Молотки с гантелями',3,'10–12','60 с','Бицепс 2: брахиалис и предплечья',w),
+      acc('Подъём ног в висе / скручивания',3,'12–15','60 с','Пресс — для стабильного прогиба в жиме',w)];
+  if(w<8)return [lift('Жим лёжа — объёмный',MEDIUM[w][0],MEDIUM[w][1],'bench','2–3 мин','Главный «строитель» мышц. Все повторы одной техникой, 1–2 в запасе',{main:true,warm:true}),
+      acc('Жим лёжа узким хватом',3,'6–8','2–3 мин','Хват на ширине плеч, локти ближе к корпусу',w),
+      acc('Тяга штанги в наклоне (или Т-тяга)',3,'8–10','2 мин','Сильная спина = стабильная «платформа» в жиме',w),
+      acc('Тяга горизонтального блока',3,'10–12','90 с','Сводить лопатки в конце',w),
+      acc('Тяга верхнего блока узким хватом',3,'10–12','90 с','Низ широчайших, полная растяжка вверху',w),
+      acc('Подъём гантелей сидя на наклонной',3,'10–12','60 с','Бицепс 1: руки позади корпуса — растяжение',w),
+      acc('Сгибания на скамье Скотта',3,'10–12','60 с','Бицепс 2: акцент на низ бицепса. Вниз 3 сек',w)];
+  return [lift('ТЕСТ · попытка 1','1×1',.95,'bench','4–6 мин','Сначала разминка до 90%. Вес должен идти легко (RPE 8)',{main:true,warm:true,test:true,heavy:true}),
+    lift('ТЕСТ · попытка 2','1×1',1.00,'bench','4–6 мин','Твой текущий максимум. Пошёл легко — третью можно +2,5–5 кг',{main:true,test:true}),
+    lift('ТЕСТ · попытка 3 (рекорд)','1×1',1.04,'bench','4–6 мин','Только со страхующим! Результат впиши в «Настройки» → максимум',{main:true,test:true}),
+    acc('Тяга горизонтального блока',2,'12','90 с','Лёгкая заминка',w),
+    acc('Подъём гантелей сидя на наклонной',2,'12','60 с','Можно пропустить',w),
+    acc('Молотки с гантелями',2,'12','60 с','Можно пропустить',w)];
+}
+const DAYS=[{s:'Вт',n:'Вторник',t:'Тяжёлый жим + грудь, плечи, трицепс',c:'var(--tue)',off:0},
+            {s:'Чт',n:'Четверг',t:'Ноги + паузный жим + бицепс, пресс',c:'var(--thu)',off:2},
+            {s:'Сб',n:'Суббота',t:'Объёмный жим + спина, бицепс',c:'var(--sat)',off:4}];
+
+/* ============ ДАННЫЕ (хранятся на телефоне) ============ */
+const LS='bench8-state-v1';
+const DEF={settings:{bench:105,squat:127.5,start:'2026-12-01',wake:true},log:{},bw:{},updated:0};
+const clone=o=>JSON.parse(JSON.stringify(o));
+function normalize(p){const s=Object.assign(clone(DEF),p||{});s.settings=Object.assign(clone(DEF.settings),(p&&p.settings)||{});s.log=s.log||{};s.bw=s.bw||{};return s;}
+let S=clone(DEF),storageOk=true;
+try{const raw=localStorage.getItem(LS);if(raw)S=normalize(JSON.parse(raw));}catch(e){storageOk=false;}
+function persist(){S.updated=Date.now();try{localStorage.setItem(LS,JSON.stringify(S));storageOk=true;}catch(e){storageOk=false;}}
+
+/* ============ ПОМОЩНИКИ ============ */
+const r25=x=>Math.round(x/2.5)*2.5;
+const fmt=x=>(Math.round(x*10)/10).toString().replace('.',',');
+const num=v=>{const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null;};
+const base=b=>b==='squat'?+S.settings.squat:+S.settings.bench;
+const planW=e=>e.pct!=null?r25(base(e.base)*e.pct):null;
+function restSec(t){const n=(t.match(/\d+/g)||['60']).map(Number);const a=n.reduce((x,y)=>x+y,0)/n.length;return /мин/.test(t)?Math.round(a*60):Math.round(a);}
+const repTop=r=>Math.max(0,...(r.match(/\d+/g)||[]).map(Number));
+const repLow=r=>{const n=(r.match(/\d+/g)||[]).map(Number);return n.length?Math.min(...n):0;};
+function startDate(){const p=(S.settings.start||'2026-12-01').split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function dateOf(w,d){const s=startDate();s.setDate(s.getDate()+(w-1)*7+DAYS[d].off);return s;}
+const MON=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const dstr=dt=>dt.getDate()+' '+MON[dt.getMonth()];
+const key=(w,d)=>w+'-'+d;
+function entry(w,d,i){const k=key(w,d);S.log[k]=S.log[k]||{};S.log[k][i]=S.log[k][i]||[];return S.log[k][i];}
+const getE=(w,d,i)=>((S.log[key(w,d)]||{})[i])||[];
+function dayProgress(w,d){let tot=0,dn=0;day(w,d).forEach((e,i)=>{tot+=e.sets;dn+=getE(w,d,i).filter(s=>s&&s.d).length;});return{tot,dn};}
+function lastTime(name,w,d){for(let ww=w;ww>=1;ww--)for(let dd=(ww===w?d-1:2);dd>=0;dd--){const ex=day(ww,dd);for(let i=0;i<ex.length;i++){if(ex[i].name!==name)continue;const L=getE(ww,dd,i).filter(s=>s&&s.d);if(L.length)return{w:ww,d:dd,sets:L,ex:ex[i]};}}return null;}
+const today=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());};
+function autoPick(){const diff=Math.round((today()-startDate())/864e5);
+  if(diff<0)return{w:1,d:0,before:-diff};
+  let w=Math.floor(diff/7)+1,dow=diff%7,d;
+  if(dow===0)d=0;else if(dow<=2)d=1;else if(dow<=4)d=2;else{w+=1;d=0;}
+  if(w>8)return{w:8,d:2,after:true};
+  return{w,d};}
+const e1rm=(w,r)=>w*(1+r/30);
+const ICON_OK='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+/* ============ СОСТОЯНИЕ ЭКРАНА ============ */
+let pick=autoPick(),cur={w:pick.w,d:pick.d},tab='train';
+const V=document.getElementById('view');
+function render(){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  document.getElementById('hsub').textContent='Жим: '+fmt(+S.settings.bench)+' кг';
+  if(tab==='train')renderTrain();else if(tab==='progress')renderProgress();else renderSettings();
+}
+const isDone=(w,d)=>{const p=dayProgress(w,d);return p.tot>0&&p.dn>=p.tot*0.6;};
+function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="#C3F55A" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
+function renderTrain(){
+  const {w,d}=cur,D=DAYS[d],ex=day(w,d),pr=dayProgress(w,d);
+  let h='<div class="weeks" role="tablist" aria-label="Неделя">';
+  for(let i=1;i<=8;i++){const done=[0,1,2].every(x=>isDone(i,x));h+=`<button type="button" class="wk${i===w?' on':''}${done?' done':''}" data-w="${i}"><b>${i}</b><span>${PHASE[i]}</span></button>`;}
+  h+='</div><div class="days">';
+  DAYS.forEach((x,i)=>{const p=dayProgress(w,i);h+=`<button type="button" class="day${i===d?' on':''}${isDone(w,i)?' done':''}" style="--dc:${x.c}" data-d="${i}"><b>${x.n}</b><small>${dstr(dateOf(w,i))} · ${p.dn}/${p.tot}</small></button>`;});
+  h+='</div>';
+  if(pick.before&&w===1&&d===0)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу: <b>92,5 кг 5×5</b>, а результат впиши в калькулятор в «Настройках».</div>`;
+  if(pick.after)h+=`<div class="banner">8 недель позади! Впиши новый максимум и новую дату старта в «Настройках» — программа пересчитается.</div>`;
+  const m=ex.find(e=>e.main),mw=m?planW(m):null;
+  const mins=Math.round(ex.reduce((a,e)=>a+e.sets*(restSec(e.rest)/60+0.8),0)/5)*5;
+  h+=`<section class="hero"><div class="kick">Неделя ${w} · ${PHASE[w]} · ${dstr(dateOf(w,d))}</div><h1>${D.n}</h1><p>${D.t}</p>
+    <div class="hero-row">${ring(pr.tot?pr.dn/pr.tot:0)}<div class="hero-main"><small>Главное сегодня</small><strong>${m?m.name.replace(/ — .*| ·.*/,'').replace('ТЕСТ','Тест максимума')+' <em>'+(m.test?'до '+fmt(planW(ex[2]))+' кг':m.sets+'×'+m.reps+' · '+fmt(mw)+' кг')+'</em>':'—'}</strong><small style="margin-top:4px">${ex.length} упражнений · ~${mins} мин</small></div></div>
+    <p>${FOCUS[w]}</p></section>`;
+  ex.forEach((e,i)=>{h+=card(e,i,w,d);});
+  V.innerHTML=h;
+}
+function card(e,i,w,d){
+  const L=getE(w,d,i),pw=planW(e),done=L.filter(s=>s&&s.d).length,complete=done>=e.sets;
+  const last=e.pct==null?lastTime(e.name,w,d):null;
+  const big=pw!=null?`<div class="big">${fmt(pw)}<small>кг · ${Math.round(e.pct*1000)/10}%</small></div>`
+    :`<div class="big acc">${last?fmt(+last.sets[0].w||0):'—'}<small>${last?'кг прошлый раз':'подбери вес'}</small></div>`;
+  let up='';if(last){const top=repTop(last.ex.reps);if(last.sets.length>=last.ex.sets&&last.sets.every(s=>(+s.r||0)>=top))up='<span class="pill up">↑ пора +1–2,5 кг</span>';}
+  let h=`<section class="card${e.main?' main':''}${complete?' complete':''}"><div class="ch"><div class="num">${complete?'✓':i+1}</div><div class="ct"><h3>${e.name}</h3>
+    <div class="meta"><span class="pill strong">${e.sets} × ${e.reps}</span><span class="pill">⏱ ${e.rest}</span>${pw==null?'<span class="pill">2 в запасе</span>':''}${up}</div></div>${big}</div><p class="tip">${e.tip}</p>`;
+  if(last)h+=`<p class="last"><em>Прошлый раз (нед. ${last.w}, ${DAYS[last.d].s}):</em> ${last.sets.map(s=>fmt(+s.w||0)+'×'+(s.r||'?')).join(' · ')}</p>`;
+  if(e.warm&&pw){const ref=e.test?pw/0.95:pw;const ws=[[0,10],[.4,5],[.6,3],[.75,2]];if(e.heavy)ws.push([.9,1]);
+    h+='<div class="warm"><b>Разминка</b>'+ws.map(([p,r])=>`<span>${fmt(p?Math.max(20,r25(ref*p)):20)}×${r}</span>`).join('')+'</div>';}
+  h+='<div class="sets">';
+  for(let s=0;s<e.sets;s++){const v=L[s]||{};const ls=last&&last.sets[Math.min(s,last.sets.length-1)];
+    const wv=(v.w!=null&&v.w!=='')?v.w:(pw!=null?pw:(ls?ls.w:''));
+    h+=`<div class="set${v.d?' done':''}"><label for="w-${i}-${s}">${s+1}</label>
+      <div class="fld"><input id="w-${i}-${s}" inputmode="decimal" data-i="${i}" data-s="${s}" data-f="w" value="${wv===''||wv==null?'':fmt(+wv)}" placeholder="вес" aria-label="Вес, подход ${s+1}"><i>кг</i></div>
+      <div class="fld"><input id="r-${i}-${s}" inputmode="numeric" data-i="${i}" data-s="${s}" data-f="r" value="${v.r!=null?v.r:''}" placeholder="${e.reps}" aria-label="Повторы, подход ${s+1}"><i>повт</i></div>
+      <button type="button" class="ok${v.d?' on':''}" data-i="${i}" data-s="${s}" aria-label="Подход ${s+1} сделан">${ICON_OK}</button></div>`;}
+  return h+'</div></section>';
+}
+function renderProgress(){
+  let tot=0,done=0;for(let w=1;w<=8;w++)for(let d=0;d<3;d++){tot++;if(isDone(w,d))done++;}
+  const rows=[];let best=0;
+  for(let w=1;w<=8;w++){let b=0,top='';for(let d=0;d<3;d++)day(w,d).forEach((e,i)=>{if(e.base!=='bench')return;getE(w,d,i).forEach(s=>{if(!s||!s.d)return;const wt=+s.w||0,r=+s.r||repLow(e.reps);if(r<1||r>10||!wt)return;const v=e1rm(wt,r);if(v>b){b=v;top=fmt(wt)+'×'+r;}});});
+    rows.push({w,b,top});if(b>best)best=b;}
+  let h=`<div class="section-title">Итоги</div><div class="stats">
+    <div class="stat"><b>${done}/${tot}</b><span>тренировок</span></div>
+    <div class="stat"><b>${best?fmt(r25(best)):'—'}</b><span>расчётный макс.</span></div>
+    <div class="stat"><b>${fmt(+S.settings.bench)}</b><span>макс. в настройках</span></div></div>`;
+  const pts=rows.filter(r=>r.b),mx=+S.settings.bench;
+  h+='<div class="card chart"><h3 style="margin:0 0 8px;font-size:15px">Расчётный максимум в жиме</h3>';
+  if(!pts.length)h+='<p class="tip">График появится после первых отмеченных подходов жима: беру лучший подход недели и считаю по формуле Эпли.</p>';
+  else{const vals=pts.map(p=>p.b);const lo=Math.floor((Math.min(...vals,mx)-5)/5)*5,hi=Math.ceil((Math.max(...vals,mx)+5)/5)*5;
+    const W=320,H=160,px=w=>28+(w-1)*(W-44)/7,py=v=>H-22-(v-lo)/(hi-lo)*(H-38);
+    let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="График расчётного максимума по неделям">`;
+    [lo,(lo+hi)/2,hi].forEach(v=>{s+=`<line x1="28" x2="${W-8}" y1="${py(v)}" y2="${py(v)}" stroke="var(--line)"/><text x="0" y="${py(v)+4}" font-size="10" fill="var(--muted)">${Math.round(v)}</text>`;});
+    s+=`<line x1="28" x2="${W-8}" y1="${py(mx)}" y2="${py(mx)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
+    for(let w=1;w<=8;w++)s+=`<text x="${px(w)}" y="${H-5}" font-size="10" text-anchor="middle" fill="var(--muted)">${w}</text>`;
+    const path=pts.map((p,k)=>(k?'L':'M')+px(p.w)+' '+py(p.b)).join(' ');
+    s+=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--mint)" stop-opacity=".35"/><stop offset="1" stop-color="var(--mint)" stop-opacity="0"/></linearGradient></defs>`;
+    if(pts.length>1)s+=`<path d="${path} L${px(pts[pts.length-1].w)} ${H-22} L${px(pts[0].w)} ${H-22}Z" fill="url(#g)"/><path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2.6" stroke-linejoin="round"/>`;
+    pts.forEach((p,k)=>{s+=`<circle cx="${px(p.w)}" cy="${py(p.b)}" r="${k===pts.length-1?5.5:3.5}" fill="${k===pts.length-1?'var(--lime)':'var(--mint)'}"/>`;});
+    const lp=pts[pts.length-1];s+=`<text x="${px(lp.w)}" y="${py(lp.b)-10}" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(lp.b*10)/10)}</text>`;
+    h+=s+'</svg><p class="tip">Пунктир — максимум из настроек. Если линия держится выше пару недель — подними максимум на 2,5 кг.</p>';}
+  h+='</div><div class="card"><table><thead><tr><th>Нед.</th><th>Лучший подход</th><th>Расч. макс.</th><th>Вес тела</th></tr></thead><tbody>';
+  rows.forEach(r=>{h+=`<tr><td>${r.w}</td><td>${r.top||'—'}</td><td>${r.b?fmt(Math.round(r.b*10)/10):'—'}</td><td><input inputmode="decimal" data-bw="${r.w}" value="${S.bw[r.w]!=null?fmt(S.bw[r.w]):''}" placeholder="кг" aria-label="Вес тела, неделя ${r.w}"></td></tr>`;});
+  h+='</tbody></table><p class="tip">Вес тела — по желанию, раз в неделю утром. Цель — около +0,2 кг в неделю.</p></div>';
+  V.innerHTML=h;
+}
+function renderSettings(){
+  const s=S.settings;
+  V.innerHTML=`<div class="section-title">Максимумы</div><div class="card">
+    <div class="row"><label for="set-bench">Жим лёжа, кг<small>от него считаются все веса жима</small></label><input id="set-bench" inputmode="decimal" value="${fmt(+s.bench)}"></div>
+    <div class="row"><label for="set-squat">Присед, кг<small>оценка по 110×5</small></label><input id="set-squat" inputmode="decimal" value="${fmt(+s.squat)}"></div>
+    <div class="row"><label for="set-start">Дата старта<small>вторник 1-й недели</small></label><input id="set-start" type="date" value="${s.start}"></div>
+    <label class="switch" for="set-wake"><span><b>Не гасить экран</b><br><small style="color:var(--muted)">пока открыта тренировка</small></span><input id="set-wake" type="checkbox"${s.wake?' checked':''}></label></div>
+  <div class="section-title">Калькулятор максимума</div><div class="card">
+    <div class="row"><label for="c-w">Пожал, кг</label><input id="c-w" inputmode="decimal" value="92,5"></div>
+    <div class="row"><label for="c-r">Повторов</label><input id="c-r" inputmode="numeric" value="5"></div>
+    <div class="row"><label>Расчётный максимум<small>среднее Эпли и Бжицки</small></label><b id="c-out" style="font-size:26px;text-align:center;color:var(--lime)"></b></div>
+    <button type="button" class="btn" id="c-apply">Поставить как максимум в жиме</button></div>
+  <div class="section-title">Правила</div><div class="card"><ul class="rules">
+    <li><b>RPE 8</b> — в запасе 2 повтора. Так делай всю подсобку.</li>
+    <li>Сделал верх диапазона во всех подходах — в следующий раз <b>+1–2,5 кг</b> (появится зелёная метка).</li>
+    <li>Тяжёлый день слишком лёгкий (RPE ≤6) дважды подряд — подними максимум на 2,5 кг.</li>
+    <li>Не дожал 2 тренировки подряд — снизь максимум на 2,5–5 кг.</li>
+    <li>Плохо спал — жим на 10% легче и только основное. Облегчить лучше, чем пропустить.</li>
+    <li>Тяжёлые одиночные и тест — только со страхующим или в раме с упорами.</li></ul></div>
+  <div class="section-title">Резервная копия</div><div class="card">
+    <p class="tip" style="margin-top:0">Данные хранятся только на этом телефоне. Раз в пару недель делай копию — например, отправь файл себе в Telegram.</p>
+    <div class="btns"><button type="button" class="btn ghost" id="exp-file">Сохранить файл копии</button>
+    <button type="button" class="btn ghost" id="exp-copy">Скопировать как текст</button>
+    <label class="btn ghost" for="imp-file" style="text-align:center">Загрузить из файла</label><input id="imp-file" type="file" accept=".json,application/json,text/plain" hidden></div>
+    <textarea id="imp-text" placeholder="…или вставь сюда текст копии (в том числе из версии в Claude) и нажми «Загрузить текст»"></textarea>
+    <div class="btns"><button type="button" class="btn ghost" id="imp-go">Загрузить текст</button>
+    <button type="button" class="btn danger" id="reset">Стереть все отметки</button></div>
+    <p class="status" id="msg">${storageOk?'':'Браузер не даёт сохранять данные — открой приложение с экрана «Домой», не из приватной вкладки.'}</p></div>
+  <p class="status" style="text-align:center;margin:18px 0">Жим 8 недель · офлайн-версия · v1</p>`;
+  calc();
+}
+function calc(){const w=num(document.getElementById('c-w').value),r=num(document.getElementById('c-r').value),o=document.getElementById('c-out');
+  if(!w||!r||r>12){o.textContent='—';o.dataset.v='';return;}const v=r25((w*(1+r/30)+w*36/(37-r))/2);o.textContent=fmt(v)+' кг';o.dataset.v=v;}
+const msg=t=>{const m=document.getElementById('msg');if(m)m.textContent=t;};
+function importData(txt){try{const p=JSON.parse(txt);if(!p||!p.settings||!p.log)throw 0;S=normalize(p);persist();render();msg('Готово: данные загружены.');}catch(e){msg('Не получилось прочитать копию. Проверь, что вставлен весь текст целиком.');}}
+
+/* ============ ТАЙМЕР ============ */
+let tEnd=0,tInt=null,audio=null;
+const T=document.getElementById('timer'),TIN=document.getElementById('tin');
+function startTimer(sec,label){tEnd=Date.now()+sec*1000;document.getElementById('tlabel').textContent=label;TIN.classList.remove('end');T.classList.add('show');clearInterval(tInt);tInt=setInterval(tick,250);tick();
+  try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();}catch(e){}}
+function tick(){const left=Math.round((tEnd-Date.now())/1000),c=document.getElementById('tclock');
+  if(left<=0){c.textContent='0:00';if(!TIN.classList.contains('end')){TIN.classList.add('end');document.getElementById('tlabel').textContent='Отдых окончен — следующий подход!';beep();try{navigator.vibrate&&navigator.vibrate([250,120,250]);}catch(e){}}return;}
+  c.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0');}
+function beep(){try{if(!audio)return;[0,.25].forEach(t=>{const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=880;o.connect(g);g.connect(audio.destination);const st=audio.currentTime+t;g.gain.setValueAtTime(.25,st);g.gain.exponentialRampToValueAtTime(.001,st+.22);o.start(st);o.stop(st+.22);});}catch(e){}}
+document.getElementById('tplus').onclick=()=>{tEnd=Math.max(tEnd,Date.now())+30000;TIN.classList.remove('end');tick();};
+document.getElementById('tminus').onclick=()=>{tEnd-=15000;tick();};
+document.getElementById('tskip').onclick=()=>{clearInterval(tInt);T.classList.remove('show');};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){tick();keepAwake();}});
+
+/* ============ ЭКРАН НЕ ГАСНЕТ ============ */
+let lock=null;
+async function keepAwake(){if(!S.settings.wake||tab!=='train'||lock||!('wakeLock' in navigator))return;try{lock=await navigator.wakeLock.request('screen');lock.addEventListener('release',()=>{lock=null;});}catch(e){}}
+function releaseAwake(){if(lock){lock.release().catch(()=>{});lock=null;}}
+
+/* ============ СОБЫТИЯ ============ */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render();window.scrollTo(0,0);if(tab==='train')keepAwake();else releaseAwake();});
+V.addEventListener('click',ev=>{
+  keepAwake();
+  const wk=ev.target.closest('.wk');if(wk){cur.w=+wk.dataset.w;render();return;}
+  const dy=ev.target.closest('.day');if(dy){cur.d=+dy.dataset.d;render();return;}
+  const ok=ev.target.closest('.ok');if(ok){const i=+ok.dataset.i,s=+ok.dataset.s,ex=day(cur.w,cur.d)[i],E=entry(cur.w,cur.d,i);
+    const v=E[s]||{};v.d=!v.d;
+    if(v.d){const wv=num(document.getElementById(`w-${i}-${s}`).value),rv=num(document.getElementById(`r-${i}-${s}`).value);if(wv!=null)v.w=wv;v.r=rv!=null?rv:repLow(ex.reps);}
+    E[s]=v;persist();const y=window.scrollY;render();window.scrollTo(0,y);
+    if(v.d){const n=E.filter(x=>x&&x.d).length,fin=n>=ex.sets;startTimer(fin?Math.min(restSec(ex.rest),120):restSec(ex.rest),fin?'Упражнение готово! Отдых перед следующим':`Подход ${s+1} из ${ex.sets} · ${ex.name}`);}
+    return;}
+  const id=ev.target.id;
+  if(id==='c-apply'){const v=+document.getElementById('c-out').dataset.v;if(v){S.settings.bench=v;persist();renderSettings();msg('Готово: максимум '+fmt(v)+' кг, все веса пересчитаны.');}return;}
+  if(id==='exp-file'){const blob=new Blob([JSON.stringify(S)],{type:'application/json'}),name='zhim-kopiya-'+new Date().toISOString().slice(0,10)+'.json';
+    const file=new File([blob],name,{type:'application/json'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Копия: Жим 8 недель'}).catch(()=>{});}
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();msg('Файл сохранён.');}return;}
+  if(id==='exp-copy'){(navigator.clipboard?navigator.clipboard.writeText(JSON.stringify(S)):Promise.reject()).then(()=>msg('Скопировано. Вставь в заметки или Telegram.'),()=>msg('Не получилось скопировать.'));return;}
+  if(id==='imp-go'){const t=document.getElementById('imp-text').value.trim();if(t)importData(t);else msg('Сначала вставь текст копии.');return;}
+  if(id==='reset'){const b=ev.target;if(b.dataset.arm){S.log={};S.bw={};persist();b.dataset.arm='';b.textContent='Стереть все отметки';msg('Все отметки стёрты.');}else{b.dataset.arm='1';b.textContent='Точно стереть? Нажми ещё раз';setTimeout(()=>{if(b.isConnected){b.dataset.arm='';b.textContent='Стереть все отметки';}},4000);}return;}
+});
+V.addEventListener('input',ev=>{const t=ev.target;
+  if(t.dataset.f){const i=+t.dataset.i,s=+t.dataset.s,E=entry(cur.w,cur.d,i);E[s]=E[s]||{};E[s][t.dataset.f]=num(t.value);persist();return;}
+  if(t.dataset.bw){const v=num(t.value);if(v==null)delete S.bw[t.dataset.bw];else S.bw[t.dataset.bw]=v;persist();return;}
+  if(t.id==='set-bench'||t.id==='set-squat'){const v=num(t.value);if(v&&v>20){S.settings[t.id==='set-bench'?'bench':'squat']=v;persist();document.getElementById('hsub').textContent='Жим: '+fmt(+S.settings.bench)+' кг';}return;}
+  if(t.id==='c-w'||t.id==='c-r')calc();
+});
+V.addEventListener('change',ev=>{const t=ev.target;
+  if(t.id==='set-start'&&t.value){S.settings.start=t.value;persist();pick=autoPick();cur={w:pick.w,d:pick.d};}
+  if(t.id==='set-wake'){S.settings.wake=t.checked;persist();if(!t.checked)releaseAwake();}
+  if(t.id==='imp-file'&&t.files&&t.files[0]){t.files[0].text().then(importData);}
+});
+render();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>
