@@ -283,7 +283,7 @@ nav button{font-size:10.5px}
 .mbar .tr i.hi{background:linear-gradient(90deg,var(--red-deep),var(--red))}
 .mbar .tr em{position:absolute;top:-2px;bottom:-2px;border-left:1px dashed var(--muted);opacity:.6}
 .mbar b{text-align:right;font-variant-numeric:tabular-nums}
-.toast{position:fixed;left:50%;top:calc(14px + var(--safe-t));transform:translate(-50%,-140%);z-index:60;transition:transform .3s ease;background:linear-gradient(160deg,var(--red),var(--red-deep));color:#fff;font-weight:850;border-radius:16px;padding:12px 16px;box-shadow:0 14px 30px -10px rgba(224,68,79,.9);max-width:90%;text-align:center}
+.toast{position:fixed;left:50%;top:calc(14px + var(--safe-t));transform:translate(-50%,calc(-100% - 60px));z-index:60;transition:transform .3s ease;background:linear-gradient(160deg,var(--red),var(--red-deep));color:#fff;font-weight:850;border-radius:16px;padding:12px 16px;box-shadow:0 14px 30px -10px rgba(224,68,79,.9);max-width:90%;text-align:center}
 .toast.show{transform:translate(-50%,0)}
 .toast.blue{background:linear-gradient(160deg,var(--blue),var(--blue2));box-shadow:0 14px 30px -10px rgba(76,141,255,.9)}
 .finish{margin:6px 0 14px}
@@ -324,12 +324,60 @@ nav button{font-size:10.5px}
 .anat-big figure{margin:0}
 .credit{font-size:10.5px;color:var(--muted);margin-top:6px;text-align:right}
 @media (prefers-reduced-motion:reduce){.media .ph.b{animation:none;opacity:0}}
+/* ---- v6: режим «В зале» ---- */
+.startbar{position:sticky;bottom:calc(76px + var(--safe-b));z-index:15;margin:4px 0 12px}
+.start-btn{width:100%;height:58px;border:0;border-radius:999px;background:linear-gradient(160deg,var(--red),var(--red-deep));color:#fff;font-weight:900;font-style:italic;font-size:17px;letter-spacing:.5px;box-shadow:0 14px 34px -10px rgba(224,68,79,.9)}
+#focus{position:fixed;inset:0;z-index:35;background:var(--bg);display:none;overflow:auto;color:var(--ink)}
+#focus.show{display:block}
+.fx-media{position:absolute;left:0;right:0;top:0;height:min(52vh,440px);overflow:hidden;background:linear-gradient(170deg,#2B4A9E 0%,#14275E 45%,#3A0F17 100%)}
+.fx-media .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fx-media .ph.b{animation:gfade 2.6s ease-in-out infinite alternate}
+.fx-media .tint{position:absolute;inset:0;background:linear-gradient(170deg,#5876C7,#22325E 60%,#5A1A24);mix-blend-mode:multiply;opacity:.9}
+.fx-media .anat{position:absolute;inset:0;display:none;place-items:center;padding:70px 0 60px}
+.fx-media .anat svg{height:100%;width:auto}
+.fx-media.noimg .anat{display:grid}.fx-media.noimg .ph,.fx-media.noimg .tint{display:none}
+.fx-fade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(7,11,22,0),var(--bg))}
+.fx-top{position:relative;display:flex;align-items:center;gap:10px;padding:calc(14px + var(--safe-t)) 16px 0}
+.fx-ib{flex:0 0 42px;width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(7,11,22,.5);display:grid;place-items:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.fx-ib.big{flex:0 0 60px;width:60px;height:60px;border-radius:20px;background:var(--surface);border-color:var(--line)}
+.fx-segs{flex:1;display:grid;gap:4px}
+.fx-seg{height:6px;border-radius:6px;border:0;padding:0;background:rgba(255,255,255,.25)}
+.fx-seg.done{background:#8DB6FF}.fx-seg.on{background:#FF5A65}
+.fx-cnt{font-size:13px;font-weight:800;color:#fff}
+.fx-tags{position:relative;display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px 0}
+.fx-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(7,11,22,.55);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:6px 10px;font-size:12px;font-weight:850;font-style:italic;color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.fx-tag i{width:8px;height:8px;border-radius:50%;background:#FF5A65}
+.fx-tag.red{background:linear-gradient(160deg,var(--red),var(--red-deep));border-color:transparent}
+.fx-body{position:relative;padding:calc(min(52vh,440px) - 200px) 16px 130px;max-width:560px;margin:0 auto}
+.fx-lbl{font-size:12px;font-weight:850;color:#FF8A92;letter-spacing:1px}
+.fx-name{font-size:30px;font-weight:900;font-style:italic;letter-spacing:-.6px;line-height:1.05;margin:4px 0 0;text-wrap:balance}
+.fx-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fx-box{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px}
+.fx-k{font-size:11px;font-weight:850;color:var(--muted);letter-spacing:.8px}
+.fx-row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.fx-pm{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:var(--surface2);font-size:22px;font-weight:800;color:var(--ink)}
+.fx-v{font-size:34px;font-weight:900;font-style:italic;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.fx-strip{display:grid;gap:6px;margin-top:12px}
+.fx-st{height:48px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;text-align:center;font-size:12px;font-weight:800;color:var(--muted);line-height:1.2}
+.fx-st.done{background:var(--blue-soft);border-color:rgba(76,141,255,.5);color:var(--ink)}
+.fx-st.done span{color:#8DB6FF}
+.fx-st.now{background:linear-gradient(160deg,var(--red),var(--red-deep));border-color:transparent;color:#fff;font-weight:900}
+.fx-rest{display:flex;align-items:center;gap:12px;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:10px 12px}
+.fx-rest svg{flex:0 0 52px}
+.fx-t{font-size:22px;font-weight:900;font-style:italic;font-variant-numeric:tabular-nums}
+.fx-ts{font-size:12px;color:var(--muted)}
+.fx-bottom{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;padding:12px 16px calc(16px + var(--safe-b));background:linear-gradient(180deg,rgba(7,11,22,0),var(--bg) 35%);max-width:600px;margin:0 auto}
+.fx-go{flex:1;height:60px;border:0;border-radius:20px;background:linear-gradient(160deg,var(--red),var(--red-deep));color:#fff;font-size:17px;font-weight:900;font-style:italic;letter-spacing:.4px;box-shadow:0 14px 34px -10px rgba(224,68,79,.9)}
+.fx-done{min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:40px 20px;text-align:center;background:radial-gradient(500px 400px at 50% 20%,rgba(224,68,79,.35),transparent 70%)}
+.fx-big{font-size:42px;font-weight:900;font-style:italic;letter-spacing:-1px;line-height:1}
+.fx-done p{color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap"><header><img src="icon-192.png" alt=""><p class="brand">Gym<span>AF</span></p><div class="hdr-sub" id="hsub"></div></header><main id="view"></main></div>
 <div id="timer" aria-live="polite"><div class="tbox"><div class="tin" id="tin"><div class="tclock" id="tclock">0:00</div><div class="tlabel" id="tlabel">Отдых</div><button class="tbtn" id="tminus" type="button">−15</button><button class="tbtn" id="tplus" type="button">+30</button><button class="tbtn" id="tskip" type="button" aria-label="Закрыть таймер">✕</button></div></div></div>
 <div id="sheet" role="dialog" aria-modal="true"><div class="bd"></div><div class="pn" id="sheet-c"></div></div>
+<div id="focus" role="dialog" aria-modal="true" aria-label="Режим тренировки"></div>
 <div class="toast" id="toast" role="status"></div>
 <nav><div class="wrap"><button type="button" data-tab="train"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6M6 6v12M18 6v12M21 9v6M6 12h12"/></svg>Тренировка</button><button type="button" data-tab="program"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Программа</button><button type="button" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M5 15l4-4 4 3 6-7"/><path d="M15 7h4v4"/></svg>Прогресс</button><button type="button" data-tab="tools"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 7.5h7M8.5 12h1M12 12h1M15.5 12h0M8.5 16h1M12 16h1M15.5 16h0"/></svg>Инструменты</button><button type="button" data-tab="settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Настройки</button></div></nav>
 <script>
@@ -553,6 +601,7 @@ function renderTrain(){
     if(ss){let j=i;while(j<list.length&&list[j].e.ss===ss)j++;
       if(j-i>1){h+=`<div class="ss-group"><div class="ss-label">⛓ Суперсет ${esc(ss)} · без отдыха между упражнениями</div>`;for(let k=i;k<j;k++)h+=card(pr,w,D,list[k],k,warmFor(list[k]));h+='</div>';i=j;continue;}}
     h+=card(pr,w,D,list[i],i,warmFor(list[i]));i++;}
+  h+=`<div class="startbar"><button type="button" class="start-btn" id="f-start">${prg.dn>0&&prg.dn<prg.tot?'ПРОДОЛЖИТЬ ТРЕНИРОВКУ':prg.dn>=prg.tot?'ТРЕНИРОВКА ЗАВЕРШЕНА ✓':'НАЧАТЬ ТРЕНИРОВКУ'}</button></div>`;
   if(prg.dn>0)h+=`<div class="finish btns"><button type="button" class="btn red" id="share-card">Итог тренировки — карточка для сторис</button></div>`;
   V.innerHTML=h;
 }
@@ -841,7 +890,7 @@ function roundRect(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,
 
 /* ---------- ТАЙМЕР ---------- */
 let tEnd=0,tInt=null,audio=null;const T=document.getElementById('timer'),TIN=document.getElementById('tin');
-function startTimer(sec,label){tEnd=Date.now()+sec*1000;document.getElementById('tlabel').textContent=label;TIN.classList.remove('end');T.classList.add('show');clearInterval(tInt);tInt=setInterval(tick,250);tick();
+function startTimer(sec,label){restTotal=Math.max(1,sec);tEnd=Date.now()+sec*1000;document.getElementById('tlabel').textContent=label;TIN.classList.remove('end');T.classList.add('show');clearInterval(tInt);tInt=setInterval(tick,250);tick();
   try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();}catch(e){}}
 function tick(){const left=Math.round((tEnd-Date.now())/1000),c=document.getElementById('tclock');
   if(left<=0){c.textContent='0:00';if(!TIN.classList.contains('end')){TIN.classList.add('end');document.getElementById('tlabel').textContent='Отдых окончен — следующий подход!';beep();try{navigator.vibrate&&navigator.vibrate([250,120,250]);}catch(e){}}return;}
@@ -856,13 +905,13 @@ function releaseAwake(){if(lock){lock.release().catch(()=>{});lock=null;}}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){tick();keepAwake();}});
 
 /* ---------- ОТМЕТКА ПОДХОДА ---------- */
-function toggleSet(eid,s){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),w=cur.w;const list=dayList(pr,w,D);const idx=list.findIndex(x=>x.e.id===eid);if(idx<0)return;
+function toggleSet(eid,s,vals){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),w=cur.w;const list=dayList(pr,w,D);const idx=list.findIndex(x=>x.e.id===eid);if(idx<0)return;
   const {e,pl}=list[idx],E=entry(pr.id,w,D.id,eid),lib=effLib(pr.id,w,D.id,e);const v=E[s]||{};v.d=!v.d;
-  if(v.d){const wv=num(document.getElementById(`w-${eid}-${s}`).value),rv=num(document.getElementById(`r-${eid}-${s}`).value);if(wv!=null)v.w=wv;v.r=rv!=null?rv:repLow(pl.reps);v.t=Date.now();
+  if(v.d){const wI=document.getElementById(`w-${eid}-${s}`),rI=document.getElementById(`r-${eid}-${s}`);const wv=vals?vals.w:(wI?num(wI.value):null),rv=vals?vals.r:(rI?num(rI.value):null);if(wv!=null)v.w=wv;v.r=rv!=null?rv:repLow(pl.reps);v.t=Date.now();
     const m=S.meta[pr.id]=S.meta[pr.id]||{};const mk=m[dkey(w,D.id)]=m[dkey(w,D.id)]||{};if(!mk.t0)mk.t0=v.t;mk.t1=v.t;
     v.pr=false;if(v.w&&v.r>=1&&v.r<=12){const prev=bestOf(lib,{pid:pr.id,w,did:D.id,eid,si:s});const val=e1rm(v.w,v.r);if(prev.v>0&&val>prev.v+0.01){v.pr=true;}}}
   else v.pr=false;
-  E[s]=v;persist();const y=window.scrollY;render();window.scrollTo(0,y);
+  E[s]=v;persist();const y=window.scrollY;render();window.scrollTo(0,y);if(FX.open)renderFocus();
   if(v.d){if(v.pr)toast('🏆 Новый рекорд: '+(LIB[lib]||{n:''}).n+' — '+fmt(v.w)+' × '+v.r);
     // суперсет: переход к следующему упражнению без отдыха
     const ss=e.ss;let next=null,lastInGroup=true;if(ss){const nx=list[idx+1];if(nx&&nx.e.ss===ss){next=nx;lastInGroup=false;}}
@@ -871,6 +920,61 @@ function toggleSet(eid,s){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),w=cur.
     else{let rest=restSec(e.rest);if(ss){list.filter(x=>x.e.ss===ss).forEach(x=>rest=Math.max(rest,restSec(x.e.rest)));}
       startTimer(fin&&!ss?Math.min(rest,120):rest,fin&&!ss?'Упражнение готово! Отдых перед следующим':`Подход ${s+1} из ${pl.sets} · ${exName(e)}`);}
     const p=dayProgress(pr,w,D);if(p.dn===p.tot)setTimeout(()=>toast('Тренировка завершена! Жми «Итог тренировки» внизу',true),2800);}}
+
+/* ---------- РЕЖИМ «В ЗАЛЕ» ---------- */
+const FX={open:false,i:0,vals:{}};const FEL=document.getElementById('focus');
+function fList(){const pr=prog(),D=pr.days.find(x=>x.id===cur.d);return{pr,D,list:dayList(pr,cur.w,D)};}
+function firstOpen(){const {pr,D,list}=fList();for(let i=0;i<list.length;i++){const n=getE(pr.id,cur.w,D.id,list[i].e.id).filter(x=>x&&x.d).length;if(n<list[i].pl.sets)return i;}return -1;}
+function openFocus(){const i=firstOpen();FX.open=true;FX.i=i<0?0:i;FX.vals={};FEL.classList.add('show');document.body.style.overflow='hidden';renderFocus();keepAwake();}
+function closeFocus(){FX.open=false;FEL.classList.remove('show');FEL.innerHTML='';document.body.style.overflow='';render();}
+function fCur(){const {pr,D,list}=fList();const it=list[FX.i];if(!it)return null;const lib=effLib(pr.id,cur.w,D.id,it.e);const sets=getE(pr.id,cur.w,D.id,it.e.id);
+  let s=0;while(s<it.pl.sets&&sets[s]&&sets[s].d)s++;const pw=planW(it.e,it.pl);const last=pw==null?lastTime(pr.id,lib,cur.w,D.id):null;
+  const key=it.e.id+'-'+s;if(!FX.vals[key]){const v=sets[s]||{};const ls=last&&last.sets[Math.min(s,last.sets.length-1)];const prev=s>0&&sets[s-1]?sets[s-1]:null;
+    FX.vals[key]={w:v.w!=null?v.w:(prev&&prev.w?+prev.w:(pw!=null?pw:(ls?+ls.w||0:0))),r:v.r!=null?v.r:(prev&&prev.r?+prev.r:repLow(it.pl.reps))};}
+  return{pr,D,list,it,lib,sets,s,pw,last,key,val:FX.vals[key]};}
+function renderFocus(){if(!FX.open)return;const c=fCur();
+  if(!c){FEL.innerHTML='';return;}
+  const {pr,D,list,it,lib,sets,s,pw,val}=c,L=LIB[lib]||{n:lib,m:[],s:[]},all=s>=it.pl.sets;const p=dayProgress(pr,cur.w,D);
+  if(p.dn>=p.tot){FEL.innerHTML=`<div class="fx-done"><div class="fx-big">ТРЕНИРОВКА<br>ЗАВЕРШЕНА</div><p>${p.dn} подходов · ${esc(D.name)}, неделя ${cur.w}</p><div class="btns"><button type="button" class="btn red" id="fx-card">Итог тренировки — карточка</button><button type="button" class="btn ghost" id="fx-close2">Закрыть</button></div></div>`;return;}
+  const id=PX[lib];const step=L.bar?2.5:1;
+  const segs=list.map((x,k)=>{const n=getE(pr.id,cur.w,D.id,x.e.id).filter(z=>z&&z.d).length;return `<button type="button" class="fx-seg${k===FX.i?' on':''}${n>=x.pl.sets?' done':''}" data-fxgo="${k}" aria-label="Упражнение ${k+1}"></button>`;}).join('');
+  const strip=[];for(let k=0;k<it.pl.sets;k++){const v=sets[k];strip.push(v&&v.d?`<div class="fx-st done">${fmt(+v.w||0)}×${v.r}<br><span>${v.pr?'PR':'✓'}</span></div>`:k===s?`<div class="fx-st now">СЕЙЧАС</div>`:`<div class="fx-st">${k+1}</div>`);}
+  const ss=it.e.ss?list.filter(x=>x.e.ss===it.e.ss).map(x=>(LIB[effLib(pr.id,cur.w,D.id,x.e)]||{n:exName(x.e)}).n):null;
+  FEL.innerHTML=`<div class="fx-media">${id?`<img class="ph" src="${IMG}${id}/0.jpg" alt="" onerror="this.parentNode.classList.add('noimg')"><img class="ph b" src="${IMG}${id}/1.jpg" alt="" onerror="this.remove()"><div class="tint"></div>`:''}<div class="anat">${anat(lib)}</div><div class="fx-fade"></div></div>
+   <div class="fx-top"><button type="button" class="fx-ib" id="fx-close" aria-label="Выйти из режима тренировки"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><div class="fx-segs" style="grid-template-columns:repeat(${list.length},minmax(0,1fr))">${segs}</div><span class="fx-cnt">${FX.i+1}/${list.length}</span></div>
+   <div class="fx-tags"><span class="fx-tag"><i></i>${esc(L.m.map(k=>MUS[k]).join(' · '))}</span><button type="button" class="fx-tag red" data-tech="${esc(lib)}"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg>ТЕХНИКА</button>${ss?`<span class="fx-tag">⛓ суперсет</span>`:''}</div>
+   <div class="fx-body">
+    <div class="fx-lbl">${all?'ВСЕ ПОДХОДЫ ГОТОВЫ':'ПОДХОД '+(s+1)+' ИЗ '+it.pl.sets}${it.pl.pct?' · '+Math.round(it.pl.pct*1000)/10+'%':''} · ${esc(it.pl.reps)} ПОВТ.</div>
+    <h2 class="fx-name">${esc(swUp(lib!==it.e.lib?L.n:exName(it.e)))}</h2>
+    ${all?'':`<div class="fx-steps"><div class="fx-box"><div class="fx-k">ВЕС, КГ</div><div class="fx-row"><button type="button" class="fx-pm" data-fxw="-${step}" aria-label="Минус ${fmt(step)} кг">−</button><span class="fx-v">${fmt(val.w||0)}</span><button type="button" class="fx-pm" data-fxw="${step}" aria-label="Плюс ${fmt(step)} кг">+</button></div></div>
+      <div class="fx-box"><div class="fx-k">ПОВТОРЫ</div><div class="fx-row"><button type="button" class="fx-pm" data-fxr="-1" aria-label="Меньше повторов">−</button><span class="fx-v">${val.r}</span><button type="button" class="fx-pm" data-fxr="1" aria-label="Больше повторов">+</button></div></div></div>`}
+    <div class="fx-strip" style="grid-template-columns:repeat(${it.pl.sets},minmax(0,1fr))">${strip.join('')}</div>
+    <div class="fx-rest"><svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="21" fill="none" stroke="var(--line)" stroke-width="6"/><circle id="fx-ring" cx="26" cy="26" r="21" fill="none" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-dasharray="132" stroke-dashoffset="132" transform="rotate(-90 26 26)"/></svg><div><div class="fx-t" id="fx-t">—</div><div class="fx-ts" id="fx-ts">Отдых после подхода: ${esc(it.e.rest)}${pw?' · разминка: '+[.4,.6,.75].map(q=>fmt(Math.max(20,r25(pw*q)))).join(' → '):''}</div></div></div>
+   </div>
+   <div class="fx-bottom">${all?`<button type="button" class="fx-go" id="fx-next">СЛЕДУЮЩЕЕ УПРАЖНЕНИЕ →</button>`:`<button type="button" class="fx-go" id="fx-doneset">ПОДХОД ВЫПОЛНЕН</button>`}<button type="button" class="fx-ib big" id="fx-skip" aria-label="Пропустить упражнение"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EAF0FF" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l9 7-9 7zM18 5v14"/></svg></button></div>`;
+  fTick();}
+const swUp=t=>String(t).toUpperCase();
+let restTotal=1;
+function fTick(){const t=document.getElementById('fx-t');if(!t)return;const ring=document.getElementById('fx-ring');const left=Math.round((tEnd-Date.now())/1000);
+  if(!T.classList.contains('show')||left<=-1){if(TIN.classList.contains('end')&&T.classList.contains('show')){t.textContent='Пора!';document.getElementById('fx-ts').textContent='Отдых окончен — следующий подход';ring.style.strokeDashoffset=0;ring.style.stroke='var(--red)';}return;}
+  t.textContent=Math.floor(Math.max(0,left)/60)+':'+String(Math.max(0,left)%60).padStart(2,'0');ring.style.stroke='var(--blue)';ring.style.strokeDashoffset=String(132*(1-Math.max(0,left)/restTotal));document.getElementById('fx-ts').textContent=document.getElementById('tlabel').textContent;}
+setInterval(()=>{if(FX.open)fTick();},500);
+FEL.addEventListener('click',ev=>{const t=ev.target,q=sel=>t.closest(sel);let el;keepAwake();
+  if((el=q('[data-tech]'))){techSheet(el.dataset.tech);return;}
+  if(q('#fx-close')||q('#fx-close2')){closeFocus();return;}
+  if(q('#fx-card')){shareCard();return;}
+  if((el=q('[data-fxgo]'))){FX.i=+el.dataset.fxgo;renderFocus();return;}
+  const c=fCur();if(!c)return;
+  if((el=q('[data-fxw]'))){c.val.w=Math.max(0,Math.round(((+c.val.w||0)+num(el.dataset.fxw))*100)/100);renderFocus();return;}
+  if((el=q('[data-fxr]'))){c.val.r=Math.max(0,(+c.val.r||0)+(+el.dataset.fxr));renderFocus();return;}
+  if(q('#fx-skip')||q('#fx-next')){FX.i=(FX.i+1)%c.list.length;renderFocus();return;}
+  if(q('#fx-doneset')){const it=c.it;toggleSet(it.e.id,c.s,{w:c.val.w,r:c.val.r});
+    const after=getE(c.pr.id,cur.w,c.D.id,it.e.id).filter(x=>x&&x.d).length;
+    const nx=c.list[FX.i+1];if(it.e.ss&&nx&&nx.e.ss===it.e.ss)FX.i++;
+    else if(it.e.ss){let k=FX.i;while(k>0&&c.list[k-1].e.ss===it.e.ss)k--;const grp=c.list.slice(k).filter(x=>x.e.ss===it.e.ss);const open=grp.some(x=>getE(c.pr.id,cur.w,c.D.id,x.e.id).filter(z=>z&&z.d).length<x.pl.sets);if(open)FX.i=k;else{const f=firstOpen();if(f>=0)FX.i=f;}}
+    else if(after>=it.pl.sets){const f=firstOpen();if(f>=0)FX.i=f;}
+    renderFocus();return;}
+});
 
 /* ---------- СОБЫТИЯ ---------- */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render();window.scrollTo(0,0);if(tab==='train')keepAwake();else releaseAwake();});
@@ -884,7 +988,8 @@ function onClick(ev){const t=ev.target;keepAwake();
     if((el=q('.ok'))){toggleSet(el.dataset.e,+el.dataset.s);return;}
     if((el=q('[data-swap]'))){swapSheet(el.dataset.swap);return;}
     if((el=q('[data-plates]'))&&!q('#sheet')){plateSheet(num(el.dataset.plates)||100);return;}
-    if(t.id==='share-card'){shareCard();return;}}
+    if(t.id==='share-card'){shareCard();return;}
+    if(t.id==='f-start'){openFocus();return;}}
   if((el=q('[data-sm]'))){el.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===el));return;}
   if((el=q('[data-pick]'))){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),e=D.ex.find(x=>x.id===el.dataset.eid);const perm=!!document.querySelector('#swap-mode [data-sm="perm"].on');
     if(perm){e.lib=el.dataset.pick;delete e.label;const o=(S.over[pr.id]||{})[dkey(cur.w,D.id)];if(o)delete o[e.id];}
