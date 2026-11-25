@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GymAF">
-<meta name="theme-color" content="#070B16">
+<meta name="theme-color" content="#0E0F11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
@@ -371,6 +371,144 @@ nav button{font-size:10.5px}
 .fx-done{min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:40px 20px;text-align:center;background:radial-gradient(500px 400px at 50% 20%,rgba(224,68,79,.35),transparent 70%)}
 .fx-big{font-size:42px;font-weight:900;font-style:italic;letter-spacing:-1px;line-height:1}
 .fx-done p{color:var(--muted)}
+/* ===== v8: графит + синий, нативный iOS-стиль ===== */
+:root{
+  --bg:#0E0F11; --bg2:#1A1B1F; --surface:#1A1B1F; --surface2:#24252A; --line:#2C2D33;
+  --ink:#F2F2F3; --muted:#8B8D94; --blue:#3E7BFA; --blue2:#3E7BFA; --blue-soft:rgba(62,123,250,.16);
+  --red:#E5484D; --red-deep:#E5484D; --red-soft:rgba(229,72,77,.14); --good:#30A46C;
+  --tue:#3E7BFA; --thu:#3E7BFA; --sat:#3E7BFA; color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#F2F2F7; --bg2:#FFFFFF; --surface:#FFFFFF; --surface2:#F2F2F7; --line:#E3E3E8;
+  --ink:#111113; --muted:#6C6C72; --blue:#2F6BEA; --blue2:#2F6BEA; --blue-soft:rgba(47,107,234,.10);
+  --red:#D93036; --red-deep:#D93036; --red-soft:rgba(217,48,54,.10);
+  --tue:#2F6BEA; --thu:#2F6BEA; --sat:#2F6BEA; color-scheme:light}}
+html,body{background:var(--bg)!important}
+body{background:var(--bg)!important;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif}
+header img{box-shadow:none}
+.brand{font-weight:700;font-size:17px;letter-spacing:-.2px}
+.brand span{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--blue)}
+.hdr-sub b{color:var(--ink);font-weight:600}
+/* недели и дни: сегменты */
+.wk{background:var(--surface);border:0;border-radius:10px;padding:6px 8px;min-width:52px}
+.wk b{font-size:17px;font-weight:600}.wk span{text-transform:none;letter-spacing:0;font-size:11px;font-weight:500}
+.wk.on{background:var(--blue);color:#fff;box-shadow:none}.wk.on span{color:#fff;opacity:.85}
+.wk.done:not(.on){border:0}.wk.done b::after{color:var(--blue)}
+.days{background:var(--surface);border-radius:12px;padding:3px;gap:3px}
+.day{border:0;background:transparent;border-radius:9px;padding:7px 4px}
+.day::before{display:none}
+.day b{font-size:14px;font-weight:600}
+.day.on{background:var(--surface2);box-shadow:none;color:var(--ink)}
+.day.on small{color:var(--muted);opacity:1}
+@media (prefers-color-scheme:light){.day.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}.days{background:#E4E4EA}}
+.day.done b::after{color:var(--blue)}
+/* шапка дня как iOS large title */
+.hero{background:none;border:0;padding:6px 2px 4px;border-radius:0}
+.hero::after{display:none}
+.hero .kick{color:var(--muted);text-transform:none;letter-spacing:0;font-size:13px;font-weight:500}
+.hero h1{font-size:32px;font-weight:700;letter-spacing:-.6px;color:var(--ink)}
+.hero p{color:var(--muted)}
+.hero-main small{color:var(--muted);text-transform:none;letter-spacing:0;font-size:12px;font-weight:500}
+.hero-main strong{font-weight:600}.hero-main strong em{color:var(--blue)}
+.ring b{color:var(--ink)}
+.banner{background:var(--surface);border:0;color:var(--ink)}
+/* карточки упражнений */
+.card{background:var(--surface);border:0;border-radius:14px}
+.card.main{background:var(--surface);border:0;box-shadow:none}
+.card.complete{opacity:.55}
+.av{background:var(--surface2);border:0;border-radius:10px}
+.xh h3{font-weight:600;font-size:16px}
+.xh h3 small{font-weight:500}
+.sw{background:var(--surface2);border:0;border-radius:10px;color:var(--blue)}
+.media{border:0;border-radius:12px;background:#2A2B30}
+.card.main .media{border:0}
+.media .tint{background:#3A3C44;mix-blend-mode:multiply;opacity:.55}
+.media .ph{filter:grayscale(1) contrast(1.05)}
+.media .fadeb{background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55))}
+.media .playtag{background:rgba(0,0,0,.55);font-weight:600;letter-spacing:0;border-radius:8px}
+.media .focus{font-style:normal;font-weight:600;background:rgba(0,0,0,.55);border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.media .chip1{background:rgba(0,0,0,.6);border:0;-webkit-backdrop-filter:none;backdrop-filter:none;font-weight:600}
+.media .chip1 b{color:#fff}
+.media .wt{font-weight:700;text-shadow:none;letter-spacing:-.5px}
+.media .wt small{color:#D0D2D8;font-weight:600;letter-spacing:0;text-transform:none}
+.media.noimg{background:var(--surface2)}
+.pill{background:var(--surface2);border:0;font-weight:500}
+.pill.strong{background:var(--surface2);color:var(--ink);font-weight:600}
+.pill.up{background:var(--blue-soft);color:var(--blue);border:0;font-weight:600}
+.tip{color:var(--muted)}
+.warm b{text-transform:none;letter-spacing:0;font-size:12px;font-weight:600}
+.warm span{background:var(--surface2);border:0;font-weight:500}
+.tool{background:var(--surface2);border:0;font-weight:600;color:var(--blue)}
+/* строки подходов — как таблица iOS */
+.set label{font-weight:600}
+.fld input{background:var(--surface2);border:0;border-radius:10px;font-weight:600;font-size:17px}
+.set.done .fld input{background:var(--surface2);border:0;color:var(--ink)}
+.ok{border:0;background:var(--surface2);border-radius:10px;color:var(--muted)}
+.ok.on{background:var(--blue);color:#fff;box-shadow:none}
+.pr{background:var(--red);border-radius:5px}
+.ss-group{border:1.5px solid var(--blue-soft);border-radius:18px}
+.ss-group>.ss-label{color:var(--blue);text-transform:none;letter-spacing:0;font-weight:600;font-size:12px}
+.ss-tag{color:var(--blue);border-color:var(--blue-soft)}
+/* таймер, меню, тосты */
+.tin{background:var(--surface2);border:0;box-shadow:0 8px 24px rgba(0,0,0,.35);-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--ink)}
+.tin.end{background:var(--blue);color:#fff}
+.tclock{font-weight:700}
+.tbtn{background:rgba(127,127,135,.18);font-weight:600}
+nav{background:rgba(22,23,26,.86);border-top:0.5px solid var(--line)}
+@media (prefers-color-scheme:light){nav{background:rgba(249,249,251,.9)}}
+nav button{font-weight:500}nav button.on{color:var(--blue)}
+.toast{background:var(--surface2);color:var(--ink);box-shadow:0 10px 30px rgba(0,0,0,.35);font-weight:600}
+.toast.blue{background:var(--blue);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.toast.pr{background:var(--red);color:#fff}
+/* кнопки и формы */
+.btn{background:var(--blue);color:#fff;font-weight:600;border-radius:12px}
+.btn.red{background:var(--blue)}
+.btn.ghost{background:var(--surface);border:0;color:var(--blue)}
+.btn.danger{background:var(--surface);border:0;color:var(--red)}
+.section-title{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;color:var(--muted);margin-left:16px}
+.row input,.fgrid input,.fgrid select,.fcol input,.fcol select,td input,textarea,.calc-in input,.search{background:var(--surface2);border:0}
+.seg{background:var(--surface);border:0;border-radius:10px;padding:3px}
+.seg button{font-weight:600;border-radius:8px}
+.seg button.on{background:var(--surface2);color:var(--ink);box-shadow:none}
+@media (prefers-color-scheme:light){.seg{background:#E4E4EA}.seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}}
+.chip{background:var(--surface);border:0;font-weight:500}
+.chip.on{background:var(--blue-soft);color:var(--blue)}
+.res{background:var(--surface);border:0}
+.res small{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:500}
+.res .v{font-weight:700;letter-spacing:-1px}.res .v span{color:var(--muted)}
+.res .side{color:var(--muted)}.res .side b{color:var(--ink)}
+.ptab tr.top td{color:var(--blue);font-weight:700}
+.ptab td.bar i{background:var(--blue)}
+.stat{background:var(--surface);border:0}.stat b{font-weight:700}.stat:nth-child(2) b{color:var(--blue)}
+.stats{gap:10px}
+.note{background:var(--surface2);border:0}
+.rules b{color:var(--ink)}
+.mbar .tr{background:var(--surface2);border:0}.mbar .tr i,.mbar .tr i.hi{background:var(--blue)}
+.opt{background:var(--surface);border:0}.opt.cur{background:var(--blue-soft)}
+.prl .opt .go{color:var(--blue)}
+.pe-day{background:var(--surface);border:0!important;border-top:0!important}
+.pe-day-h input{background:var(--surface2);border:0}
+.dows button{background:var(--surface2);border:0;font-weight:600}
+.dows button.on{background:var(--blue);color:#fff}
+.ib{background:var(--surface2);border:0}.ib.on{background:var(--blue-soft);color:var(--blue)}
+/* окно-лист */
+#sheet .pn{background:var(--surface);border:0;border-radius:14px 14px 0 0}
+#sheet .x{background:var(--surface2);border:0}
+#sheet h2{font-weight:700}
+.vcard{background:#2A2B30;border:0;box-shadow:none}
+.vcard .play{background:rgba(0,0,0,.6);box-shadow:none}
+.vcard .brand-tag{background:rgba(0,0,0,.55);border:0;font-weight:600}
+.vcard .cap span{color:#D0D2D8;letter-spacing:0;text-transform:none;font-weight:600}
+.cues li{background:var(--surface2);border:0}
+.cues li b{background:var(--blue-soft);color:var(--blue)}
+.cues li.warn b{background:var(--red-soft);color:var(--red)}
+.mus span{border:0;background:var(--surface2)}
+.mus span.p{background:var(--red-soft);color:var(--red)}
+.anat-big{background:var(--surface2);border:0}
+.grp-t{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500}
+.barviz .sleeve{background:#8B8D94}
+.mleg i{background:linear-gradient(90deg,var(--surface2),var(--red))}
+.fld input::placeholder{color:var(--muted);opacity:.7}
 </style>
 </head>
 <body>
@@ -575,7 +713,7 @@ function render(){document.querySelectorAll('nav button').forEach(b=>b.classList
   ({train:renderTrain,program:renderProgram,progress:renderProgress,tools:renderTools,settings:renderSettings})[tab]();}
 const ICON_OK='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const IC={play:'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>',swap:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>',plate:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>'};
-function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="#FF5A65" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
+function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="var(--surface2)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="var(--blue)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
 
 function renderTrain(){
   const pr=prog();if(!pr.days.length){V.innerHTML='<div class="empty" style="padding-top:40px">В программе нет тренировочных дней.<br>Добавь их во вкладке «Программа».</div>';return;}
@@ -637,7 +775,7 @@ const SH=document.getElementById('sheet'),SHC=document.getElementById('sheet-c')
 function openSheet(html){SHC.innerHTML=html;SH.classList.add('show');SH.querySelector('.pn').scrollTop=0;document.body.style.overflow='hidden';}
 function closeSheet(){SH.classList.remove('show');SHC.innerHTML='';document.body.style.overflow='';}
 SH.addEventListener('click',ev=>{if(ev.target.classList.contains('bd')||ev.target.closest('.x'))closeSheet();});
-function toast(t,blue){const el=document.getElementById('toast');el.textContent=t;el.classList.toggle('blue',!!blue);el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2600);}
+function toast(t,blue){const el=document.getElementById('toast');el.textContent=t;el.classList.toggle('blue',!!blue);el.classList.toggle('pr',/рекорд/.test(t)&&!blue);el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2600);}
 
 /* техника + видео */
 function techSheet(lib){const L=LIB[lib];if(!L)return;
@@ -737,7 +875,7 @@ function renderProgress(){const pr=prog();
     const V1=weekVolume(pr.id,volW);
     if(psub==='vol'){const all=[];for(let i=1;i<=pr.weeks;i++)all.push(weekVolume(pr.id,i).ton);const mx=Math.max(1,...all);
       h+=`<div class="stats"><div class="stat"><b>${V1.ton>=1000?fmt(Math.round(V1.ton/100)/10)+' т':fmt(V1.ton)}</b><span>тоннаж</span></div><div class="stat"><b>${V1.sets}</b><span>подходов</span></div><div class="stat"><b>${Object.keys(V1.mus).length}</b><span>мышц</span></div></div>
-      <div class="card"><h3 style="margin:0 0 8px;font-size:15px">Тоннаж по неделям, т</h3><svg viewBox="0 0 320 130" style="width:100%;height:auto">${all.map((t,i)=>{const bw=(300/pr.weeks)-6,x=14+i*(300/pr.weeks),hh=Math.max(t?3:0,t/mx*92);return `<rect x="${x}" y="${108-hh}" width="${bw}" height="${hh}" rx="5" fill="${i+1===volW?'var(--red)':'var(--blue)'}" opacity="${i+1===volW?1:.7}"/><text x="${x+bw/2}" y="124" font-size="10" text-anchor="middle" fill="var(--muted)">${i+1}</text>${t?`<text x="${x+bw/2}" y="${102-hh}" font-size="9.5" font-weight="700" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(t/100)/10)}</text>`:''}`;}).join('')}</svg>
+      <div class="card"><h3 style="margin:0 0 8px;font-size:15px">Тоннаж по неделям, т</h3><svg viewBox="0 0 320 130" style="width:100%;height:auto">${all.map((t,i)=>{const bw=(300/pr.weeks)-6,x=14+i*(300/pr.weeks),hh=Math.max(t?3:0,t/mx*92);return `<rect x="${x}" y="${108-hh}" width="${bw}" height="${hh}" rx="5" fill="var(--blue)" opacity="${i+1===volW?1:.7}"/><text x="${x+bw/2}" y="124" font-size="10" text-anchor="middle" fill="var(--muted)">${i+1}</text>${t?`<text x="${x+bw/2}" y="${102-hh}" font-size="9.5" font-weight="700" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(t/100)/10)}</text>`:''}`;}).join('')}</svg>
       <p class="tip">Тоннаж — сумма «вес × повторы» всех отмеченных подходов.</p></div>
       <div class="card"><h3 style="margin:0 0 4px;font-size:15px">Подходы на мышцу · неделя ${volW}</h3><p class="tip" style="margin:0 0 8px">Ориентир для роста — 10–20 подходов в неделю (пунктир — 10). Вспомогательная работа считается за ½.</p>`;
       const order=Object.keys(MUS).filter(k=>V1.mus[k]).sort((a,b)=>V1.mus[b]-V1.mus[a]);
@@ -757,7 +895,7 @@ function benchChart(pr){const rows=[];let best=0;
     s+=`<line x1="28" x2="${W-8}" y1="${py(mx)}" y2="${py(mx)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;for(let w=1;w<=pr.weeks;w++)s+=`<text x="${px(w)}" y="${H-5}" font-size="10" text-anchor="middle" fill="var(--muted)">${w}</text>`;
     const path=pts.map((p,k)=>(k?'L':'M')+px(p.w)+' '+py(p.b)).join(' ');s+=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--blue)" stop-opacity=".35"/><stop offset="1" stop-color="var(--blue)" stop-opacity="0"/></linearGradient></defs>`;
     if(pts.length>1)s+=`<path d="${path} L${px(pts[pts.length-1].w)} ${H-22} L${px(pts[0].w)} ${H-22}Z" fill="url(#g)"/><path d="${path}" fill="none" stroke="var(--blue)" stroke-width="2.6"/>`;
-    pts.forEach((p,k)=>{s+=`<circle cx="${px(p.w)}" cy="${py(p.b)}" r="${k===pts.length-1?5.5:3.5}" fill="${k===pts.length-1?'var(--red)':'var(--blue)'}"/>`;});const lp=pts[pts.length-1];s+=`<text x="${px(lp.w)}" y="${py(lp.b)-10}" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(lp.b*10)/10)}</text>`;
+    pts.forEach((p,k)=>{s+=`<circle cx="${px(p.w)}" cy="${py(p.b)}" r="${k===pts.length-1?5.5:3.5}" fill="var(--blue)"/>`;});const lp=pts[pts.length-1];s+=`<text x="${px(lp.w)}" y="${py(lp.b)-10}" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(lp.b*10)/10)}</text>`;
     h+=s+'</svg><p class="tip">Пунктир — максимум из настроек. Линия стабильно выше — подними максимум на 2,5 кг.</p>';}
   h+='</div><div class="card"><table><thead><tr><th>Нед.</th><th>Лучший подход</th><th>Расч.</th><th>Вес тела</th></tr></thead><tbody>';
   rows.forEach(r=>{h+=`<tr><td>${r.w}</td><td>${r.top||'—'}</td><td>${r.b?fmt(Math.round(r.b*10)/10):'—'}</td><td><input inputmode="decimal" data-bw="${r.w}" value="${S.bw[r.w]!=null?fmt(S.bw[r.w]):''}" placeholder="кг" aria-label="Вес тела, неделя ${r.w}"></td></tr>`;});
@@ -786,13 +924,13 @@ function bodySVG(view,c,base){const st='stroke="#0A1022" stroke-width="1.2"';con
    <path d="M43 140 L57 140 L56 178 Q47 180 44 172 Z" ${c('hams')} ${st}/><path d="M77 140 L63 140 L64 178 Q73 180 76 172 Z" ${c('hams')} ${st}/>
    <ellipse cx="50" cy="202" rx="7" ry="17" ${c('calves')} ${st}/><ellipse cx="70" cy="202" rx="7" ry="17" ${c('calves')} ${st}/>
    <rect x="45" y="218" width="10" height="14" rx="4" ${B}/><rect x="65" y="218" width="10" height="14" rx="4" ${B}/></svg>`;}
-function muscleMap(m){const c=k=>{const v=m[k]||0;if(!v)return'fill="#2A3557"';const a=Math.min(1,v/12);return `fill="#E0444F" fill-opacity="${(0.3+a*0.7).toFixed(2)}"`;};
-  return `<div class="mmap"><figure>${bodySVG('front',c,'#1C2645')}<figcaption>Спереди</figcaption></figure><figure>${bodySVG('back',c,'#1C2645')}<figcaption>Сзади</figcaption></figure></div>`;}
+function muscleMap(m){const c=k=>{const v=m[k]||0;if(!v)return'fill="#2C2D33"';const a=Math.min(1,v/12);return `fill="#E0444F" fill-opacity="${(0.3+a*0.7).toFixed(2)}"`;};
+  return `<div class="mmap"><figure>${bodySVG('front',c,'#24252A')}<figcaption>Спереди</figcaption></figure><figure>${bodySVG('back',c,'#24252A')}<figcaption>Сзади</figcaption></figure></div>`;}
 /* анатомия упражнения */
 const BACKM=['lats','upback','rdelt','tri','hams','glutes','lowback','calves'];
 function viewFor(lib){const L=LIB[lib];if(!L)return'front';const b=L.m.filter(m=>BACKM.includes(m)).length,f=L.m.length-b;return b>f?'back':'front';}
-function anatFill(lib){const L=LIB[lib]||{m:[],s:[]};return k=>L.m.includes(k)?'fill="#E0444F"':L.s.includes(k)?'fill="#E0444F" fill-opacity=".42"':'fill="#4A5680"';}
-const anat=(lib,view)=>bodySVG(view||viewFor(lib),anatFill(lib),'#3A4568');
+function anatFill(lib){const L=LIB[lib]||{m:[],s:[]};return k=>L.m.includes(k)?'fill="#E0444F"':L.s.includes(k)?'fill="#E0444F" fill-opacity=".42"':'fill="#4A4B53"';}
+const anat=(lib,view)=>bodySVG(view||viewFor(lib),anatFill(lib),'#3A3B42');
 const LOWM=['quads','hams','glutes','calves'];
 function anatMini(lib){const L=LIB[lib]||{m:[]};const low=L.m.some(m=>LOWM.includes(m));return anat(lib).replace('viewBox="0 0 120 245"',low?'viewBox="22 104 76 92"':'viewBox="16 26 88 92"');}
 /* фото из Free Exercise DB (общественное достояние) */
@@ -867,21 +1005,21 @@ function shareCard(){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),w=cur.w;con
     ss.forEach(s=>{sets++;ton+=(+s.w||0)*(+s.r||0);if(s.pr)prs++;});const b=ss.reduce((a,s)=>(+s.w||0)>(+a.w||0)?s:a,ss[0]);top.push({n:(LIB[lib]||{n:exName(e)}).n,b,c:ss.length,pr:ss.some(s=>s.pr)});});
   const meta=((S.meta[pr.id]||{})[dkey(w,D.id)])||{};const mins=meta.t0&&meta.t1?Math.max(1,Math.round((meta.t1-meta.t0)/60000)):null;
   const cv=document.createElement('canvas');cv.width=1080;cv.height=1350;const x=cv.getContext('2d');const F='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif';
-  let g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,'#0B1636');g.addColorStop(1,'#070B16');x.fillStyle=g;x.fillRect(0,0,1080,1350);
-  let rg=x.createRadialGradient(980,80,10,980,80,620);rg.addColorStop(0,'rgba(224,68,79,.55)');rg.addColorStop(1,'rgba(224,68,79,0)');x.fillStyle=rg;x.fillRect(0,0,1080,1350);
-  rg=x.createRadialGradient(60,1250,10,60,1250,700);rg.addColorStop(0,'rgba(76,141,255,.35)');rg.addColorStop(1,'rgba(76,141,255,0)');x.fillStyle=rg;x.fillRect(0,0,1080,1350);
-  x.fillStyle='#EAF0FF';x.font=`900 64px ${F}`;x.fillText('Gym',80,140);const gw=x.measureText('Gym').width;x.fillStyle='#4C8DFF';x.fillText('AF',80+gw,140);
-  x.fillStyle='#FF8A92';x.font=`800 30px ${F}`;x.fillText(`НЕДЕЛЯ ${w} · ${dstr(dateOf(pr,w,D)).toUpperCase()}`,80,210);
-  x.fillStyle='#EAF0FF';x.font=`900 88px ${F}`;x.fillText(D.name,80,310);x.fillStyle='#B8C7EC';x.font=`600 34px ${F}`;x.fillText((D.title||'').slice(0,46),80,365);
+  let g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,'#16171A');g.addColorStop(1,'#0E0F11');x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  let rg=x.createRadialGradient(980,80,10,980,80,620);rg.addColorStop(0,'rgba(62,123,250,.0)');rg.addColorStop(1,'rgba(62,123,250,0)');x.fillStyle=rg;x.fillRect(0,0,1080,1350);
+  rg=x.createRadialGradient(60,1250,10,60,1250,700);rg.addColorStop(0,'rgba(62,123,250,0)');rg.addColorStop(1,'rgba(62,123,250,0)');x.fillStyle=rg;x.fillRect(0,0,1080,1350);
+  x.fillStyle='#F2F2F3';x.font=`800 64px ${F}`;x.fillText('Gym',80,140);const gw=x.measureText('Gym').width;x.fillStyle='#3E7BFA';x.fillText('AF',80+gw,140);
+  x.fillStyle='#8B8D94';x.font=`600 30px ${F}`;x.fillText(`НЕДЕЛЯ ${w} · ${dstr(dateOf(pr,w,D)).toUpperCase()}`,80,210);
+  x.fillStyle='#F2F2F3';x.font=`800 88px ${F}`;x.fillText(D.name,80,310);x.fillStyle='#8B8D94';x.font=`500 34px ${F}`;x.fillText((D.title||'').slice(0,46),80,365);
   const stats=[[ton>=1000?(Math.round(ton/100)/10).toString().replace('.',',')+' т':fmt(ton)+' кг','тоннаж'],[String(sets),'подходов'],[mins?mins+' мин':(prs?String(prs):'—'),mins?'время':'рекордов']];
-  stats.forEach((s,i)=>{const bx=80+i*315;x.fillStyle='rgba(21,32,62,.9)';roundRect(x,bx,420,290,170,28);x.fill();x.strokeStyle='rgba(76,141,255,.35)';x.lineWidth=2;x.stroke();
-    x.fillStyle=i===0?'#FF5A65':'#EAF0FF';x.font=`900 58px ${F}`;x.fillText(s[0],bx+28,505);x.fillStyle='#8C9BC2';x.font=`700 28px ${F}`;x.fillText(s[1].toUpperCase(),bx+28,555);});
-  let y=660;x.fillStyle='#8C9BC2';x.font=`800 28px ${F}`;x.fillText('ЛУЧШИЕ ПОДХОДЫ',80,y);y+=30;
-  top.slice(0,6).forEach(t=>{y+=82;x.fillStyle='rgba(15,24,48,.85)';roundRect(x,80,y-58,920,72,20);x.fill();x.fillStyle='#EAF0FF';x.font=`700 32px ${F}`;x.fillText(t.n.length>30?t.n.slice(0,29)+'…':t.n,108,y-12);
-    const val=(t.b.w?fmt(+t.b.w)+' × ':'')+(t.b.r||'?');x.font=`900 34px ${F}`;x.fillStyle=t.pr?'#FF5A65':'#8DB6FF';const vw=x.measureText(val).width;x.fillText(val,972-vw,y-12);
+  stats.forEach((s,i)=>{const bx=80+i*315;x.fillStyle='#1A1B1F';roundRect(x,bx,420,290,170,28);x.fill();
+    x.fillStyle=i===0?'#3E7BFA':'#F2F2F3';x.font=`700 58px ${F}`;x.fillText(s[0],bx+28,505);x.fillStyle='#8B8D94';x.font=`500 28px ${F}`;x.fillText(s[1],bx+28,555);});
+  let y=660;x.fillStyle='#8B8D94';x.font=`600 28px ${F}`;x.fillText('Лучшие подходы',80,y);y+=30;
+  top.slice(0,6).forEach(t=>{y+=82;x.fillStyle='#1A1B1F';roundRect(x,80,y-58,920,72,20);x.fill();x.fillStyle='#EAF0FF';x.font=`700 32px ${F}`;x.fillText(t.n.length>30?t.n.slice(0,29)+'…':t.n,108,y-12);
+    const val=(t.b.w?fmt(+t.b.w)+' × ':'')+(t.b.r||'?');x.font=`900 34px ${F}`;x.fillStyle=t.pr?'#E5484D':'#F2F2F3';const vw=x.measureText(val).width;x.fillText(val,972-vw,y-12);
     if(t.pr){x.font=`900 22px ${F}`;x.fillStyle='#fff';const px=972-vw-80;x.fillStyle='#C2252D';roundRect(x,px,y-42,62,34,8);x.fill();x.fillStyle='#fff';x.fillText('PR',px+15,y-17);}});
-  if(prs){x.fillStyle='#FF5A65';x.font=`900 36px ${F}`;x.fillText(`🏆 Новых рекордов: ${prs}`,80,1250);}
-  x.fillStyle='#55658C';x.font=`700 26px ${F}`;x.fillText('gymaf · '+pr.name,80,1300);
+  if(prs){x.fillStyle='#E5484D';x.font=`700 36px ${F}`;x.fillText(`Новых рекордов: ${prs}`,80,1250);}
+  x.fillStyle='#5B5D63';x.font=`500 26px ${F}`;x.fillText('gymaf · '+pr.name,80,1300);
   const url=cv.toDataURL('image/png');
   openSheet(`<div class="grab"></div><button type="button" class="x" aria-label="Закрыть">✕</button><h2>Итог тренировки</h2><p class="sub">Сохрани в фото или отправь в Telegram / сторис</p><img class="card-img" src="${url}" alt="Карточка итога тренировки"><div class="btns"><button type="button" class="btn red" id="card-share">Поделиться</button></div><p class="status">Если кнопка не сработала — зажми картинку пальцем и выбери «Сохранить в Фото».</p>`);
   document.getElementById('card-share').onclick=()=>cv.toBlob(b=>shareFile(b,'gymaf-'+D.id+'-w'+w+'.png','GymAF · итог тренировки'));}
@@ -911,7 +1049,7 @@ function toggleSet(eid,s,vals){const pr=prog(),D=pr.days.find(x=>x.id===cur.d),w
     v.pr=false;if(v.w&&v.r>=1&&v.r<=12){const prev=bestOf(lib,{pid:pr.id,w,did:D.id,eid,si:s});const val=e1rm(v.w,v.r);if(prev.v>0&&val>prev.v+0.01){v.pr=true;}}}
   else v.pr=false;
   E[s]=v;persist();const y=window.scrollY;render();window.scrollTo(0,y);if(FX.open)renderFocus();
-  if(v.d){if(v.pr)toast('🏆 Новый рекорд: '+(LIB[lib]||{n:''}).n+' — '+fmt(v.w)+' × '+v.r);
+  if(v.d){if(v.pr)toast('Новый рекорд · '+(LIB[lib]||{n:''}).n+' — '+fmt(v.w)+' × '+v.r);
     // суперсет: переход к следующему упражнению без отдыха
     const ss=e.ss;let next=null,lastInGroup=true;if(ss){const nx=list[idx+1];if(nx&&nx.e.ss===ss){next=nx;lastInGroup=false;}}
     const n=E.filter(x=>x&&x.d).length,fin=n>=pl.sets;
