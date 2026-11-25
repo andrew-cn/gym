@@ -1,5 +1,5 @@
 // Офлайн-кэш приложения. При обновлении файлов поменяй номер версии.
-const CACHE = 'bench8-v2';
+const CACHE = 'gymaf-v4';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -17,6 +17,8 @@ self.addEventListener('activate', e => {
 // а в фоне подтягиваем свежую версию на следующий запуск.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // чужие сайты (YouTube и т.п.) — без кэша, напрямую
+  if (new URL(e.request.url).origin !== self.location.origin) return;
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(cached => {
       const net = fetch(e.request).then(res => {
