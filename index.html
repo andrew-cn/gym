@@ -521,6 +521,40 @@ svg.body .ba{fill:url(#gA);stroke:none}
 .anat-big{background:radial-gradient(120% 80% at 50% 25%,rgba(62,123,250,.14),transparent 65%),var(--surface2)}
 @media (prefers-color-scheme:light){:root{--bm1:#D9DBE1;--bm2:#C4C7CF}
  svg.body .bo{stroke:#B5B8C0}svg.body .bm{stroke:#AEB1B9}svg.body .bn{fill:#E3E5EA;stroke:#C4C7CF}}
+/* v10 ИИ-тренер */
+.lbl{display:block;font-size:12px;color:var(--muted);font-weight:600;margin:12px 0 5px}
+#ai-key{width:100%;font:14px ui-monospace,Menlo,monospace;padding:12px;border-radius:12px;border:0.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+#free-ask,#free-ans{font:15px -apple-system,system-ui,sans-serif;min-height:90px}
+.steps{margin:6px 0 4px;padding-left:20px;font-size:14px;line-height:1.55;color:var(--ink)}.steps code{font-size:12.5px}
+.coach-empty{text-align:center;padding:24px 18px}.coach-empty>svg{width:84px;height:84px;border-radius:22px;background:var(--surface2)}
+.coach-empty h3{margin:12px 0 4px;font-size:20px}
+.chat{display:flex;flex-direction:column;gap:10px;padding-bottom:8px}
+.coach-hi p{font-size:15px;line-height:1.5;margin:4px 2px 12px}
+.sugg{display:flex;flex-direction:column;align-items:flex-start;gap:8px}.sugg .chip{text-align:left;white-space:normal;line-height:1.35;padding:9px 13px}
+.msg{max-width:88%;display:flex;flex-direction:column;gap:8px}
+.msg .mt{padding:10px 14px;border-radius:18px;font-size:15px;line-height:1.45;word-wrap:break-word}
+.msg .mt p{margin:0 0 6px}.msg .mt p:last-child{margin:0}.msg .mt ul{margin:4px 0 6px;padding-left:18px}.msg .mt li{margin:2px 0}
+.msg.me{align-self:flex-end}.msg.me .mt{background:var(--blue);color:#fff;border-bottom-right-radius:6px}
+.msg.ai{align-self:flex-start}.msg.ai .mt{background:var(--surface);border-bottom-left-radius:6px}
+.msg.err .mt{background:rgba(229,72,77,.14);color:var(--ink)}
+.msg .aiprev{align-self:flex-start;margin:0;padding:10px 16px;font-size:14px}
+.dots{display:flex;gap:4px;padding:4px 0}.dots i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:dt 1.2s infinite}.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dt{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.aiwork{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13.5px;color:var(--blue);font-weight:600}
+.aiwork i{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.dots i,.aiwork i{animation:none}}
+.composer{position:sticky;bottom:calc(72px + var(--safe-b));display:flex;gap:8px;align-items:flex-end;background:var(--surface);border-radius:22px;padding:6px 6px 6px 14px;margin-top:12px;box-shadow:0 4px 18px rgba(0,0,0,.25);z-index:5}
+.composer textarea{flex:1;min-height:0;height:36px;margin:0;border:0;background:none;resize:none;font:16px -apple-system,system-ui,sans-serif;padding:8px 0;color:var(--ink);outline:none}
+.composer .send{flex:0 0 36px;height:36px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:12px}
+.composer .send.stop{background:var(--surface2);color:var(--ink)}
+.linkbtn{display:block;margin:10px auto 0;background:none;border:0;color:var(--blue);font-size:14px;font-weight:600;padding:8px}
+.aip-h b{display:block;font-size:18px}.aip-h small{color:var(--muted);font-size:12.5px}
+.aip-d{margin-top:14px;background:var(--surface2);border-radius:14px;padding:10px 12px}
+.aip-dn{font-weight:600;font-size:14px;margin-bottom:6px}.aip-dn span{color:var(--muted);font-weight:400;font-size:12.5px}
+.aip-e{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:0.5px solid var(--line);font-size:13.5px}.aip-e:first-of-type{border-top:0}
+.aip-e svg{flex:0 0 30px;width:30px;height:30px;border-radius:8px;background:var(--surface)}
+.aip-e span{flex:1}.aip-e span i{font-style:normal;color:var(--blue);font-size:11.5px}.aip-e b{font-weight:600;font-size:12.5px;color:var(--muted);text-align:right}
+@media (prefers-color-scheme:light){.composer{box-shadow:0 4px 18px rgba(0,0,0,.08)}}
 </style>
 </head>
 <body>
@@ -530,7 +564,7 @@ svg.body .ba{fill:url(#gA);stroke:none}
 <div id="sheet" role="dialog" aria-modal="true"><div class="bd"></div><div class="pn" id="sheet-c"></div></div>
 <div id="focus" role="dialog" aria-modal="true" aria-label="Режим тренировки"></div>
 <div class="toast" id="toast" role="status"></div>
-<nav><div class="wrap"><button type="button" data-tab="train"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6M6 6v12M18 6v12M21 9v6M6 12h12"/></svg>Тренировка</button><button type="button" data-tab="program"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Программа</button><button type="button" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M5 15l4-4 4 3 6-7"/><path d="M15 7h4v4"/></svg>Прогресс</button><button type="button" data-tab="tools"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 7.5h7M8.5 12h1M12 12h1M15.5 12h0M8.5 16h1M12 16h1M15.5 16h0"/></svg>Инструменты</button><button type="button" data-tab="settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Настройки</button></div></nav>
+<nav><div class="wrap"><button type="button" data-tab="train"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6M6 6v12M18 6v12M21 9v6M6 12h12"/></svg>Тренировка</button><button type="button" data-tab="program"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Программа</button><button type="button" data-tab="coach"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/><path d="M12 8.5l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9z" fill="currentColor" stroke-width="1.2"/></svg>Тренер</button><button type="button" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M5 15l4-4 4 3 6-7"/><path d="M15 7h4v4"/></svg>Прогресс</button><button type="button" data-tab="more"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Ещё</button></div></nav>
 <script>
 (function(){
 "use strict";
@@ -624,7 +658,7 @@ function makeTemplate(){
       pct('s_vol','bench','Жим лёжа — объёмный','bench',[[4,8,.70],[4,7,.725],[4,6,.75],[2,6,.65],[4,5,.775],[3,5,.80],[3,4,.80],null],'2–3 мин','Главный «строитель» мышц. Все повторы одной техникой, 1–2 в запасе'),
       pct('s_t1','bench','ТЕСТ · попытка 1','bench',[null,null,null,null,null,null,null,[1,1,.95]],'4–6 мин','Сначала разминка до 90%. Вес должен идти легко (RPE 8)',{test:true,heavy:true}),
       pct('s_t2','bench','ТЕСТ · попытка 2','bench',[null,null,null,null,null,null,null,[1,1,1.00]],'4–6 мин','Твой текущий максимум. Пошёл легко — третью можно +2,5–5 кг',{test:true}),
-      pct('s_t3','bench','ТЕСТ · попытка 3 (рекорд)','bench',[null,null,null,null,null,null,null,[1,1,1.04]],'4–6 мин','Только со страхующим! Результат поставь как максимум в «Инструментах»',{test:true}),
+      pct('s_t3','bench','ТЕСТ · попытка 3 (рекорд)','bench',[null,null,null,null,null,null,null,[1,1,1.04]],'4–6 мин','Только со страхующим! Результат поставь как максимум в «Ещё → Калькуляторы»',{test:true}),
       acc('s_cg','bench_cg',3,'6–8','2–3 мин','Хват на ширине плеч, локти ближе к корпусу',w17),
       acc('s_row','bb_row',3,'8–10','2 мин','Сильная спина = стабильная «платформа» в жиме',w17),
       acc('s_crow','cable_row',3,'10–12','90 с','Сводить лопатки в конце'),
@@ -723,7 +757,9 @@ const V=document.getElementById('view');
 let pick=autoPick(prog()),cur={w:pick.w,d:pick.d},tab='train',psub='pr',calcLift=null;
 function hdr(){document.getElementById('hsub').innerHTML=esc(prog().name)+'<br><b>жим '+fmt(maxOf('bench'))+' кг</b>';}
 function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));hdr();
-  ({train:renderTrain,program:renderProgram,progress:renderProgress,tools:renderTools,settings:renderSettings})[tab]();}
+  ({train:renderTrain,program:renderProgram,progress:renderProgress,coach:renderCoach,more:renderMore})[tab]();}
+let msub='tools';
+function renderMore(){(msub==='set'?settingsBody:toolsBody)();V.insertAdjacentHTML('afterbegin',`<div class="seg" role="tablist" style="grid-template-columns:1fr 1fr"><button type="button" data-msub="tools" class="${msub==='tools'?'on':''}">Калькуляторы</button><button type="button" data-msub="set" class="${msub==='set'?'on':''}">Настройки</button></div>`);}
 const ICON_OK='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const IC={play:'<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>',swap:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>',plate:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>'};
 function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="var(--surface2)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="var(--blue)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
@@ -737,8 +773,8 @@ function renderTrain(){
   h+=`</div><div class="days" style="grid-template-columns:repeat(${Math.min(days.length,4)},1fr)">`;
   days.forEach((x,i)=>{const p=dayProgress(pr,w,x);h+=`<button type="button" class="day${x.id===D.id?' on':''}${isDone(pr,w,x)?' done':''}" style="--dc:${dayColor(x,i)}" data-d="${x.id}"><b>${esc(x.name)}</b><small>${dstr(dateOf(pr,w,x))} · ${p.dn}/${p.tot}</small></button>`;});
   h+='</div>';
-  if(pick.before&&w===1&&D.id===days[0].id)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу, а свежий результат посчитай во вкладке «Инструменты».</div>`;
-  if(pick.after)h+=`<div class="banner">Программа пройдена! Поставь новый максимум в «Инструментах» и новую дату старта во вкладке «Программа».</div>`;
+  if(pick.before&&w===1&&D.id===days[0].id)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу, а свежий результат посчитай во разделе «Ещё → Калькуляторы».</div>`;
+  if(pick.after)h+=`<div class="banner">Программа пройдена! Поставь новый максимум в «Ещё → Калькуляторы» и новую дату старта во вкладке «Программа».</div>`;
   const m=list.find(x=>x.e.main||x.e.mode==='pct');
   const mins=Math.round(list.reduce((a,x)=>a+x.pl.sets*(restSec(x.e.rest)/60+0.8),0)/5)*5;
   let mainTxt='—';if(m){const mw=planW(m.e,m.pl);mainTxt=esc(exName(m.e).replace(/ — .*| ·.*/,'').replace('ТЕСТ','Тест максимума'))+(mw?` <em>${m.e.test?'до '+fmt(planW(list.filter(x=>x.e.test).slice(-1)[0].e,list.filter(x=>x.e.test).slice(-1)[0].pl))+' кг':m.pl.sets+'×'+m.pl.reps+' · '+fmt(mw)+' кг'}</em>`:'');}
@@ -949,7 +985,8 @@ const LIFTS={bench:{n:'Жим',full:'жиме лёжа',list:['wendler','oconner
  dead:{n:'Тяга',full:'становой тяге',list:['mayhew','wathen','epley','brzycki'],def:['mayhew'],w:155,r:5,set:'dead',note:'По умолчанию — Мэйхью (экспоненциальная модель). Классические линейные формулы в исследованиях занижали максимум в становой.'}};
 function calcState(){const C=S.calc;if(!C.lift)C.lift='bench';for(const k in LIFTS){if(!C[k]||!Array.isArray(C[k].f))C[k]={w:LIFTS[k].w,r:LIFTS[k].r,f:LIFTS[k].def.slice()};}return C;}
 const repsAt=p=>p>=1?1:Math.round(30*(1/p-1));
-function renderTools(){const C=calcState();
+function renderTools(){if(tab==='more')return renderMore();toolsBody();}
+function toolsBody(){const C=calcState();
   let h=`<div class="seg four" role="tablist">${[['bench','Жим'],['squat','Присед'],['dead','Тяга'],['plates','Блины']].map(([k,n])=>`<button type="button" data-lift="${k}" class="${C.lift===k?'on':''}">${n}</button>`).join('')}</div>`;
   if(C.lift==='plates'){const t=C.pw||100;h+=`<div class="card"><div id="pv">${plateViz(t)}</div>
     <div class="fgrid"><div><label for="pl-w">Вес на штанге, кг</label><input id="pl-w" inputmode="decimal" value="${fmt(t)}"></div><div><label>Гриф, кг</label><div class="seg" style="margin:0;grid-template-columns:repeat(3,1fr)">${[20,15,10].map(b=>`<button type="button" data-bar="${b}" class="${S.settings.bar===b?'on':''}">${b}</button>`).join('')}</div></div></div>
@@ -970,7 +1007,8 @@ function calcOut(){const C=calcState(),L=LIFTS[C.lift],st=C[C.lift],o=document.g
   h+='</tbody></table><div class="note">Вес округлён до 2,5 кг под блины. Если подход был не до отказа, реальный максимум выше расчёта.</div></div>';o.innerHTML=h;}
 
 /* ---------- НАСТРОЙКИ ---------- */
-function renderSettings(){const s=S.settings;
+function renderSettings(){if(tab==='more'&&msub!=='set'){msub='set';}if(tab==='more')return renderMore();settingsBody();}
+function settingsBody(){const s=S.settings;
   V.innerHTML=`<div class="section-title">Максимумы</div><div class="card">${Object.keys(MAXN).map(k=>`<div class="row"><label for="mx-${k}">${MAXN[k]}, кг<small>${k==='bench'?'от него считаются веса жима':k==='squat'?'для приседа в программе':'для своих программ'}</small></label><input id="mx-${k}" data-max="${k}" inputmode="decimal" value="${fmt(maxOf(k))}"></div>`).join('')}
     <label class="switch" for="set-wake"><span><b>Не гасить экран</b><br><small style="color:var(--muted)">пока открыта тренировка</small></span><input id="set-wake" type="checkbox"${s.wake?' checked':''}></label></div>
   <div class="section-title">Напоминания</div><div class="card"><p class="tip" style="margin-top:0">Айфон не даёт сайтам-приложениям присылать уведомления без сервера, поэтому делаю надёжнее: добавлю тренировки в твой Календарь с напоминанием за час. Календарь напомнит даже без интернета.</p>
@@ -986,7 +1024,7 @@ function renderSettings(){const s=S.settings;
     <textarea id="imp-text" placeholder="…или вставь сюда текст копии и нажми «Загрузить текст»"></textarea>
     <div class="btns"><button type="button" class="btn ghost" id="imp-go">Загрузить текст</button><button type="button" class="btn danger" id="reset">Стереть все отметки</button></div>
     <p class="status" id="msg">${storageOk?'':'Браузер не даёт сохранять данные — открой приложение с экрана «Домой».'}</p></div>
-  <p class="status" style="text-align:center;margin:18px 0">GymAF · программа тренировок · v4</p>`;}
+  <p class="status" style="text-align:center;margin:18px 0">GymAF · программа тренировок · v10</p>`;}
 const msg=t=>{const m=document.getElementById('msg');if(m)m.textContent=t;};
 function importData(txt){try{const p=JSON.parse(txt);if(!p||!p.settings)throw 0;S=migrate(p);persist();pick=autoPick(prog());cur={w:pick.w,d:pick.d};render();msg('Готово: данные загружены.');}catch(e){msg('Не получилось прочитать копию. Проверь, что вставлен весь текст.');}}
 function shareFile(blob,name,title){const file=new File([blob],name,{type:blob.type});
@@ -1113,10 +1151,165 @@ FEL.addEventListener('click',ev=>{const t=ev.target,q=sel=>t.closest(sel);let el
     renderFocus();return;}
 });
 
+/* ---------- ИИ-ТРЕНЕР ---------- */
+const AIK='gymaf-ai-key';
+const AIM={'claude-sonnet-5-5':'Sonnet 5.5 · баланс','claude-haiku-5-5':'Haiku 5.5 · дешевле и быстрее','claude-opus-5-5':'Opus 5.5 · самый умный, дороже'};
+let csub='chat',aiBusy=false,aiAbort=null,aiDraft=null;
+const aiKey=()=>{try{return localStorage.getItem(AIK)||'';}catch(e){return '';}};
+const aiSetKey=k=>{try{k?localStorage.setItem(AIK,k):localStorage.removeItem(AIK);}catch(e){}};
+const aiModel=()=>AIM[S.settings.aiModel]?S.settings.aiModel:'claude-sonnet-5-5';
+const coach=()=>{S.coach=S.coach||{msgs:[]};return S.coach;};
+/* --- контекст для ИИ --- */
+function libCatalog(){const g={};Object.keys(LIB).forEach(k=>{const L=LIB[k];const m=(L.m||[]).map(x=>MUS[x]).join('/');g[m]=g[m]||[];g[m].push(`${k}=${L.n}${L.max?' [%'+L.max+']':''}`);});
+  return Object.keys(g).map(m=>`${m}: ${g[m].join('; ')}`).join('\n');}
+function progBrief(pr){return{name:pr.name,weeks:pr.weeks,start:pr.start,deload:pr.deload||[],taper:pr.taper||[],days:sortedDays(pr).map(d=>({name:d.name,dow:d.dow,title:d.title||'',ex:d.ex.map(e=>{const o={lib:e.lib};if(e.label)o.label=e.label;
+  if(e.plan){o.mode='pct';o.base=baseKey(e);o.plan=e.plan.map(p=>p?[p.s,isNaN(+p.r)?p.r:+p.r,p.p]:null);if(e.heavy)o.heavy=true;if(e.test)o.test=true;}else{o.sets=+e.sets||3;o.reps=String(e.reps);}
+  if(e.rest)o.rest=e.rest;if(e.tip)o.tip=e.tip;if(e.weeks)o.weeks=e.weeks;if(e.ss)o.ss=e.ss;return o;})}))};}
+function userFacts(){const s=S.settings,bwv=Object.keys(S.bw||{}).sort((a,b)=>b-a).map(k=>S.bw[k]).find(v=>v);
+  const best={};allSets().forEach(x=>{if(!x.wt||!x.r)return;const v=e1rm(x.wt,x.r);if(!best[x.lib]||v>best[x.lib].v)best[x.lib]={v,t:`${fmt(x.wt)}×${x.r}`};});
+  const bl=Object.keys(best).sort((a,b)=>best[b].v-best[a].v).slice(0,15).map(k=>`${LIB[k]?LIB[k].n:k}: ${best[k].t}`);
+  return `Максимумы (1ПМ, кг): жим лёжа ${fmt(s.max.bench)}, присед ${fmt(s.max.squat)}, становая ${fmt(s.max.dead)}, жим стоя ${fmt(s.max.ohp)}.
+${bwv?'Вес тела: '+fmt(bwv)+' кг.':''}
+Лучшие подходы в журнале: ${bl.length?bl.join('; '):'пока нет'}.
+Сегодня: ${new Date().toISOString().slice(0,10)}.
+Текущая активная программа (JSON):
+${JSON.stringify(progBrief(prog()))}`;}
+function aiSystem(){return `Ты — тренер в приложении GymAF (силовые тренировки, жим лёжа, набор массы). Отвечай по-русски, коротко, дружелюбно и по делу, без воды. Обращайся на «ты».
+Твоя главная задача — составлять и менять программы тренировок по просьбе пользователя. Если данных мало (сколько дней, цель, ограничения) — сначала задай 1–3 коротких вопроса. Если просьба ясная — сразу делай программу.
+
+Когда отдаёшь программу, сначала 2–5 предложений о том, как она устроена, затем ОДИН блок \`\`\`json с ПОЛНОЙ программой по схеме:
+{"name":"Название","weeks":8,"start":"YYYY-MM-DD","deload":[4],"taper":[8],
+ "phases":{"1":"Объём",...},"focus":{"1":"Совет на неделю",...},
+ "days":[{"name":"Вторник","dow":1,"title":"Коротко про день","ex":[
+   {"lib":"bench","label":"Жим лёжа — тяжёлый","mode":"pct","base":"bench","plan":[[5,5,0.8],[5,4,0.825],null,...],"rest":"3–5 мин","tip":"Подсказка","heavy":true},
+   {"lib":"incline_db","sets":3,"reps":"8–10","rest":"2–3 мин","tip":"Подсказка","weeks":[1,2,3],"ss":"A"}]}]}
+Правила схемы:
+- dow: 0=пн … 6=вс. start — понедельник первой недели (если не знаешь — ближайший понедельник).
+- lib — ТОЛЬКО id из каталога ниже. Других упражнений нет.
+- Основные лифты по процентам: mode "pct", base — bench|squat|dead|ohp, plan — массив длиной ровно weeks, элемент [подходы, повторы, доля от 1ПМ] или null, если на этой неделе упражнения нет.
+- Подсобка: sets (число), reps (строка, например "8–10"), weeks — необязательный список недель, ss — одинаковая буква у упражнений суперсета.
+- deload — недели разгрузки (подсобка автоматически −1 подход), taper — недели подводки (подсобка 2 подхода).
+- Уважай ограничения пользователя (например, «без становой»). Не больше 8 упражнений в день.
+- Если пользователь просит изменить текущую программу — верни её ЦЕЛИКОМ с изменениями.
+Если программа не нужна (просто вопрос) — отвечай без JSON.
+
+Каталог упражнений (группа мышц: id=название, [%X] — можно вести по процентам от максимума X):
+${libCatalog()}
+
+Данные пользователя:
+${userFacts()}`;}
+/* --- разбор и проверка программы --- */
+function extractJSON(txt){const m=String(txt).match(/```(?:json)?\s*([\s\S]*?)```/);let raw=m?m[1]:null;
+  if(!raw){const a=txt.indexOf('{'),b=txt.lastIndexOf('}');if(a>=0&&b>a)raw=txt.slice(a,b+1);}
+  if(!raw)return null;try{return JSON.parse(raw);}catch(e){return null;}}
+function nextMonday(){const d=today();const dw=(d.getDay()+6)%7;d.setDate(d.getDate()+(dw?7-dw:0));const p2=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+function normProgram(j){const errs=[];if(!j||typeof j!=='object'||!Array.isArray(j.days))return{errs:['Нет списка дней (days).']};
+  const W=Math.min(16,Math.max(1,parseInt(j.weeks)||8));const wk=a=>Array.isArray(a)?[...new Set(a.map(Number).filter(n=>n>=1&&n<=W))]:[];
+  const pr={id:uid('p_'),name:String(j.name||'Программа от ИИ').slice(0,60),weeks:W,start:/^\d{4}-\d\d-\d\d$/.test(j.start||'')?j.start:nextMonday(),deload:wk(j.deload),taper:wk(j.taper),ai:true,days:[]};
+  const obj=o=>{if(!o||typeof o!=='object')return null;const r={};Object.keys(o).forEach(k=>{const n=parseInt(k);if(n>=1&&n<=W&&o[k])r[n]=String(o[k]).slice(0,140);});return Object.keys(r).length?r:null;};
+  const ph=obj(j.phases),fo=obj(j.focus);if(ph)pr.phases=ph;if(fo)pr.focus=fo;
+  const used=new Set();
+  j.days.slice(0,7).forEach((d,i)=>{let dow=parseInt(d.dow);if(!(dow>=0&&dow<=6))dow=[0,2,4,1,3,5,6][i];while(used.has(dow))dow=(dow+1)%7;used.add(dow);
+    const day={id:uid('d_'),name:String(d.name||DOWN[dow]).slice(0,30),dow,title:String(d.title||'').slice(0,80),ex:[]};
+    (Array.isArray(d.ex)?d.ex:[]).slice(0,10).forEach(e=>{if(!e||!LIB[e.lib]){errs.push(`«${d.name||'день'}»: неизвестное упражнение ${e&&e.lib}`);return;}
+      const x={id:uid('e_'),lib:e.lib,rest:String(e.rest||'2 мин').slice(0,20),tip:String(e.tip||'').slice(0,160)};
+      if(e.label)x.label=String(e.label).slice(0,50);if(e.ss)x.ss=String(e.ss).slice(0,3);
+      if(e.mode==='pct'&&Array.isArray(e.plan)){x.mode='pct';x.base=MAXN[e.base]?e.base:(LIB[e.lib].max||'bench');
+        const pl=[];for(let w=0;w<W;w++){const p=e.plan[w];if(Array.isArray(p)&&+p[0]>0&&p[1]!=null&&+p[2]>0){let f=+p[2];if(f>1.5)f=f/100;pl.push([Math.min(10,+p[0]),String(p[1]),Math.min(1.1,Math.max(.3,f))]);}else pl.push(null);}
+        if(!pl.some(Boolean)){errs.push(`${exName(x)}: пустой план`);return;}x.plan=P(pl);x.main=x.base==='bench';if(e.heavy)x.heavy=true;if(e.test)x.test=true;}
+      else{x.mode='rpe';x.sets=Math.min(10,Math.max(1,parseInt(e.sets)||3));x.reps=String(e.reps||'8–12').slice(0,12);const ws=wk(e.weeks);x.weeks=ws.length?ws:null;}
+      day.ex.push(x);});
+    pr.days.push(day);});
+  if(!pr.days.length)errs.push('Нет ни одного дня.');if(!pr.days.some(d=>d.ex.length))errs.push('В днях нет упражнений.');
+  return{pr,errs};}
+function progPreview(pr,errs){const w1=1;let h=`<div class="aip"><div class="aip-h"><b>${esc(pr.name)}</b><small>${pr.weeks} нед. · ${pr.days.length} трен./нед. · старт ${esc(pr.start.split('-').reverse().join('.'))}${pr.deload.length?' · разгрузка: '+pr.deload.join(', '):''}</small></div>`;
+  sortedDays(pr).forEach(d=>{h+=`<div class="aip-d"><div class="aip-dn">${DOW[d.dow]} · ${esc(d.name)}${d.title?` <span>${esc(d.title)}</span>`:''}</div>`;
+    d.ex.forEach(e=>{const pl=exPlan(pr,e,w1)||exPlan(pr,e,(e.weeks||[1])[0])||(e.plan&&e.plan.find(Boolean)?{sets:e.plan.find(Boolean).s,reps:e.plan.find(Boolean).r,pct:e.plan.find(Boolean).p}:null);
+      const kg=pl&&pl.pct?` · ${Math.round(pl.pct*100)}% ≈ ${fmt(r25(maxOf(baseKey(e))*pl.pct))} кг`:'';
+      h+=`<div class="aip-e">${anatMini(e.lib)}<span>${esc(exName(e))}${e.ss?` <i>суперсет ${esc(e.ss)}</i>`:''}</span><b>${pl?pl.sets+'×'+esc(pl.reps):''}${kg}</b></div>`;});h+='</div>';});
+  if(errs&&errs.length)h+=`<div class="note">Пропущено: ${esc(errs.slice(0,4).join('; '))}</div>`;
+  return h+'</div>';}
+function applyProgram(pr){S.progs[pr.id]=pr;S.active=pr.id;persist();pick=autoPick(pr);cur={w:pick.w,d:pick.d};toast('Программа «'+pr.name+'» включена',true);}
+/* --- запрос к Claude --- */
+function aiHist(ms){let a=ms.filter(m=>!m.pending&&!m.err&&m.content).slice(-16);while(a.length&&a[0].role!=='user')a.shift();
+  const out=[];a.forEach(m=>{if(out.length&&out[out.length-1].role===m.role)out[out.length-1].content+='\n\n'+m.content;else out.push({role:m.role,content:m.content});});return out;}
+async function aiSend(text){const key=aiKey();if(!key||aiBusy)return;const C=coach();
+  C.msgs.push({role:'user',content:text});C.msgs.push({role:'assistant',content:'',pending:true});persist();aiBusy=true;renderCoach(true);
+  const last=C.msgs[C.msgs.length-1];aiAbort=new AbortController();
+  try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal:aiAbort.signal,headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:aiModel(),max_tokens:12000,stream:true,system:aiSystem(),messages:aiHist(C.msgs)})});
+    if(!res.ok){let j={};try{j=await res.json();}catch(e){}const em=(j.error&&j.error.message)||'';
+      throw new Error(res.status===401?'Ключ не подходит. Проверь его в разделе «Ключ».':res.status===429?'Слишком много запросов — подожди минуту.':/credit|balance/i.test(em)?'На балансе Anthropic закончились деньги — пополни его на console.anthropic.com.':res.status>=500?'Сервер ИИ перегружен, попробуй через минуту.':'Ошибка '+res.status+(em?': '+em:''));}
+    const rd=res.body.getReader(),dec=new TextDecoder();let buf='';
+    for(;;){const {done,value}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+      while((i=buf.indexOf('\n\n'))>=0){const chunk=buf.slice(0,i);buf=buf.slice(i+2);const dl=chunk.split('\n').find(l=>l.startsWith('data:'));if(!dl)continue;
+        let ev;try{ev=JSON.parse(dl.slice(5));}catch(e){continue;}
+        if(ev.type==='content_block_delta'&&ev.delta&&ev.delta.text){last.content+=ev.delta.text;aiPaint(last);}
+        else if(ev.type==='error')throw new Error((ev.error&&ev.error.message)||'Ошибка ИИ');}}
+    delete last.pending;if(!last.content)throw new Error('Пустой ответ, попробуй ещё раз.');}
+  catch(e){delete last.pending;if(e.name==='AbortError'){last.content=last.content||'(остановлено)';}else{last.err=true;last.content=String(e.message||e);if(/Failed to fetch|NetworkError|Load failed/i.test(last.content))last.content='Нет связи с ИИ. Проверь интернет.';}}
+  aiBusy=false;aiAbort=null;persist();if(tab==='coach')renderCoach(true);}
+function aiPaint(m){const el=document.querySelector('.msg.pending .mt');if(!el)return;el.innerHTML=mdLite(m.content,true);const box=document.getElementById('chat-end');if(box)box.scrollIntoView({block:'end'});}
+function mdLite(t,streaming){let s=String(t);const ci=s.indexOf('```');let tail='';
+  if(ci>=0){const close=s.indexOf('```',ci+3);tail=close<0&&streaming?'<div class="aiwork"><i></i>Собираю программу…</div>':'';s=s.slice(0,ci)+(close>=0?s.slice(close+3):'');}
+  s=esc(s.trim()).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,4}\s*(.+)$/gm,'<b>$1</b>');
+  const lines=s.split('\n');let out='',ul=false;lines.forEach(l=>{const m=l.match(/^\s*(?:[-•*]|\d+[.)])\s+(.*)/);if(m){if(!ul){out+='<ul>';ul=true;}out+='<li>'+m[1]+'</li>';}else{if(ul){out+='</ul>';ul=false;}out+=l.trim()?'<p>'+l+'</p>':'';}});
+  if(ul)out+='</ul>';return out+tail;}
+/* --- экран --- */
+const SUGG=['Сделай программу на жим на 8 недель, 3 дня в неделю','Хочу набрать массу: 4 дня, верх/низ','Сделай текущую программу легче — плохо восстанавливаюсь','Замени в текущей программе присед на жим ногами'];
+function renderCoach(keepScroll){const C=coach(),key=aiKey();
+  let h=`<div class="seg" role="tablist" style="grid-template-columns:repeat(3,1fr)">${[['chat','Чат'],['free','Через Claude'],['key','Ключ']].map(([k,n])=>`<button type="button" data-csub="${k}" class="${csub===k?'on':''}">${n}</button>`).join('')}</div>`;
+  if(csub==='key'){h+=`<div class="card"><p class="tip" style="margin-top:0"><b>Чат работает с твоим ключом Anthropic.</b> Ключ хранится только на этом телефоне и не попадает в резервную копию. Оплата — отдельно от подписки Claude: пополняешь баланс, и за каждый ответ списываются центы.</p>
+    <ol class="steps"><li>Зайди на <b>console.anthropic.com</b> и войди.</li><li>Billing → пополни баланс (от $5).</li><li>API Keys → Create Key → скопируй ключ (начинается с <code>sk-ant-</code>).</li><li>Вставь его сюда.</li></ol>
+    <label for="ai-key" class="lbl">Ключ API</label><input id="ai-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" value="${esc(key)}">
+    <div class="btns"><button type="button" class="btn" id="ai-key-save">Сохранить ключ</button>${key?'<button type="button" class="btn danger" id="ai-key-del">Удалить ключ</button>':''}</div><p class="status" id="ai-key-msg"></p></div>
+    <div class="section-title">Модель</div><div class="card">${Object.keys(AIM).map(m=>`<button type="button" class="opt${aiModel()===m?' cur':''}" data-aim="${m}"><span><b>${AIM[m].split(' · ')[0]}</b><small>${AIM[m].split(' · ')[1]}</small></span><span class="go">${aiModel()===m?'✓':''}</span></button>`).join('')}</div>`;
+    V.innerHTML=h;return;}
+  if(csub==='free'){h+=`<div class="card"><p class="tip" style="margin-top:0"><b>Без ключа и бесплатно</b> — через твоё обычное приложение Claude.</p>
+    <ol class="steps"><li>Напиши, какую программу хочешь.</li><li>Нажми «Скопировать запрос» и вставь его в новый чат Claude.</li><li>Скопируй ответ Claude целиком и вставь ниже.</li></ol>
+    <textarea id="free-ask" placeholder="Например: 3 дня, цель — жим 115 к марту, без становой, бицепс в субботу">${esc(C.freeAsk||'')}</textarea>
+    <div class="btns"><button type="button" class="btn" id="free-copy">Скопировать запрос</button><a class="btn ghost" href="https://claude.ai/new" target="_blank" rel="noopener" style="text-align:center">Открыть Claude ↗</a></div>
+    <label for="free-ans" class="lbl" style="margin-top:14px">Ответ Claude</label><textarea id="free-ans" placeholder="Вставь сюда ответ целиком — вместе с блоком json"></textarea>
+    <div class="btns"><button type="button" class="btn" id="free-parse">Разобрать ответ</button></div><p class="status" id="free-msg"></p></div><div id="free-prev"></div>`;
+    V.innerHTML=h;return;}
+  if(!key){h+=`<div class="card coach-empty">${anatMini('bench')}<h3>ИИ-тренер</h3><p class="tip">Опиши, какую программу хочешь, — тренер соберёт её с учётом твоих максимумов и журнала, а ты включишь её одной кнопкой.</p>
+    <div class="btns"><button type="button" class="btn" data-csub="key">Подключить ключ</button><button type="button" class="btn ghost" data-csub="free">Бесплатно через Claude</button></div></div>`;V.innerHTML=h;return;}
+  h+='<div class="chat">';
+  if(!C.msgs.length)h+=`<div class="coach-hi"><p>Привет! Я вижу твои максимумы, вес и журнал. Скажи, что хочешь — соберу программу или поправлю текущую.</p><div class="sugg">${SUGG.map(s=>`<button type="button" class="chip" data-sugg="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;
+  C.msgs.forEach((m,i)=>{if(m.role==='user'){h+=`<div class="msg me"><div class="mt">${esc(m.content).replace(/\n/g,'<br>')}</div></div>`;return;}
+    let extra='';if(!m.pending&&!m.err){const j=extractJSON(m.content);if(j&&Array.isArray(j.days))extra=`<button type="button" class="btn aiprev" data-aiprev="${i}">Посмотреть программу</button>`;}
+    h+=`<div class="msg ai${m.pending?' pending':''}${m.err?' err':''}"><div class="mt">${m.pending&&!m.content?'<div class="dots"><i></i><i></i><i></i></div>':mdLite(m.content,m.pending)}</div>${extra}</div>`;});
+  h+=`<div id="chat-end"></div></div><div class="composer"><textarea id="ai-in" rows="1" placeholder="Напиши тренеру…"${aiBusy?' disabled':''}></textarea>${aiBusy?'<button type="button" class="send stop" id="ai-stop" aria-label="Остановить">■</button>':'<button type="button" class="send" id="ai-go" aria-label="Отправить"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>'}</div>
+   ${C.msgs.length&&!aiBusy?'<button type="button" class="linkbtn" id="ai-new">Новый чат</button>':''}<p class="status" style="text-align:center;font-size:11px">${esc(AIM[aiModel()].split(' · ')[0])} · ответы ИИ могут ошибаться — проверяй веса</p>`;
+  V.innerHTML=h;const end=document.getElementById('chat-end');if(end&&C.msgs.length)end.scrollIntoView({block:'end'});}
+function previewSheet(pr,errs){aiDraft=pr;openSheet(`<div class="sh-h"><h3>Программа от ИИ</h3><button type="button" class="x" aria-label="Закрыть">✕</button></div>${progPreview(pr,errs)}
+  <div class="btns"><button type="button" class="btn" id="ai-apply">Включить программу</button></div><p class="tip" style="text-align:center">Старая программа останется во вкладке «Программа».</p>`);}
+function coachClick(t){const q=s=>t.closest(s);let el;
+  if((el=q('[data-csub]'))){csub=el.dataset.csub;renderCoach();window.scrollTo(0,0);return true;}
+  if((el=q('[data-aim]'))){S.settings.aiModel=el.dataset.aim;persist();renderCoach();return true;}
+  if(t.id==='ai-key-save'){const v=document.getElementById('ai-key').value.trim();const m=document.getElementById('ai-key-msg');if(!/^sk-ant-/.test(v)){m.textContent='Ключ должен начинаться с sk-ant-';return true;}aiSetKey(v);csub='chat';renderCoach();toast('Ключ сохранён',true);return true;}
+  if(t.id==='ai-key-del'){aiSetKey('');renderCoach();toast('Ключ удалён',true);return true;}
+  if((el=q('[data-sugg]'))){aiSend(el.dataset.sugg);return true;}
+  if(q('#ai-go')){const i=document.getElementById('ai-in'),v=i.value.trim();if(v)aiSend(v);return true;}
+  if(q('#ai-stop')){if(aiAbort)aiAbort.abort();return true;}
+  if(t.id==='ai-new'){coach().msgs=[];persist();renderCoach();return true;}
+  if((el=q('[data-aiprev]'))){const m=coach().msgs[+el.dataset.aiprev];const r=normProgram(extractJSON(m.content));if(!r.pr||!r.pr.days.some(d=>d.ex.length)){toast('Не получилось разобрать программу — попроси тренера прислать её ещё раз');return true;}previewSheet(r.pr,r.errs);return true;}
+  if(t.id==='free-copy'){const a=document.getElementById('free-ask').value.trim();coach().freeAsk=a;persist();
+    const txt=aiSystem()+'\n\n---\nЗапрос пользователя: '+(a||'Составь мне программу.')+'\nОбязательно добавь блок ```json с программой по схеме выше.';
+    const ok=()=>{document.getElementById('free-msg').textContent='Скопировано. Вставь в новый чат Claude, а ответ — в поле ниже.';};
+    (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(ok,()=>{const ta=document.getElementById('free-ans');ta.value=txt;ta.select();document.execCommand('copy');ta.value='';ok();});return true;}
+  if(t.id==='free-parse'){const r=normProgram(extractJSON(document.getElementById('free-ans').value));const m=document.getElementById('free-msg');
+    if(!r.pr||!r.pr.days.some(d=>d.ex.length)){m.textContent='Не нашёл программу в ответе. Скопируй ответ Claude целиком, вместе с блоком json.'+(r.errs&&r.errs.length?' ('+r.errs[0]+')':'');return true;}
+    m.textContent='';previewSheet(r.pr,r.errs);return true;}
+  if(t.id==='ai-apply'&&aiDraft){applyProgram(aiDraft);aiDraft=null;closeSheet();tab='program';render();window.scrollTo(0,0);return true;}
+  return false;}
+
 /* ---------- СОБЫТИЯ ---------- */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render();window.scrollTo(0,0);if(tab==='train')keepAwake();else releaseAwake();});
 function onClick(ev){const t=ev.target;keepAwake();
   const q=sel=>t.closest(sel);let el;
+  if(tab==='coach'&&coachClick(t))return;
+  if((el=q('[data-msub]'))){msub=el.dataset.msub;render();window.scrollTo(0,0);return;}
   if((el=q('[data-tech]'))&&!(el.classList.contains('media')&&q('#sheet'))){techSheet(el.dataset.tech);return;}
   if(q('#vcard .play')||(q('#vcard')&&!q('iframe'))){playVideo();return;}
   if(tab==='train'){
@@ -1173,11 +1366,13 @@ function onClick(ev){const t=ev.target;keepAwake();
 }
 V.addEventListener('click',onClick);SHC.addEventListener('click',onClick);
 function onInput(ev){const t=ev.target;
+  if(t.id==='ai-in'){t.style.height='auto';t.style.height=Math.min(140,t.scrollHeight)+'px';return;}
+  if(t.id==='free-ask'){coach().freeAsk=t.value;persist();return;}
   if(t.dataset.f&&t.dataset.e){const pr=prog(),E=entry(pr.id,cur.w,cur.d,t.dataset.e),s=+t.dataset.s;E[s]=E[s]||{};E[s][t.dataset.f]=num(t.value);persist();return;}
   if(t.dataset.bw){const v=num(t.value);if(v==null)delete S.bw[t.dataset.bw];else S.bw[t.dataset.bw]=v;persist();return;}
   if(t.dataset.max){const v=num(t.value);if(v&&v>0){S.settings.max[t.dataset.max]=v;persist();hdr();}return;}
   if(t.id==='k-w'||t.id==='k-r'){const st=calcState()[calcState().lift],v=num(t.value);if(t.id==='k-w')st.w=v;else st.r=v==null?null:Math.round(v);persist();calcOut();return;}
-  if(t.id==='pl-w'){const v=num(t.value);if(tab==='tools'&&!SH.classList.contains('show')){S.calc.pw=v;persist();}const pv=document.getElementById('pv');if(pv&&v)pv.innerHTML=plateViz(v);return;}
+  if(t.id==='pl-w'){const v=num(t.value);if(tab==='more'&&!SH.classList.contains('show')){S.calc.pw=v;persist();}const pv=document.getElementById('pv');if(pv&&v)pv.innerHTML=plateViz(v);return;}
   if(t.id==='lib-q'){document.getElementById('lib-list').innerHTML=libList(t.dataset.did,t.value);return;}
   if(t.id==='pg-name'){prog().name=t.value||'Программа';persist();hdr();return;}
   if(t.dataset.dname){prog().days.find(x=>x.id===t.dataset.dname).name=t.value||'День';persist();return;}
