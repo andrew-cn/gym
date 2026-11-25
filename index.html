@@ -601,7 +601,6 @@ function renderTrain(){
     if(ss){let j=i;while(j<list.length&&list[j].e.ss===ss)j++;
       if(j-i>1){h+=`<div class="ss-group"><div class="ss-label">⛓ Суперсет ${esc(ss)} · без отдыха между упражнениями</div>`;for(let k=i;k<j;k++)h+=card(pr,w,D,list[k],k,warmFor(list[k]));h+='</div>';i=j;continue;}}
     h+=card(pr,w,D,list[i],i,warmFor(list[i]));i++;}
-  h+=`<div class="startbar"><button type="button" class="start-btn" id="f-start">${prg.dn>0&&prg.dn<prg.tot?'ПРОДОЛЖИТЬ ТРЕНИРОВКУ':prg.dn>=prg.tot?'ТРЕНИРОВКА ЗАВЕРШЕНА ✓':'НАЧАТЬ ТРЕНИРОВКУ'}</button></div>`;
   if(prg.dn>0)h+=`<div class="finish btns"><button type="button" class="btn red" id="share-card">Итог тренировки — карточка для сторис</button></div>`;
   V.innerHTML=h;
 }
