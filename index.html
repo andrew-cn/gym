@@ -7,80 +7,83 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Жим">
-<meta name="theme-color" content="#07130E">
+<meta name="theme-color" content="#070B16">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
 <title>Жим 8 недель</title>
 <style>
-/* Layout idea: dark forest-green gym app — glowing hero with today's session, stacked lift cards, frosted timer + tab bar */
+/* Layout idea: night-navy gym app — glowing hero with today's session, stacked lift cards; electric blue = action, deep crimson = the main lift and records */
 :root{
-  --bg:#07130E; --bg2:#0C1D15; --surface:#11261C; --surface2:#163126; --line:#21402F;
-  --ink:#E9F7EF; --muted:#8FB3A0; --mint:#3BE3A0; --lime:#C3F55A; --mint-soft:rgba(59,227,160,.14);
-  --danger:#FF6B6B; --tue:#C3F55A; --thu:#3BE3A0; --sat:#5CD6E8;
+  --bg:#070B16; --bg2:#0B1222; --surface:#0F1830; --surface2:#15203E; --line:#21304F;
+  --ink:#EAF0FF; --muted:#8C9BC2; --blue:#4C8DFF; --blue2:#2F6BE8; --blue-soft:rgba(76,141,255,.14);
+  --red:#E0444F; --red-deep:#8E1B26; --red-soft:rgba(224,68,79,.14); --gold:#F2C46B;
+  --tue:#E0444F; --thu:#4C8DFF; --sat:#9DB8FF;
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;
   --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
   color-scheme:dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.4;-webkit-text-size-adjust:100%}
-body{padding-bottom:calc(160px + var(--safe-b));background:
-  radial-gradient(900px 500px at 85% -10%,rgba(59,227,160,.16),transparent 60%),
-  radial-gradient(700px 400px at -10% 10%,rgba(195,245,90,.08),transparent 60%),var(--bg);background-attachment:fixed;min-height:100%}
+body{padding-bottom:calc(160px + var(--safe-b));min-height:100%;background:
+  radial-gradient(700px 420px at 100% -8%,rgba(142,27,38,.38),transparent 62%),
+  radial-gradient(800px 500px at -15% 0%,rgba(47,107,232,.22),transparent 60%),var(--bg);background-attachment:fixed}
 button{font-family:inherit;cursor:pointer;color:inherit}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .wrap{max-width:560px;margin:0 auto;padding:0 16px}
 header{padding:calc(14px + var(--safe-t)) 0 6px;display:flex;align-items:center;gap:10px}
-header img{width:34px;height:34px;border-radius:9px}
-.brand{font-weight:800;font-size:19px;letter-spacing:-.2px;margin:0}
-.brand span{color:var(--mint)}
-.hdr-sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+header img{width:34px;height:34px;border-radius:9px;box-shadow:0 4px 14px -4px rgba(76,141,255,.6)}
+.brand{font-weight:850;font-size:19px;letter-spacing:-.3px;margin:0}
+.brand span{background:linear-gradient(90deg,var(--blue),#9DB8FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hdr-sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;font-weight:600}
+.hdr-sub b{color:var(--red)}
 .weeks{display:flex;gap:6px;overflow-x:auto;padding:10px 2px 6px;scrollbar-width:none;scroll-snap-type:x mandatory}
 .weeks::-webkit-scrollbar{display:none}
 .wk{flex:0 0 auto;scroll-snap-align:start;min-width:58px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:7px 8px;text-align:center}
-.wk b{display:block;font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.wk b{display:block;font-size:19px;font-weight:850;font-variant-numeric:tabular-nums}
 .wk span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-.wk.on{background:linear-gradient(160deg,var(--mint),#1FB87D);border-color:transparent;color:#04120B}
-.wk.on span{color:#04120B;opacity:.7}
-.wk.done:not(.on){border-color:rgba(59,227,160,.5)}
+.wk.on{background:linear-gradient(160deg,var(--blue),var(--blue2));border-color:transparent;color:#fff;box-shadow:0 8px 20px -10px var(--blue)}
+.wk.on span{color:#fff;opacity:.8}
+.wk.done:not(.on){border-color:rgba(76,141,255,.55)}
 .wk.done b::after{content:"✓";font-size:11px;margin-left:2px;vertical-align:top}
 .days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px}
 .day{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:9px 6px;text-align:center;position:relative;overflow:hidden}
 .day b{display:block;font-size:15px;font-weight:800}
 .day small{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
-.day::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--dc);opacity:.6}
-.day.on{background:var(--surface2);border-color:var(--dc);box-shadow:0 0 0 1px var(--dc) inset,0 8px 24px -10px var(--dc)}
+.day::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--dc);opacity:.55}
+.day.on{background:var(--surface2);border-color:var(--dc);box-shadow:0 0 0 1px var(--dc) inset,0 10px 24px -12px var(--dc)}
 .day.on::before{opacity:1}
-.day.done b::after{content:" ✓";color:var(--mint)}
-.banner{border-radius:16px;padding:12px 14px;margin:0 0 12px;background:var(--mint-soft);border:1px solid rgba(59,227,160,.3);font-size:14px}
+.day.done b::after{content:" ✓";color:var(--blue)}
+.banner{border-radius:16px;padding:12px 14px;margin:0 0 12px;background:var(--red-soft);border:1px solid rgba(224,68,79,.35);font-size:14px}
 .hero{position:relative;border-radius:22px;padding:16px;margin-bottom:14px;overflow:hidden;
-  background:linear-gradient(145deg,#15402D 0%,#0F2A1F 55%,#0B1F17 100%);border:1px solid rgba(59,227,160,.25)}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(195,245,90,.25),transparent 70%)}
-.hero .kick{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--lime);font-weight:800}
-.hero h1{margin:4px 0 2px;font-size:26px;line-height:1.1;font-weight:850;letter-spacing:-.5px;text-wrap:balance}
-.hero p{margin:4px 0 0;color:#B9D6C7;font-size:13px;position:relative;z-index:1}
+  background:linear-gradient(150deg,#1B3270 0%,#11204A 50%,#0B1430 100%);border:1px solid rgba(76,141,255,.3)}
+.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(224,68,79,.45),transparent 70%)}
+.hero .kick{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#FF8A92;font-weight:800;position:relative;z-index:1}
+.hero h1{margin:4px 0 2px;font-size:27px;line-height:1.1;font-weight:850;letter-spacing:-.5px;text-wrap:balance;position:relative;z-index:1}
+.hero p{margin:4px 0 0;color:#B8C7EC;font-size:13px;position:relative;z-index:1}
 .hero-row{display:flex;align-items:center;gap:14px;margin-top:12px;position:relative;z-index:1}
 .ring{flex:0 0 64px;height:64px;position:relative}
 .ring svg{transform:rotate(-90deg)}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:850;font-variant-numeric:tabular-nums}
 .hero-main{flex:1;min-width:0}
-.hero-main small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700}
-.hero-main strong{font-size:17px;font-weight:800}
-.hero-main strong em{font-style:normal;color:var(--lime)}
+.hero-main small{display:block;color:#93A6D6;font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.hero-main strong{font-size:17px;font-weight:850}
+.hero-main strong em{font-style:normal;color:#FF8A92}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}
-.card.main{border-color:rgba(195,245,90,.55);background:linear-gradient(180deg,rgba(195,245,90,.09),var(--surface) 90px);box-shadow:0 10px 30px -18px rgba(195,245,90,.6)}
+.card.main{border-color:rgba(224,68,79,.55);background:linear-gradient(180deg,rgba(142,27,38,.32),var(--surface) 100px);box-shadow:0 12px 30px -20px rgba(224,68,79,.8)}
 .card.complete{opacity:.6}
 .ch{display:flex;gap:10px;align-items:flex-start}
 .num{flex:0 0 28px;height:28px;border-radius:9px;background:var(--surface2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:13px;color:var(--muted)}
-.card.main .num{background:var(--lime);color:#0B1A06;border-color:transparent}
-.card.complete .num{background:var(--mint);color:#04120B;border-color:transparent}
+.card.main .num{background:linear-gradient(160deg,var(--red),var(--red-deep));color:#fff;border-color:transparent}
+.card.complete .num{background:var(--blue);color:#fff;border-color:transparent}
 .ct{flex:1;min-width:0}
 .ct h3{margin:1px 0 0;font-size:16px;font-weight:800;line-height:1.25}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
 .pill{font-size:12px;border-radius:999px;padding:3px 9px;background:var(--bg2);border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
 .pill.strong{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:800}
-.pill.up{background:rgba(195,245,90,.16);color:var(--lime);border-color:rgba(195,245,90,.4);font-weight:800}
-.big{font-weight:850;font-size:32px;line-height:1;color:var(--lime);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-1px}
+.pill.up{background:var(--blue-soft);color:#8DB6FF;border-color:rgba(76,141,255,.45);font-weight:800}
+.big{font-weight:850;font-size:32px;line-height:1;color:var(--red);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-1px}
+.big.blue{color:#8DB6FF}
 .big.acc{color:var(--ink);font-size:23px}
 .big small{display:block;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:0;margin-top:4px;text-transform:uppercase}
 .tip{color:var(--muted);font-size:12.5px;margin:9px 0 0}
@@ -94,28 +97,55 @@ header img{width:34px;height:34px;border-radius:9px}
 .set label{font-size:12px;color:var(--muted);text-align:center;font-weight:800}
 .fld{position:relative}
 .fld input{width:100%;height:46px;border:1px solid var(--line);border-radius:13px;background:var(--bg2);color:var(--ink);font:800 18px var(--font);text-align:center;font-variant-numeric:tabular-nums;padding:0 28px 0 6px;-webkit-appearance:none}
-.fld input::placeholder{color:#55786A;font-weight:700}
+.fld input::placeholder{color:#55658C;font-weight:700}
 .fld i{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-style:normal;font-size:10.5px;color:var(--muted);font-weight:700}
 .ok{height:46px;border-radius:13px;border:1.5px solid var(--line);background:var(--bg2);color:var(--muted);display:grid;place-items:center}
-.ok.on{background:linear-gradient(160deg,var(--mint),#1FB87D);border-color:transparent;color:#04120B;box-shadow:0 6px 16px -8px var(--mint)}
-.set.done .fld input{background:rgba(59,227,160,.1);border-color:rgba(59,227,160,.35)}
+.ok.on{background:linear-gradient(160deg,var(--blue),var(--blue2));border-color:transparent;color:#fff;box-shadow:0 6px 16px -8px var(--blue)}
+.set.done .fld input{background:var(--blue-soft);border-color:rgba(76,141,255,.4)}
 .section-title{font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:1px;color:var(--muted);margin:20px 4px 8px}
 .status{font-size:12px;color:var(--muted);margin:10px 4px 0}
+/* calculator */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:4px;margin:12px 0}
+.seg button{border:0;background:none;border-radius:12px;padding:10px 4px;font-weight:800;font-size:14px;color:var(--muted)}
+.seg button.on{background:linear-gradient(160deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 6px 16px -10px var(--blue)}
+.calc-in{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.calc-in label{font-size:12px;color:var(--muted);font-weight:700;display:block;margin-bottom:5px}
+.calc-in input{width:100%;height:56px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);color:var(--ink);font:850 24px var(--font);text-align:center;-webkit-appearance:none;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--muted)}
+.chip.on{border-color:var(--blue);background:var(--blue-soft);color:#BFD5FF}
+.res{border-radius:20px;padding:16px;margin:12px 0 10px;background:linear-gradient(150deg,#3A0F17,#1A0A14 60%,#0F1830);border:1px solid rgba(224,68,79,.45);display:flex;align-items:center;gap:12px}
+.res small{display:block;color:#E9A4AA;font-size:11px;text-transform:uppercase;letter-spacing:.7px;font-weight:800}
+.res .v{font-size:46px;font-weight:900;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;line-height:1}
+.res .v span{font-size:18px;font-weight:700;color:#E9A4AA;margin-left:4px}
+.res .side{margin-left:auto;text-align:right;font-size:12px;color:#C9B3C0}
+.res .side b{display:block;color:#fff;font-size:15px}
+.flist{display:grid;gap:6px;margin-top:4px}
+.frow{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;padding:7px 0;border-bottom:1px solid var(--line)}
+.frow:last-child{border-bottom:0}
+.frow code{color:var(--muted);font-size:11.5px;font-family:ui-monospace,Menlo,monospace;display:block}
+.frow b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.frow.off{opacity:.4}
+.ptab td:first-child{font-weight:800}
+.ptab tr.top td{color:var(--red);font-weight:850}
+.ptab td.bar{width:38%}
+.ptab td.bar i{display:block;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--blue2),var(--blue))}
+.note{font-size:12px;color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:10px}
 /* timer */
 #timer{position:fixed;left:0;right:0;bottom:calc(68px + var(--safe-b));z-index:20;transform:translateY(130%);transition:transform .25s ease}
 #timer.show{transform:none}
 .tbox{max-width:560px;margin:0 auto 8px;padding:0 12px}
-.tin{background:rgba(17,38,28,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(59,227,160,.35);border-radius:20px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
-.tin.end{background:linear-gradient(160deg,var(--mint),#1FB87D);color:#04120B}
+.tin{background:rgba(15,24,48,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(76,141,255,.4);border-radius:20px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.tin.end{background:linear-gradient(160deg,var(--red),var(--red-deep));border-color:transparent;color:#fff}
 .tclock{font-size:32px;font-weight:850;font-variant-numeric:tabular-nums;min-width:84px;letter-spacing:-1px}
 .tlabel{flex:1;font-size:12px;line-height:1.25;font-weight:600}
 .tbtn{border:0;border-radius:11px;padding:9px 10px;font-weight:800;font-size:13px;background:rgba(255,255,255,.1)}
-.tin.end .tbtn{background:rgba(0,0,0,.12)}
+.tin.end .tbtn{background:rgba(0,0,0,.18)}
 /* nav */
-nav{position:fixed;left:0;right:0;bottom:0;z-index:21;background:rgba(7,19,14,.82);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
-nav .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 16px 6px}
-nav button{border:0;background:none;color:var(--muted);padding:6px 0;border-radius:12px;font-weight:700;font-size:11.5px}
-nav button.on{color:var(--mint)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:21;background:rgba(7,11,22,.84);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+nav .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:6px 10px}
+nav button{border:0;background:none;color:var(--muted);padding:6px 0;border-radius:12px;font-weight:700;font-size:11px}
+nav button.on{color:var(--blue)}
 nav button svg{display:block;margin:0 auto 3px}
 /* forms */
 .row{display:grid;grid-template-columns:1fr 132px;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
@@ -123,20 +153,22 @@ nav button svg{display:block;margin:0 auto 3px}
 .row label{font-weight:700;font-size:14px}
 .row label small{display:block;color:var(--muted);font-weight:500;font-size:12px}
 .row input{height:44px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);font:800 16px var(--font);text-align:center;width:100%;-webkit-appearance:none}
-.btn{border:0;border-radius:14px;background:linear-gradient(160deg,var(--mint),#1FB87D);color:#04120B;font-weight:800;padding:13px 14px;font-size:14.5px;width:100%}
+.btn{border:0;border-radius:14px;background:linear-gradient(160deg,var(--blue),var(--blue2));color:#fff;font-weight:800;padding:13px 14px;font-size:14.5px;width:100%}
+.btn.red{background:linear-gradient(160deg,var(--red),var(--red-deep))}
 .btn.ghost{background:var(--bg2);color:var(--ink);border:1px solid var(--line)}
-.btn.danger{background:transparent;color:var(--danger);border:1px solid rgba(255,107,107,.4)}
+.btn.danger{background:transparent;color:var(--red);border:1px solid rgba(224,68,79,.45)}
 .btns{display:grid;gap:8px;margin-top:10px}
+.btns.two{grid-template-columns:1fr 1fr}
 textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);font:13px ui-monospace,Menlo,monospace;padding:10px;margin-top:8px}
 .switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0}
 .switch input{width:50px;height:30px;-webkit-appearance:none;appearance:none;background:var(--line);border-radius:30px;position:relative;transition:background .2s;flex:0 0 50px}
 .switch input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s}
-.switch input:checked{background:var(--mint)}
+.switch input:checked{background:var(--blue)}
 .switch input:checked::after{transform:translateX(20px)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 8px;text-align:center}
 .stat b{display:block;font-size:24px;font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
-.stat:nth-child(2) b{color:var(--lime)}
+.stat:nth-child(2) b{color:var(--red)}
 .stat span{font-size:11px;color:var(--muted);font-weight:600}
 table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
 td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
@@ -146,25 +178,22 @@ td input{width:76px;height:36px;border:1px solid var(--line);border-radius:10px;
 .chart svg{width:100%;height:auto;display:block}
 .rules{margin:0;padding-left:18px}
 .rules li{margin-bottom:7px;font-size:13.5px}
-.rules b{color:var(--lime)}
-.install{display:none}
+.rules b{color:var(--red)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-/* light theme (iPhone in light mode) */
 @media (prefers-color-scheme:light){
-  :root{--bg:#EEF6F1;--bg2:#F5FAF7;--surface:#FFFFFF;--surface2:#F1FAF5;--line:#D3E6DB;--ink:#0B2117;--muted:#557564;
-    --mint:#0FA968;--lime:#4E8A00;--mint-soft:rgba(15,169,104,.1);--tue:#6FA800;--thu:#0FA968;--sat:#0E9BB0;color-scheme:light}
-  body{background:radial-gradient(900px 500px at 85% -10%,rgba(15,169,104,.14),transparent 60%),var(--bg)}
-  .hero{background:linear-gradient(145deg,#0F5D3E,#0B3F2B);color:#E9F7EF;border-color:transparent}
-  .hero .kick{color:#C3F55A}.hero p{color:#CDE8DA}.hero-main small{color:#A9CDBA}.hero-main strong em{color:#C3F55A}
-  .card.main{border-color:rgba(78,138,0,.45);background:linear-gradient(180deg,rgba(195,245,90,.22),#fff 90px)}
-  .card.main .num{background:#C3F55A}
-  .pill.strong{background:#0B2117;color:#fff}
-  .fld input::placeholder{color:#93AFA0}
-  .tin{background:rgba(11,33,23,.92);color:#E9F7EF}
-  nav{background:rgba(255,255,255,.85)}
-  .ok.on,.btn,.wk.on{color:#fff}.wk.on span{color:#fff}
+  :root{--bg:#EEF2FA;--bg2:#F5F7FC;--surface:#FFFFFF;--surface2:#F2F6FF;--line:#D6DEEE;--ink:#0B1430;--muted:#55628A;
+    --blue:#1F5FE0;--blue2:#1747B5;--blue-soft:rgba(31,95,224,.1);--red:#A31D2B;--red-deep:#7A1420;--red-soft:rgba(163,29,43,.08);
+    --tue:#A31D2B;--thu:#1F5FE0;--sat:#5B7FD6;color-scheme:light}
+  body{background:radial-gradient(700px 420px at 100% -8%,rgba(163,29,43,.12),transparent 62%),radial-gradient(800px 500px at -15% 0%,rgba(31,95,224,.12),transparent 60%),var(--bg)}
+  .card.main{background:linear-gradient(180deg,rgba(163,29,43,.09),#fff 100px)}
+  .pill.up{color:var(--blue)} .big.blue{color:var(--blue)}
+  .fld input::placeholder{color:#97A3C2}
+  .chip.on{color:var(--blue)}
+  nav{background:rgba(255,255,255,.86)}
+  .tin{background:rgba(11,20,48,.94);color:#fff}
 }
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -186,6 +215,7 @@ td input{width:76px;height:36px;border:1px solid var(--line);border-radius:10px;
 
 <nav><div class="wrap">
   <button type="button" data-tab="train"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 9v6M6 6v12M18 6v12M21 9v6M6 12h12"/></svg>Тренировка</button>
+  <button type="button" data-tab="calc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 7.5h7M8.5 12h1M12 12h1M15.5 12h0M8.5 16h1M12 16h1M15.5 16h0"/></svg>Калькулятор</button>
   <button type="button" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M5 15l4-4 4 3 6-7"/><path d="M15 7h4v4"/></svg>Прогресс</button>
   <button type="button" data-tab="settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Настройки</button>
 </div></nav>
@@ -246,9 +276,9 @@ const DAYS=[{s:'Вт',n:'Вторник',t:'Тяжёлый жим + грудь, 
 
 /* ============ ДАННЫЕ (хранятся на телефоне) ============ */
 const LS='bench8-state-v1';
-const DEF={settings:{bench:105,squat:127.5,start:'2026-12-01',wake:true},log:{},bw:{},updated:0};
+const DEF={settings:{bench:105,squat:127.5,start:'2026-12-01',wake:true},log:{},bw:{},calc:{},updated:0};
 const clone=o=>JSON.parse(JSON.stringify(o));
-function normalize(p){const s=Object.assign(clone(DEF),p||{});s.settings=Object.assign(clone(DEF.settings),(p&&p.settings)||{});s.log=s.log||{};s.bw=s.bw||{};return s;}
+function normalize(p){const s=Object.assign(clone(DEF),p||{});s.settings=Object.assign(clone(DEF.settings),(p&&p.settings)||{});s.log=s.log||{};s.bw=s.bw||{};s.calc=s.calc||{};return s;}
 let S=clone(DEF),storageOk=true;
 try{const raw=localStorage.getItem(LS);if(raw)S=normalize(JSON.parse(raw));}catch(e){storageOk=false;}
 function persist(){S.updated=Date.now();try{localStorage.setItem(LS,JSON.stringify(S));storageOk=true;}catch(e){storageOk=false;}}
@@ -286,11 +316,11 @@ let pick=autoPick(),cur={w:pick.w,d:pick.d},tab='train';
 const V=document.getElementById('view');
 function render(){
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
-  document.getElementById('hsub').textContent='Жим: '+fmt(+S.settings.bench)+' кг';
-  if(tab==='train')renderTrain();else if(tab==='progress')renderProgress();else renderSettings();
+  document.getElementById('hsub').innerHTML='Максимум в жиме<br><b>'+fmt(+S.settings.bench)+' кг</b>';
+  if(tab==='train')renderTrain();else if(tab==='calc')renderCalc();else if(tab==='progress')renderProgress();else renderSettings();
 }
 const isDone=(w,d)=>{const p=dayProgress(w,d);return p.tot>0&&p.dn>=p.tot*0.6;};
-function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="#C3F55A" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
+function ring(pct){const R=27,C=2*Math.PI*R;return `<div class="ring"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="7"/><circle cx="32" cy="32" r="${R}" fill="none" stroke="#FF5A65" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b>${Math.round(pct*100)}%</b></div>`;}
 function renderTrain(){
   const {w,d}=cur,D=DAYS[d],ex=day(w,d),pr=dayProgress(w,d);
   let h='<div class="weeks" role="tablist" aria-label="Неделя">';
@@ -298,7 +328,7 @@ function renderTrain(){
   h+='</div><div class="days">';
   DAYS.forEach((x,i)=>{const p=dayProgress(w,i);h+=`<button type="button" class="day${i===d?' on':''}${isDone(w,i)?' done':''}" style="--dc:${x.c}" data-d="${i}"><b>${x.n}</b><small>${dstr(dateOf(w,i))} · ${p.dn}/${p.tot}</small></button>`;});
   h+='</div>';
-  if(pick.before&&w===1&&d===0)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу: <b>92,5 кг 5×5</b>, а результат впиши в калькулятор в «Настройках».</div>`;
+  if(pick.before&&w===1&&d===0)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу: <b>92,5 кг 5×5</b>, а результат впиши во вкладке «Калькулятор».</div>`;
   if(pick.after)h+=`<div class="banner">8 недель позади! Впиши новый максимум и новую дату старта в «Настройках» — программа пересчитается.</div>`;
   const m=ex.find(e=>e.main),mw=m?planW(m):null;
   const mins=Math.round(ex.reduce((a,e)=>a+e.sets*(restSec(e.rest)/60+0.8),0)/5)*5;
@@ -347,9 +377,9 @@ function renderProgress(){
     s+=`<line x1="28" x2="${W-8}" y1="${py(mx)}" y2="${py(mx)}" stroke="var(--muted)" stroke-dasharray="4 4"/>`;
     for(let w=1;w<=8;w++)s+=`<text x="${px(w)}" y="${H-5}" font-size="10" text-anchor="middle" fill="var(--muted)">${w}</text>`;
     const path=pts.map((p,k)=>(k?'L':'M')+px(p.w)+' '+py(p.b)).join(' ');
-    s+=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--mint)" stop-opacity=".35"/><stop offset="1" stop-color="var(--mint)" stop-opacity="0"/></linearGradient></defs>`;
-    if(pts.length>1)s+=`<path d="${path} L${px(pts[pts.length-1].w)} ${H-22} L${px(pts[0].w)} ${H-22}Z" fill="url(#g)"/><path d="${path}" fill="none" stroke="var(--mint)" stroke-width="2.6" stroke-linejoin="round"/>`;
-    pts.forEach((p,k)=>{s+=`<circle cx="${px(p.w)}" cy="${py(p.b)}" r="${k===pts.length-1?5.5:3.5}" fill="${k===pts.length-1?'var(--lime)':'var(--mint)'}"/>`;});
+    s+=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--blue)" stop-opacity=".35"/><stop offset="1" stop-color="var(--blue)" stop-opacity="0"/></linearGradient></defs>`;
+    if(pts.length>1)s+=`<path d="${path} L${px(pts[pts.length-1].w)} ${H-22} L${px(pts[0].w)} ${H-22}Z" fill="url(#g)"/><path d="${path}" fill="none" stroke="var(--blue)" stroke-width="2.6" stroke-linejoin="round"/>`;
+    pts.forEach((p,k)=>{s+=`<circle cx="${px(p.w)}" cy="${py(p.b)}" r="${k===pts.length-1?5.5:3.5}" fill="${k===pts.length-1?'var(--red)':'var(--blue)'}"/>`;});
     const lp=pts[pts.length-1];s+=`<text x="${px(lp.w)}" y="${py(lp.b)-10}" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--ink)">${fmt(Math.round(lp.b*10)/10)}</text>`;
     h+=s+'</svg><p class="tip">Пунктир — максимум из настроек. Если линия держится выше пару недель — подними максимум на 2,5 кг.</p>';}
   h+='</div><div class="card"><table><thead><tr><th>Нед.</th><th>Лучший подход</th><th>Расч. макс.</th><th>Вес тела</th></tr></thead><tbody>';
@@ -364,11 +394,6 @@ function renderSettings(){
     <div class="row"><label for="set-squat">Присед, кг<small>оценка по 110×5</small></label><input id="set-squat" inputmode="decimal" value="${fmt(+s.squat)}"></div>
     <div class="row"><label for="set-start">Дата старта<small>вторник 1-й недели</small></label><input id="set-start" type="date" value="${s.start}"></div>
     <label class="switch" for="set-wake"><span><b>Не гасить экран</b><br><small style="color:var(--muted)">пока открыта тренировка</small></span><input id="set-wake" type="checkbox"${s.wake?' checked':''}></label></div>
-  <div class="section-title">Калькулятор максимума</div><div class="card">
-    <div class="row"><label for="c-w">Пожал, кг</label><input id="c-w" inputmode="decimal" value="92,5"></div>
-    <div class="row"><label for="c-r">Повторов</label><input id="c-r" inputmode="numeric" value="5"></div>
-    <div class="row"><label>Расчётный максимум<small>среднее Эпли и Бжицки</small></label><b id="c-out" style="font-size:26px;text-align:center;color:var(--lime)"></b></div>
-    <button type="button" class="btn" id="c-apply">Поставить как максимум в жиме</button></div>
   <div class="section-title">Правила</div><div class="card"><ul class="rules">
     <li><b>RPE 8</b> — в запасе 2 повтора. Так делай всю подсобку.</li>
     <li>Сделал верх диапазона во всех подходах — в следующий раз <b>+1–2,5 кг</b> (появится зелёная метка).</li>
@@ -385,11 +410,58 @@ function renderSettings(){
     <div class="btns"><button type="button" class="btn ghost" id="imp-go">Загрузить текст</button>
     <button type="button" class="btn danger" id="reset">Стереть все отметки</button></div>
     <p class="status" id="msg">${storageOk?'':'Браузер не даёт сохранять данные — открой приложение с экрана «Домой», не из приватной вкладки.'}</p></div>
-  <p class="status" style="text-align:center;margin:18px 0">Жим 8 недель · офлайн-версия · v1</p>`;
-  calc();
+  <p class="status" style="text-align:center;margin:18px 0">Жим 8 недель · офлайн-версия · v2</p>`;
 }
-function calc(){const w=num(document.getElementById('c-w').value),r=num(document.getElementById('c-r').value),o=document.getElementById('c-out');
-  if(!w||!r||r>12){o.textContent='—';o.dataset.v='';return;}const v=r25((w*(1+r/30)+w*36/(37-r))/2);o.textContent=fmt(v)+' кг';o.dataset.v=v;}
+/* ============ КАЛЬКУЛЯТОР МАКСИМУМА ============ */
+const FORM={
+  wendler:{n:'Вендлер',t:'w × r × 0,0333 + w',f:(w,r)=>w*r*0.0333+w},
+  oconner:{n:"О'Коннер",t:'w × (1 + 0,025 × r)',f:(w,r)=>w*(1+0.025*r)},
+  brzycki:{n:'Бжицки',t:'w × 36 / (37 − r)',f:(w,r)=>w*36/(37-r)},
+  lander:{n:'Лэндер',t:'100w / (101,3 − 2,67123r)',f:(w,r)=>100*w/(101.3-2.67123*r)},
+  epley:{n:'Эпли',t:'w × (1 + r / 30)',f:(w,r)=>w*(1+r/30)},
+  lombardi:{n:'Ломбарди',t:'w × r^0,10',f:(w,r)=>w*Math.pow(r,0.1)},
+  mayhew:{n:'Мэйхью',t:'100w / (52,2 + 41,9·e^(−0,055r))',f:(w,r)=>100*w/(52.2+41.9*Math.exp(-0.055*r))},
+  wathen:{n:'Уотен',t:'100w / (48,8 + 53,8·e^(−0,075r))',f:(w,r)=>100*w/(48.8+53.8*Math.exp(-0.075*r))}
+};
+const LIFTS={
+  bench:{n:'Жим',full:'жиме лёжа',list:['wendler','oconner','brzycki','lander'],def:['wendler','oconner','brzycki','lander'],w:92.5,r:5,set:'bench',
+    note:'Как на strongshop.com.ua: четыре формулы (Вендлер, О\'Коннер, Бжицки, Лэндер). Отметь одну или несколько — итог считается как среднее выбранных.'},
+  squat:{n:'Присед',full:'приседе',list:['brzycki','epley','lombardi','wathen'],def:['brzycki'],w:110,r:5,set:'squat',
+    note:'По умолчанию — Бжицки: его считают одной из самых точных формул для приседа со штангой. Остальные — для сравнения, их тоже можно включить.'},
+  dead:{n:'Тяга',full:'становой тяге',list:['mayhew','wathen','epley','brzycki'],def:['mayhew'],w:155,r:5,set:null,
+    note:'По умолчанию — Мэйхью (экспоненциальная модель). В исследованиях классические линейные формулы занижали максимум в становой, поэтому реальный результат может быть даже чуть выше.'}
+};
+function calcState(){S.calc=S.calc||{};if(!S.calc.lift)S.calc.lift='bench';for(const k in LIFTS){if(!S.calc[k])S.calc[k]={w:LIFTS[k].w,r:LIFTS[k].r,f:LIFTS[k].def.slice()};}return S.calc;}
+function oneRM(key,w,r){if(r===1)return w;return FORM[key].f(w,r);}
+const repsAt=p=>p>=1?1:Math.round(30*(1/p-1));
+function renderCalc(){
+  const C=calcState(),L=LIFTS[C.lift],st=C[C.lift];
+  let h='<div class="seg" role="tablist">'+Object.keys(LIFTS).map(k=>`<button type="button" data-lift="${k}" class="${k===C.lift?'on':''}">${LIFTS[k].n}</button>`).join('')+'</div>';
+  h+=`<div class="card"><div class="calc-in"><div><label for="k-w">Поднятый вес, кг</label><input id="k-w" inputmode="decimal" value="${fmt(st.w)}"></div>
+    <div><label for="k-r">Повторов (1–12)</label><input id="k-r" inputmode="numeric" value="${st.r}"></div></div>
+    <div class="chips" aria-label="Формулы">${L.list.map(k=>`<button type="button" class="chip${st.f.includes(k)?' on':''}" data-form="${k}">${st.f.includes(k)?'✓ ':''}${FORM[k].n}</button>`).join('')}</div></div>
+    <div id="k-out"></div>`;
+  V.innerHTML=h;calcOut();
+}
+function calcOut(){
+  const C=calcState(),L=LIFTS[C.lift],st=C[C.lift],o=document.getElementById('k-out');if(!o)return;
+  const w=st.w,r=st.r;
+  if(!w||!r||r<1||r>12){o.innerHTML='<div class="note">Введи вес и количество повторов от 1 до 12 — дальше формулы сильно врут.</div>';return;}
+  const vals=L.list.map(k=>({k,v:oneRM(k,w,r)}));const sel=vals.filter(x=>st.f.includes(x.k));
+  const res=sel.length?sel.reduce((a,x)=>a+x.v,0)/sel.length:null;
+  if(res==null){o.innerHTML='<div class="note">Выбери хотя бы одну формулу.</div>';return;}
+  const cur=L.set?+S.settings[L.set]:null;
+  let h=`<div class="res"><div><small>Разовый максимум · ${L.n.toLowerCase()}</small><div class="v">${fmt(Math.round(res*10)/10)}<span>кг</span></div></div>
+    <div class="side">для штанги<b>${fmt(r25(res))} кг</b>${cur?`<span style="display:block;margin-top:4px">в программе: ${fmt(cur)}</span>`:''}</div></div>`;
+  if(L.set)h+=`<button type="button" class="btn red" id="k-apply" data-v="${r25(res)}">Поставить ${fmt(r25(res))} кг как максимум в ${L.full}</button>`;
+  h+=`<div class="section-title">Формулы</div><div class="card"><div class="flist">${vals.map(x=>`<div class="frow${st.f.includes(x.k)?'':' off'}"><span>${FORM[x.k].n}<code>${FORM[x.k].t}</code></span><b>${fmt(Math.round(x.v*10)/10)} кг</b></div>`).join('')}</div>
+    <div class="note">${L.note}</div></div>`;
+  h+=`<div class="section-title">Таблица процентов</div><div class="card"><table class="ptab"><thead><tr><th>%</th><th>Вес, кг</th><th>≈ повт.</th><th></th></tr></thead><tbody>`;
+  for(let p=100;p>=50;p-=5){const kg=res*p/100,rp=repsAt(p/100);
+    h+=`<tr class="${p===100?'top':''}"><td>${p===100?'Рекорд':p+'%'}</td><td>${fmt(r25(kg))} <span style="color:var(--muted);font-size:11.5px">(${fmt(Math.round(kg*10)/10)})</span></td><td>${rp>15?'15+':rp}</td><td class="bar"><i style="width:${p}%"></i></td></tr>`;}
+  h+=`</tbody></table><div class="note">Вес округлён до 2,5 кг под блины, в скобках — точное значение. «≈ повт.» — сколько повторов обычно получается с этим весом до отказа. Если подход был не до отказа (оставались повторы в запасе), реальный максимум выше расчёта.</div></div>`;
+  o.innerHTML=h;
+}
 const msg=t=>{const m=document.getElementById('msg');if(m)m.textContent=t;};
 function importData(txt){try{const p=JSON.parse(txt);if(!p||!p.settings||!p.log)throw 0;S=normalize(p);persist();render();msg('Готово: данные загружены.');}catch(e){msg('Не получилось прочитать копию. Проверь, что вставлен весь текст целиком.');}}
 
@@ -424,8 +496,10 @@ V.addEventListener('click',ev=>{
     E[s]=v;persist();const y=window.scrollY;render();window.scrollTo(0,y);
     if(v.d){const n=E.filter(x=>x&&x.d).length,fin=n>=ex.sets;startTimer(fin?Math.min(restSec(ex.rest),120):restSec(ex.rest),fin?'Упражнение готово! Отдых перед следующим':`Подход ${s+1} из ${ex.sets} · ${ex.name}`);}
     return;}
+  const lf=ev.target.closest('[data-lift]');if(lf){calcState().lift=lf.dataset.lift;persist();renderCalc();return;}
+  const fm=ev.target.closest('[data-form]');if(fm){const st=calcState()[calcState().lift],k=fm.dataset.form;st.f=st.f.includes(k)?st.f.filter(x=>x!==k):st.f.concat(k);persist();renderCalc();return;}
   const id=ev.target.id;
-  if(id==='c-apply'){const v=+document.getElementById('c-out').dataset.v;if(v){S.settings.bench=v;persist();renderSettings();msg('Готово: максимум '+fmt(v)+' кг, все веса пересчитаны.');}return;}
+  if(id==='k-apply'){const v=+ev.target.dataset.v,L=LIFTS[calcState().lift];if(v&&L.set){S.settings[L.set]=v;persist();render();const b=document.getElementById('k-apply');if(b){b.textContent='✓ Готово: '+fmt(v)+' кг, программа пересчитана';}}return;}
   if(id==='exp-file'){const blob=new Blob([JSON.stringify(S)],{type:'application/json'}),name='zhim-kopiya-'+new Date().toISOString().slice(0,10)+'.json';
     const file=new File([blob],name,{type:'application/json'});
     if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Копия: Жим 8 недель'}).catch(()=>{});}
@@ -437,8 +511,8 @@ V.addEventListener('click',ev=>{
 V.addEventListener('input',ev=>{const t=ev.target;
   if(t.dataset.f){const i=+t.dataset.i,s=+t.dataset.s,E=entry(cur.w,cur.d,i);E[s]=E[s]||{};E[s][t.dataset.f]=num(t.value);persist();return;}
   if(t.dataset.bw){const v=num(t.value);if(v==null)delete S.bw[t.dataset.bw];else S.bw[t.dataset.bw]=v;persist();return;}
-  if(t.id==='set-bench'||t.id==='set-squat'){const v=num(t.value);if(v&&v>20){S.settings[t.id==='set-bench'?'bench':'squat']=v;persist();document.getElementById('hsub').textContent='Жим: '+fmt(+S.settings.bench)+' кг';}return;}
-  if(t.id==='c-w'||t.id==='c-r')calc();
+  if(t.id==='set-bench'||t.id==='set-squat'){const v=num(t.value);if(v&&v>20){S.settings[t.id==='set-bench'?'bench':'squat']=v;persist();document.getElementById('hsub').innerHTML='Максимум в жиме<br><b>'+fmt(+S.settings.bench)+' кг</b>';}return;}
+  if(t.id==='k-w'||t.id==='k-r'){const st=calcState()[calcState().lift],v=num(t.value);if(t.id==='k-w')st.w=v;else st.r=v==null?null:Math.round(v);persist();calcOut();}
 });
 V.addEventListener('change',ev=>{const t=ev.target;
   if(t.id==='set-start'&&t.value){S.settings.start=t.value;persist();pick=autoPick();cur={w:pick.w,d:pick.d};}
