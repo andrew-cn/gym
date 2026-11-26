@@ -1,5 +1,5 @@
 // Офлайн-кэш GymAF. При обновлении файлов меняй номер версии.
-const CACHE = 'gymaf-v11';
+const CACHE = 'gymaf-v12';
 const PHOTOS = 'gymaf-photos';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
