@@ -572,6 +572,32 @@ svg.body .ba{fill:url(#gA);stroke:none}
 .kbi:first-child{border-top:0}.kbi b{display:block;font-weight:600;font-size:15px}.kbi small{color:var(--muted);font-size:12px}.kbi .go{color:var(--muted);font-size:20px}
 .kbb{margin:4px 0 10px;padding-left:20px;font-size:15px;line-height:1.5}.kbb li{margin:6px 0}
 .kbsrc{font-size:12px;color:var(--muted);margin:8px 0 4px}
+/* v13 онбординг */
+#onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#onb.show{display:block}
+.ob-wrap{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 8px) 20px calc(env(safe-area-inset-bottom) + 20px)}
+.ob-top{display:flex;align-items:center;justify-content:space-between;height:44px}
+.ob-back,.ob-skip{border:0;background:none;color:var(--blue);font-size:16px;font-weight:500;min-width:44px;min-height:44px;padding:0 4px}
+.ob-back{font-size:30px;text-align:left;line-height:1}.ob-skip{color:var(--muted);text-align:right}
+.ob-dots{display:flex;gap:6px}.ob-dots i{width:22px;height:4px;border-radius:4px;background:var(--surface2)}.ob-dots i.on{background:var(--blue)}
+.ob-body{flex:1;display:flex;flex-direction:column}
+.ob-body h1{font-size:32px;line-height:1.15;margin:8px 0 10px;letter-spacing:-.5px}.ob-body h2{font-size:26px;line-height:1.2;margin:12px 0 8px;letter-spacing:-.3px}
+.ob-p{font-size:16px;line-height:1.5;color:var(--muted);margin:0 0 18px}.ob-p b{color:var(--ink)}
+.ob-hero{display:flex;justify-content:center;margin:10px 0 8px}.ob-hero svg{height:min(42vh,340px);width:auto}
+.ob-hero.sm svg{width:56px;height:56px;color:#fff;background:var(--blue);border-radius:50%;padding:14px;box-sizing:content-box}
+.ob-in{width:100%;font-size:22px;font-weight:600;padding:14px;border-radius:14px;border:0;background:var(--surface);color:var(--ink);box-sizing:border-box}
+.ob-calc{min-height:22px;font-size:15px;color:var(--muted);margin:10px 0 0}.ob-calc b{color:var(--blue)}
+.ob-goals{display:grid;gap:8px}
+.ob-goal{display:block;text-align:left;border:0;background:var(--surface);color:var(--ink);border-radius:14px;padding:14px 16px;box-shadow:inset 0 0 0 1.5px transparent}
+.ob-goal.on{box-shadow:inset 0 0 0 2px var(--blue);background:rgba(62,123,250,.1)}
+.ob-goal b{display:block;font-size:16px}.ob-goal small{color:var(--muted);font-size:13.5px}
+.ob-days .chip{min-width:46px;justify-content:center}
+.ob-foot{margin-top:auto;padding-top:24px}.ob-foot .btn{width:100%;min-height:52px;font-size:17px}.ob-foot .btn[disabled]{opacity:.4}
+.ob-note{text-align:center;color:var(--muted);font-size:13px;margin:10px 0 0}
+.ob-first{background:var(--surface);border-radius:16px;padding:14px 16px;margin:4px 0 14px}.ob-first small{color:var(--muted);font-size:13px}.ob-first b{display:block;font-size:16px;margin-top:2px}
+.ob-big{font-size:30px;font-weight:700;margin-top:4px;color:var(--blue)}.ob-big span{color:var(--muted);font-weight:400}
+.ob-list{margin:0;padding-left:20px;font-size:15px;line-height:1.5;color:var(--ink)}.ob-list li{margin:6px 0}
+#onb .lbl small{font-weight:400;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -623,6 +649,7 @@ const LIB={
  leg_ext:{n:'Разгибания ног сидя',m:['quads'],s:[],pat:'quadiso',v:'hXyC9CGfvo4',t:['Ось тренажёра на уровне колена.','Разгибай до конца, вверху пауза 1 сек.','Вниз медленно.'],w:'Без рывков — колени это не любят.'},
  leg_curl:{n:'Сгибания ног лёжа',m:['hams'],s:['calves'],pat:'hams',v:'BXXaYSW2Ozw',t:['Валик над пятками, колени чуть за краем скамьи.','Таз прижат к скамье.','Сгибай до упора, вниз медленно 2–3 сек.'],w:'Не отрывай таз, чтобы «докинуть» вес.'},
  seated_curl:{n:'Сгибания ног сидя',m:['hams'],s:[],pat:'hams',v:null,t:['Спина прижата, бёдра зафиксированы валиком.','Сгибай до упора, пауза.','Медленно обратно.'],w:'Не помогай корпусом.'},
+ deadlift:{n:'Становая тяга',m:['glutes','hams','lowback'],s:['quads','upback','lats','fore'],pat:'hams',bar:1,max:'dead',v:'wYREQkVtvEc',t:['Гриф над серединой стопы, голени почти касаются грифа.','Возьмись хватом чуть шире ног, руки прямые.','Колени вперёд до грифа, грудь вверх — спина ровная и напряжённая.','Вдох, напряги пресс, тяни гриф по ногам, толкая пол ногами.','Вверху — выпрямись, не отклоняясь назад.'],w:'Не скругляй поясницу и не дёргай гриф с пола.'},
  rdl:{n:'Румынская тяга',m:['hams','glutes'],s:['lowback'],pat:'hams',bar:1,max:'dead',v:'bnuDUDfaUOM',t:['Колени слегка согнуты и не меняют угол.','Таз уводишь назад, гриф скользит по бёдрам.','Спина ровная, опускай до сильного растяжения бицепса бедра.','Вверх — толкаешь таз вперёд.'],w:'Не скругляй спину — это не становая с пола.'},
  bb_row:{n:'Тяга штанги в наклоне',m:['lats','upback'],s:['rdelt','bi','lowback'],pat:'hrow',bar:1,v:'sl625ModgUU',t:['Наклон 30–45°, спина ровная, колени чуть согнуты.','Тяни гриф к низу живота, локти вдоль корпуса.','Вверху сведи лопатки, вниз — до прямых рук.'],w:'Не раскачивай корпус, чтобы «закинуть» вес.'},
  db_row:{n:'Тяга гантели одной рукой',m:['lats'],s:['upback','bi','rdelt'],pat:'hrow',v:'PVSWvmL6wPw',t:['Упор коленом и рукой о скамью, спина параллельна полу.','Тяни локоть к тазу, а не к плечу.','Внизу дай лопатке уйти вперёд — растяжение.'],w:'Не поворачивай корпус.'},
@@ -790,7 +817,7 @@ function renderTrain(){
   h+=`</div><div class="days" style="grid-template-columns:repeat(${Math.min(days.length,4)},1fr)">`;
   days.forEach((x,i)=>{const p=dayProgress(pr,w,x);h+=`<button type="button" class="day${x.id===D.id?' on':''}${isDone(pr,w,x)?' done':''}" style="--dc:${dayColor(x,i)}" data-d="${x.id}"><b>${esc(x.name)}</b><small>${dstr(dateOf(pr,w,x))} · ${p.dn}/${p.tot}</small></button>`;});
   h+='</div>';
-  if(pick.before&&w===1&&D.id===days[0].id)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> Пока доделай старую программу, а свежий результат посчитай во разделе «Ещё → Калькуляторы».</div>`;
+  if(pick.before&&w===1&&D.id===days[0].id)h+=`<div class="banner">До старта <b>${pick.before} дн.</b> ${Object.keys(S.progs).length>1?'Пока доделай старую программу, а свежий результат посчитай в разделе «Ещё → Калькуляторы».':'Можно заглянуть в тренировки заранее и посмотреть технику упражнений.'}</div>`;
   if(pick.after)h+=`<div class="banner">Программа пройдена! Поставь новый максимум в «Ещё → Калькуляторы» и новую дату старта во вкладке «Программа».</div>`;
   const m=list.find(x=>x.e.main||x.e.mode==='pct');
   const mins=Math.round(list.reduce((a,x)=>a+x.pl.sets*(restSec(x.e.rest)/60+0.8),0)/5)*5;
@@ -987,8 +1014,8 @@ const anat=(lib,view)=>bodySVG(view||viewFor(lib),anatLv(lib));
 const LOWM=['quads','hams','glutes','calves'];
 function anatMini(lib){const L=LIB[lib]||{m:[]};const low=L.m.some(m=>LOWM.includes(m));return bodySVG(viewFor(lib),anatLv(lib),low?[125,620,400,400]:[125,115,400,400]);}
 /* фото из Free Exercise DB (общественное достояние) */
-const IMG='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises/';
-const PX={bench:'Barbell_Bench_Press_-_Medium_Grip',bench_pause:'Barbell_Bench_Press_-_Medium_Grip',bench_cg:'Close-Grip_Barbell_Bench_Press',db_bench:'Dumbbell_Bench_Press',machine_press:'Leverage_Chest_Press',incline_db:'Incline_Dumbbell_Press',incline_bb:'Barbell_Incline_Bench_Press_-_Medium_Grip',dips:'Dips_-_Chest_Version',ohp:'Standing_Military_Press',db_shoulder:'Seated_Dumbbell_Press',lat_raise:'Side_Lateral_Raise',machine_fly:'Butterfly',cable_fly:'Cable_Crossover',db_fly:'Incline_Dumbbell_Flyes',pushdown:'Triceps_Pushdown',oh_ext:'Cable_Rope_Overhead_Triceps_Extension',french:'EZ-Bar_Skullcrusher',face_pull:'Face_Pull',rev_fly:'Reverse_Machine_Flyes',squat:'Barbell_Full_Squat',front_squat:'Front_Barbell_Squat',hack:'Hack_Squat',leg_press:'Leg_Press',leg_ext:'Leg_Extensions',leg_curl:'Lying_Leg_Curls',seated_curl:'Seated_Leg_Curl',rdl:'Romanian_Deadlift',bb_row:'Bent_Over_Barbell_Row',db_row:'One-Arm_Dumbbell_Row',cs_row:'Dumbbell_Incline_Row',tbar:'T-Bar_Row_with_Handle',cable_row:'Seated_Cable_Rows',pullup:'Pullups',pulldown:'Wide-Grip_Lat_Pulldown',cg_pulldown:'Close-Grip_Front_Lat_Pulldown',ez_curl:'EZ-Bar_Curl',bb_curl:'Barbell_Curl',hammer:'Hammer_Curls',incline_curl:'Alternate_Incline_Dumbbell_Curl',preacher:'Preacher_Curl',cable_curl:'Standing_Biceps_Cable_Curl',hlr:'Hanging_Leg_Raise',cable_crunch:'Cable_Crunch',plank:'Plank'};
+const IMG='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+const PX={bench:'Barbell_Bench_Press_-_Medium_Grip',bench_pause:'Barbell_Bench_Press_-_Medium_Grip',bench_cg:'Close-Grip_Barbell_Bench_Press',db_bench:'Dumbbell_Bench_Press',machine_press:'Leverage_Chest_Press',incline_db:'Incline_Dumbbell_Press',incline_bb:'Barbell_Incline_Bench_Press_-_Medium_Grip',dips:'Dips_-_Chest_Version',ohp:'Standing_Military_Press',db_shoulder:'Seated_Dumbbell_Press',lat_raise:'Side_Lateral_Raise',machine_fly:'Butterfly',cable_fly:'Cable_Crossover',db_fly:'Incline_Dumbbell_Flyes',pushdown:'Triceps_Pushdown',oh_ext:'Cable_Rope_Overhead_Triceps_Extension',french:'EZ-Bar_Skullcrusher',face_pull:'Face_Pull',rev_fly:'Reverse_Machine_Flyes',squat:'Barbell_Full_Squat',front_squat:'Front_Barbell_Squat',hack:'Hack_Squat',leg_press:'Leg_Press',leg_ext:'Leg_Extensions',leg_curl:'Lying_Leg_Curls',seated_curl:'Seated_Leg_Curl',deadlift:'Barbell_Deadlift',rdl:'Romanian_Deadlift',bb_row:'Bent_Over_Barbell_Row',db_row:'One-Arm_Dumbbell_Row',cs_row:'Dumbbell_Incline_Row',tbar:'T-Bar_Row_with_Handle',cable_row:'Seated_Cable_Rows',pullup:'Pullups',pulldown:'Wide-Grip_Lat_Pulldown',cg_pulldown:'Close-Grip_Front_Lat_Pulldown',ez_curl:'EZ-Bar_Curl',bb_curl:'Barbell_Curl',hammer:'Hammer_Curls',incline_curl:'Alternate_Incline_Dumbbell_Curl',preacher:'Preacher_Curl',cable_curl:'Standing_Biceps_Cable_Curl',hlr:'Hanging_Leg_Raise',cable_crunch:'Cable_Crunch',plank:'Plank'};
 function media(lib,chip,wt,plain){const id=PX[lib],L=LIB[lib]||{m:[]};
   return `<div class="media${id?'':' noimg'}" data-tech="${esc(lib)}" role="button" aria-label="Техника: ${esc(L.n||'')}">${id?`<img class="ph" src="${IMG}${id}/0.jpg" alt="" loading="lazy" onerror="this.closest('.media').classList.add('noimg')"><img class="ph b" src="${IMG}${id}/1.jpg" alt="" loading="lazy" onerror="this.remove()"><div class="tint"></div>`:''}
    <div class="anat">${anat(lib)}</div><div class="fadeb"></div>
@@ -1026,7 +1053,7 @@ function calcOut(){const C=calcState(),L=LIFTS[C.lift],st=C[C.lift],o=document.g
 /* ---------- НАСТРОЙКИ ---------- */
 function renderSettings(){if(tab==='more'&&msub!=='set'){msub='set';}if(tab==='more')return renderMore();settingsBody();}
 function settingsBody(){const s=S.settings;
-  V.innerHTML=`<div class="section-title">Максимумы</div><div class="card">${Object.keys(MAXN).map(k=>`<div class="row"><label for="mx-${k}">${MAXN[k]}, кг<small>${k==='bench'?'от него считаются веса жима':k==='squat'?'для приседа в программе':'для своих программ'}</small></label><input id="mx-${k}" data-max="${k}" inputmode="decimal" value="${fmt(maxOf(k))}"></div>`).join('')}
+  V.innerHTML=`<div class="btns" style="margin-top:0"><button type="button" class="btn ghost" id="onb-again">Пройти быструю настройку заново</button></div><div class="section-title">Максимумы</div><div class="card">${Object.keys(MAXN).map(k=>`<div class="row"><label for="mx-${k}">${MAXN[k]}, кг<small>${k==='bench'?'от него считаются веса жима':k==='squat'?'для приседа в программе':'для своих программ'}</small></label><input id="mx-${k}" data-max="${k}" inputmode="decimal" value="${fmt(maxOf(k))}"></div>`).join('')}
     <label class="switch" for="set-wake"><span><b>Не гасить экран</b><br><small style="color:var(--muted)">пока открыта тренировка</small></span><input id="set-wake" type="checkbox"${s.wake?' checked':''}></label></div>
   <div class="section-title">Напоминания</div><div class="card"><p class="tip" style="margin-top:0">Айфон не даёт сайтам-приложениям присылать уведомления без сервера, поэтому делаю надёжнее: добавлю тренировки в твой Календарь с напоминанием за час. Календарь напомнит даже без интернета.</p>
     <div class="row"><label for="rem-t">Время тренировки<small>напоминание за 60 мин</small></label><input id="rem-t" type="time" value="${s.remind||'18:00'}"></div>
@@ -1041,7 +1068,7 @@ function settingsBody(){const s=S.settings;
     <textarea id="imp-text" placeholder="…или вставь сюда текст копии и нажми «Загрузить текст»"></textarea>
     <div class="btns"><button type="button" class="btn ghost" id="imp-go">Загрузить текст</button><button type="button" class="btn danger" id="reset">Стереть все отметки</button></div>
     <p class="status" id="msg">${storageOk?'':'Браузер не даёт сохранять данные — открой приложение с экрана «Домой».'}</p></div>
-  <p class="status" style="text-align:center;margin:18px 0">GymAF · программа тренировок · v12</p>`;}
+  <p class="status" style="text-align:center;margin:18px 0">GymAF · программа тренировок · v13</p>`;}
 const msg=t=>{const m=document.getElementById('msg');if(m)m.textContent=t;};
 function importData(txt){try{const p=JSON.parse(txt);if(!p||!p.settings)throw 0;S=migrate(p);persist();pick=autoPick(prog());cur={w:pick.w,d:pick.d};render();msg('Готово: данные загружены.');}catch(e){msg('Не получилось прочитать копию. Проверь, что вставлен весь текст.');}}
 function shareFile(blob,name,title){const file=new File([blob],name,{type:blob.type});
@@ -1175,7 +1202,7 @@ FEL.addEventListener('click',ev=>{const t=ev.target,q=sel=>t.closest(sel);let el
 const GQ={goal:{bench:'Поднять жим',strength:'Сила в базе',mass:'Набор массы',pb:'Сила + масса'},
   level:{nov:'До года',mid:'1–3 года',adv:'3+ года'},
   prio:{chest:'Грудь',back:'Спина',sh:'Плечи',arms:'Руки',legs:'Ноги'},
-  avoid:{squat:'Без приседа',hinge:'Без румынской тяги',ohp:'Без жима стоя',shoulder:'Берегу плечи',lowback:'Берегу поясницу',knee:'Берегу колени'}};
+  avoid:{hinge:'Без тяг с пола и румынской',ohp:'Без жима стоя',shoulder:'Берегу плечи',lowback:'Берегу поясницу',knee:'Берегу колени'}};
 const GROUPS={chest:['chest'],back:['lats','upback'],sdelt:['sdelt'],rdelt:['rdelt'],tri:['tri'],bi:['bi'],quads:['quads'],hams:['hams'],abs:['abs']};
 const GN={chest:'Грудь',back:'Спина',sdelt:'Средняя дельта',rdelt:'Задняя дельта',tri:'Трицепс',bi:'Бицепс',quads:'Квадрицепс',hams:'Бицепс бедра',abs:'Пресс'};
 const CAND={chest:['incline_db','db_bench','machine_press','cable_fly','dips','machine_fly','db_fly'],back:['pulldown','bb_row','cable_row','pullup','cs_row','db_row','cg_pulldown','tbar'],
@@ -1186,10 +1213,10 @@ const DAYG={F:['chest','back','quads','hams','sdelt','tri','bi','rdelt','abs'],U
 const DAYT={F:'Всё тело',U:'Верх',L:'Низ',P:'Жимы',Pl:'Тяги',Lg:'Ноги'};
 function genBanned(av){const b=new Set();
   if(av.includes('squat'))['squat','front_squat'].forEach(x=>b.add(x));
-  if(av.includes('hinge'))b.add('rdl');
+  if(av.includes('hinge'))['rdl','deadlift'].forEach(x=>b.add(x));
   if(av.includes('ohp'))b.add('ohp');
   if(av.includes('shoulder'))['ohp','dips','db_shoulder','french'].forEach(x=>b.add(x));
-  if(av.includes('lowback'))['squat','rdl','bb_row','tbar','front_squat'].forEach(x=>b.add(x));
+  if(av.includes('lowback'))['squat','rdl','deadlift','bb_row','tbar','front_squat'].forEach(x=>b.add(x));
   if(av.includes('knee'))['squat','front_squat','hack','leg_ext'].forEach(x=>b.add(x));
   return b;}
 /* какие базовые движения по процентам в какой день */
@@ -1200,9 +1227,12 @@ function genSplit(goal,n){const T=n<=3?Array(n).fill('F'):n===4?['U','L','U','L'
     strength:{1:[[['squat','H'],['bench','H']]],2:[[['squat','H'],['bench','V']],[['bench','H'],['squat','V']]],3:[[['squat','H'],['bench','V']],[['bench','H'],['ohp','V']],[['squat','V'],['bench','L']]],
       4:[[['bench','H'],['ohp','V']],[['squat','H']],[['bench','V']],[['squat','V']]],5:[[['bench','H']],[['squat','H']],[['bench','V'],['ohp','V']],[],[['squat','V']]],6:[[['bench','H'],['ohp','V']],[],[['squat','H']],[['bench','V']],[],[['squat','V']]]},
     mass:{1:[[['bench','M'],['squat','M']]],2:[[['bench','M'],['squat','M']],[]],3:[[['bench','M'],['squat','M']],[],[['bench','M']]],4:[[['bench','M']],[['squat','M']],[],[]],5:[[['bench','M']],[['squat','M']],[],[],[]],6:[[['bench','M']],[],[['squat','M']],[],[],[]]}};
-  M.pb=M.strength;return{T,mains:(M[goal]||M.bench)[n]};}
+  M.pb={1:[[['bench','H'],['squat','V']]],2:[[['bench','H'],['squat','V']],[['bench','V'],['squat','V']]],3:[[['bench','H'],['squat','V']],[['bench','L'],['ohp','V']],[['bench','V'],['squat','V']]],
+    4:[[['bench','H']],[['squat','H']],[['bench','V'],['bench','L2']],[['squat','V']]],5:[[['bench','H']],[['squat','V']],[['bench','V']],[],[['squat','V']]],6:[[['bench','H']],[],[['squat','H']],[['bench','V']],[],[['squat','V']]]};
+  return{T,mains:(M[goal]||M.bench)[n]};}
 const PLIFT={bench:{H:['bench','Жим лёжа — тяжёлый'],V:['bench','Жим лёжа — объёмный'],L:['bench_pause','Жим лёжа с паузой'],L2:['bench_cg','Жим узким хватом'],M:['bench','Жим лёжа']},
   squat:{H:['squat','Присед — тяжёлый'],V:['squat','Присед — объёмный'],L:['squat','Присед — лёгкий'],M:['squat','Приседания']},
+  dead:{H:['deadlift','Становая — тяжёлая'],V:['deadlift','Становая — объёмная'],L:['deadlift','Становая — лёгкая'],M:['deadlift','Становая тяга']},
   ohp:{H:['ohp','Жим стоя — тяжёлый'],V:['ohp','Жим стоя'],L:['ohp','Жим стоя'],M:['ohp','Жим стоя']}};
 const PT={H:[.75,.875,5,2],V:[.65,.775,8,5],L:[.60,.70,5,3],L2:[.62,.72,8,6],M:[.62,.75,10,6]};
 function prilepinSets(p,r,lv,type){const opt=p>=.9?7:p>=.8?15:p>=.7?18:24;let s=Math.round(opt*(lv==='nov'?.8:lv==='adv'?1.1:1)/r);
@@ -1220,12 +1250,16 @@ function genProgram(a){
   const dows=(a.dows||[]).slice().sort((x,y)=>x-y).slice(0,6);if(dows.length<1)return{err:'Выбери хотя бы один день'};
   const n=dows.length,lv=a.level||'mid',goal=a.goal||'bench',W=+a.weeks||8,av=a.avoid||[],pr=a.prio||[];
   const ban=genBanned(av),wk=genWeeks(W,goal);const cap={45:5,60:6,75:7,90:8}[a.time]||6;
-  const {T,mains}=genSplit(goal,Math.min(n,6));
+  const sp=genSplit(goal,Math.min(n,6)),T=sp.T;const lifts=a.lifts||['squat'];
+  const mains=sp.mains.map(l=>l.filter(([lift])=>lift!=='squat'||lifts.includes('squat')));
+  if(lifts.includes('dead')&&!ban.has('deadlift')){const typ=goal==='mass'?'M':goal==='bench'?'V':'H';
+    let bi=-1,bs=1e9;T.forEach((t,i)=>{if(!['F','L','Lg','Pl'].includes(t))return;const m=mains[i]||[];const sc=m.length*2+(m.some(x=>x[0]==='squat')?3:0)+(m.some(x=>x[0]==='squat'&&x[1]==='H')?5:0)+(t==='F'?0:-1);if(sc<bs){bs=sc;bi=i;}});
+    if(bi<0)bi=0;mains[bi]=(mains[bi]||[]).concat([['dead',typ]]);}
   const days=dows.map((dow,i)=>({dow,t:T[i],ex:[],used:new Set()}));
   const sets={};const add=(lib,s,full)=>{const L=LIB[lib];Object.keys(GROUPS).forEach(g=>{const hit=GROUPS[g].some(m=>L.m.includes(m))?1:GROUPS[g].some(m=>L.s.includes(m))?.5:0;if(hit)sets[g]=(sets[g]||0)+s*hit;});};
   /* 1. базовые по процентам */
   mains.forEach((list,i)=>{const d=days[i];if(!d)return;list.forEach(([lift,type])=>{const P0=PLIFT[lift][type];let lib=P0[0],label=P0[1];
-    if(ban.has(lib)){if(lift==='squat'){return;}if(lift==='ohp')return;}
+    if(ban.has(lib))return;
     const plan=genPlan(type,W,wk,lv);const ex={lib,label,mode:'pct',base:lift,plan,rest:type==='H'?'3–5 мин':'2–3 мин',tip:TIPS[type]||'',heavy:type==='H'};
     d.ex.push(ex);d.used.add(lib);const ws=plan.filter(Boolean);add(lib,ws.reduce((x,p)=>x+p[0],0)/ws.length);
     if(type==='H'&&wk.test)[[.95,'попытка 1','Разминка до 90%, вес должен идти легко'],[1,'попытка 2','Твой текущий максимум'],[1.03,'попытка 3 (рекорд)','Только со страхующим. Результат — новый максимум']].forEach(([p,nm,tp])=>{
@@ -1266,11 +1300,12 @@ function genProgram(a){
 const TIPS={H:'Тяжёлая работа. Последний подход — RPE 8–9, техника не ломается.',V:'Объём: все повторы одной техникой, 1–2 в запасе.',L:'Пауза 2 сек на груди, взрывно вверх. Учит старту.',L2:'Узкий хват — трицепс и дожим.',M:'Подходы в диапазоне 6–10 повторов, 1–2 в запасе.'};
 
 /* --- экран анкеты --- */
-function gForm(){const C=coach();if(!C.form){const pr=prog();C.form={goal:'bench',level:'mid',dows:sortedDays(pr).map(d=>d.dow).slice(0,6),time:75,weeks:8,avoid:[],prio:[]};if(!C.form.dows.length)C.form.dows=[0,2,4];}return C.form;}
+function gForm(){const C=coach();if(C.form&&!C.form.lifts)C.form.lifts=['squat'];if(!C.form){const pr=prog();C.form={goal:'bench',lifts:['squat'],level:'mid',dows:sortedDays(pr).map(d=>d.dow).slice(0,6),time:75,weeks:8,avoid:[],prio:[]};if(!C.form.dows.length)C.form.dows=[0,2,4];}return C.form;}
 const chipRow=(f,opts,multi)=>{const F=gForm();return `<div class="chips gq">${Object.entries(opts).map(([k,n])=>{const on=multi?(F[f]||[]).map(String).includes(String(k)):String(F[f])===String(k);return `<button type="button" class="chip${on?' on':''}" data-gq="${f}" data-gv="${k}"${multi?' data-gm="1"':''} aria-pressed="${on}">${on&&multi?'✓ ':''}${esc(n)}</button>`;}).join('')}</div>`;};
 function renderBuild(){const F=gForm();
   return `<div class="card build"><p class="tip" style="margin-top:0"><b>Встроенный тренер</b> — бесплатно и без интернета. Ответь на вопросы, и он соберёт программу по правилам из исследований: объём на мышцу, частота, проценты от максимума, разгрузки.</p>
    <div class="gqt">Цель</div>${chipRow('goal',GQ.goal)}
+   <div class="gqt">Кроме жима <small>по желанию</small></div>${chipRow('lifts',{squat:'Присед',dead:'Становая'},true)}
    <div class="gqt">Стаж тренировок</div>${chipRow('level',GQ.level)}
    <div class="gqt">Дни тренировок <small>${F.dows.length} в неделю</small></div>${chipRow('dows',{0:'Пн',1:'Вт',2:'Ср',3:'Чт',4:'Пт',5:'Сб',6:'Вс'},true)}
    <div class="gqt">Сколько длится тренировка</div>${chipRow('time',{45:'45 мин',60:'1 час',75:'1 ч 15',90:'1,5 часа'})}
@@ -1365,6 +1400,61 @@ function kbClick(t){const q=s=>t.closest(s);let el;
   if((el=q('[data-kbgo]'))){const a=el.dataset.kbgo;closeSheet();if(a==='build'||a==='anketa'){csub='build';renderCoach();window.scrollTo(0,0);}else if(a==='calc'){tab='more';msub='tools';render();window.scrollTo(0,0);}else if(a==='tech'){techSheet('bench');}return true;}
   if((el=q('[data-kbai]'))){const v=el.dataset.kbai;closeSheet();csub='chat';aiSend(v);return true;}
   return false;}
+
+/* ---------- ОНБОРДИНГ (первый запуск) ---------- */
+let OB=null;
+const ONB_STEPS=5;
+function needOnb(){if(S.onb||window.__noOnb)return false;const hasLog=Object.values(S.log||{}).some(L=>Object.keys(L||{}).length);return !hasLog;}
+function onbStart(){const m=S.settings.max;OB={i:0,mode:'max',max:'',w:'',r:'',goal:'bench',lifts:[],smax:'',dmax:'',dows:[0,2,4],time:75,level:'mid'};
+  let el=document.getElementById('onb');if(!el){el=document.createElement('div');el.id='onb';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','Настройка GymAF');document.body.appendChild(el);
+    el.addEventListener('click',onbClick);el.addEventListener('input',onbInput);}
+  el.classList.add('show');document.body.style.overflow='hidden';onbRender();}
+function onbClose(){const el=document.getElementById('onb');if(el){el.classList.remove('show');el.innerHTML='';}document.body.style.overflow='';OB=null;}
+function onbBench(){if(OB.mode==='max'){const v=num(OB.max);return v&&v>=20&&v<=350?v:null;}const w=num(OB.w),r=parseInt(OB.r);if(!w||!r||r<1||r>12||w<20||w>350)return null;return r===1?w:Math.round((w*(1+r/30)+w*36/(37-r))/2*10)/10;}
+const obChip=(f,v,label,multi)=>{const on=multi?OB[f].includes(v):OB[f]===v;return `<button type="button" class="chip${on?' on':''}" data-of="${f}" data-ov="${v}"${multi?' data-om="1"':''} aria-pressed="${on}">${on&&multi?'✓ ':''}${label}</button>`;};
+function onbRender(){const el=document.getElementById('onb');if(!el||!OB)return;const i=OB.i;let h='';
+  const dots=i>0&&i<=ONB_STEPS?`<div class="ob-dots">${Array.from({length:ONB_STEPS},(_,k)=>`<i class="${k<i?'on':''}"></i>`).join('')}</div>`:'';
+  const top=`<div class="ob-top">${i>0?'<button type="button" class="ob-back" data-ob="back" aria-label="Назад">‹</button>':'<span></span>'}${dots}<button type="button" class="ob-skip" data-ob="skip">Пропустить</button></div>`;
+  if(i===0)h=`<div class="ob-hero">${bodySVG('front',k=>k==='chest'?1:k==='tri'||k==='fdelt'?.45:0)}</div><h1>Поднимем твой жим</h1><p class="ob-p">Ответь на 5 коротких вопросов — и GymAF соберёт программу под тебя: веса в килограммах на каждую тренировку, разгрузки и тест нового максимума.</p><div class="ob-foot"><button type="button" class="btn" data-ob="next">Начать</button><p class="ob-note">Около минуты · без регистрации</p></div>`;
+  if(i===1){const b=onbBench();h=`<h2>Сколько ты жмёшь?</h2><p class="ob-p">От этого считаются все веса в программе.</p>
+    <div class="seg" style="grid-template-columns:1fr 1fr"><button type="button" class="${OB.mode==='max'?'on':''}" data-of="mode" data-ov="max">Знаю максимум</button><button type="button" class="${OB.mode==='reps'?'on':''}" data-of="mode" data-ov="reps">Знаю вес на повторы</button></div>
+    ${OB.mode==='max'?`<label class="lbl" for="ob-max">Максимум на 1 раз, кг</label><input class="ob-in" id="ob-max" inputmode="decimal" placeholder="например, 100" value="${esc(OB.max)}">`
+    :`<div class="calc-in"><div><label class="lbl" for="ob-w">Вес, кг</label><input class="ob-in" id="ob-w" inputmode="decimal" placeholder="90" value="${esc(OB.w)}"></div><div><label class="lbl" for="ob-r">Повторов</label><input class="ob-in" id="ob-r" inputmode="numeric" placeholder="5" value="${esc(OB.r)}"></div></div>`}
+    <p class="ob-calc" id="ob-calc">${b&&OB.mode==='reps'?'Твой расчётный максимум ≈ <b>'+fmt(b)+' кг</b>':''}</p>
+    <div class="ob-foot"><button type="button" class="btn" data-ob="next"${b?'':' disabled'}>Дальше</button></div>`;}
+  if(i===2)h=`<h2>Какая цель?</h2><p class="ob-p">Жим — главный. Остальное по желанию.</p>
+    <div class="ob-goals">${[['bench','Поднять жим','Максимум силы в жиме лёжа'],['pb','Жим + масса','Сила в жиме и больше мышц'],['mass','Набор массы','Мышцы на первом месте'],['strength','Сила в базе','Жим, присед и становая на равных']].map(([k,t,d])=>`<button type="button" class="ob-goal${OB.goal===k?' on':''}" data-of="goal" data-ov="${k}"><b>${t}</b><small>${d}</small></button>`).join('')}</div>
+    <div class="gqt">Добавить в программу</div><div class="chips gq">${obChip('lifts','squat','Присед',1)}${obChip('lifts','dead','Становая',1)}</div>
+    ${OB.lifts.includes('squat')?`<label class="lbl" for="ob-sq">Максимум в приседе, кг <small>если не знаешь — оставь пустым</small></label><input class="ob-in" id="ob-sq" inputmode="decimal" placeholder="≈ ${fmt(r25((onbBench()||100)*1.25))}" value="${esc(OB.smax)}">`:''}
+    ${OB.lifts.includes('dead')?`<label class="lbl" for="ob-dl">Максимум в становой, кг <small>если не знаешь — оставь пустым</small></label><input class="ob-in" id="ob-dl" inputmode="decimal" placeholder="≈ ${fmt(r25((onbBench()||100)*1.5))}" value="${esc(OB.dmax)}">`:''}
+    <div class="ob-foot"><button type="button" class="btn" data-ob="next">Дальше</button></div>`;
+  if(i===3)h=`<h2>Когда тренируешься?</h2><p class="ob-p">Выбери дни — лучше с днём отдыха между ними.</p>
+    <div class="chips gq ob-days">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map((d,k)=>obChip('dows',k,d,1)).join('')}</div>
+    <div class="gqt">Сколько длится тренировка</div><div class="chips gq">${[[45,'45 мин'],[60,'1 час'],[75,'1 ч 15'],[90,'1,5 часа']].map(([v,l])=>obChip('time',v,l)).join('')}</div>
+    <div class="ob-foot"><button type="button" class="btn" data-ob="next"${OB.dows.length?'':' disabled'}>Дальше</button></div>`;
+  if(i===4)h=`<h2>Как давно тренируешься?</h2><p class="ob-p">От стажа зависит объём и как быстро растут веса.</p>
+    <div class="ob-goals">${[['nov','До года','Веса растут быстро, объём умеренный'],['mid','1–3 года','Нужна волна нагрузки и разгрузки'],['adv','3+ года','Больше объёма, прогресс медленнее']].map(([k,t,d])=>`<button type="button" class="ob-goal${OB.level===k?' on':''}" data-of="level" data-ov="${k}"><b>${t}</b><small>${d}</small></button>`).join('')}</div>
+    <div class="ob-foot"><button type="button" class="btn" data-ob="build">Собрать программу</button></div>`;
+  if(i===5&&OB.pr){const pr=OB.pr,d0=sortedDays(pr)[0],e0=d0.ex.find(e=>e.mode==='pct'&&!e.test);const pl=e0?exPlan(pr,e0,1):null;
+    h=`<div class="ob-hero sm">${ICON_OK}</div><h2>Программа готова</h2><p class="ob-p"><b>${esc(pr.name)}</b> · ${pr.days.length} трен. в неделю · старт ${esc(pr.start.split('-').reverse().slice(0,2).join('.'))}</p>
+     ${e0&&pl?`<div class="ob-first"><small>Первая тренировка · ${esc(DOWN[d0.dow])}</small><b>${esc(exName(e0))}</b><div class="ob-big">${pl.sets}×${esc(pl.reps)} <span>·</span> ${fmt(r25(maxOf(baseKey(e0))*pl.pct))} кг</div></div>`:''}
+     <ul class="ob-list"><li>Веса на каждую неделю уже посчитаны от твоего максимума</li><li>Разгрузка на ${pr.deload.join(' и ')} неделе${pr.taper.length?', тест максимума — на '+pr.weeks+'-й':''}</li><li>Подходы отмечай кружками — таймер отдыха запустится сам</li></ul>
+     <div class="ob-foot"><button type="button" class="btn" data-ob="go">Поехали</button><p class="ob-note">Программу можно изменить во вкладках «Программа» и «Тренер»</p></div>`;}
+  el.innerHTML=`<div class="ob-wrap">${top}<div class="ob-body">${h}</div></div>`;}
+function onbInput(ev){const t=ev.target;if(!OB)return;const map={'ob-max':'max','ob-w':'w','ob-r':'r','ob-sq':'smax','ob-dl':'dmax'};if(!map[t.id])return;OB[map[t.id]]=t.value;
+  if(OB.i===1){const b=onbBench();const c=document.getElementById('ob-calc');if(c)c.innerHTML=b&&OB.mode==='reps'?'Твой расчётный максимум ≈ <b>'+fmt(b)+' кг</b>':'';const nb=document.querySelector('#onb [data-ob="next"]');if(nb)nb.disabled=!b;}}
+function onbClick(ev){const t=ev.target,q=s=>t.closest(s);let el;if(!OB)return;
+  if((el=q('[data-of]'))){const f=el.dataset.of;let v=el.dataset.ov;if(/dows|time/.test(f))v=+v;
+    if(el.dataset.om){const a=OB[f];const k=a.indexOf(v);if(k>=0)a.splice(k,1);else{if(f==='dows'&&a.length>=6){toast('Максимум 6 дней — нужен хотя бы один выходной');return;}a.push(v);}}else OB[f]=v;onbRender();return;}
+  if((el=q('[data-ob]'))){const a=el.dataset.ob;
+    if(a==='skip'){S.onb=true;persist();onbClose();render();return;}
+    if(a==='back'){OB.i=Math.max(0,OB.i-1);onbRender();return;}
+    if(a==='next'){if(OB.i===1&&!onbBench())return;if(OB.i===3&&!OB.dows.length)return;OB.i++;onbRender();return;}
+    if(a==='build'){const b=onbBench();const m=S.settings.max;m.bench=r25(b);
+      const sq=num(OB.smax),dl=num(OB.dmax);if(OB.lifts.includes('squat'))m.squat=sq&&sq>=20?sq:r25(b*1.25);if(OB.lifts.includes('dead'))m.dead=dl&&dl>=20?dl:r25(b*1.5);
+      const F={goal:OB.goal,lifts:OB.lifts.slice(),level:OB.level,dows:OB.dows.slice(),time:OB.time,weeks:8,avoid:[],prio:[]};coach().form=F;
+      const r=genProgram(F);const n=normProgram(r.prog);n.pr.gen=true;delete n.pr.ai;OB.pr=n.pr;OB.i=5;onbRender();return;}
+    if(a==='go'){const pr=OB.pr;S.progs[pr.id]=pr;S.active=pr.id;S.onb=true;persist();pick=autoPick(pr);cur={w:pick.w,d:pick.d};tab='train';onbClose();render();window.scrollTo(0,0);toast('Программа готова — удачной тренировки!',true);return;}}}
 
 /* ---------- ИИ-ТРЕНЕР ---------- */
 const AIK='gymaf-ai-key';
@@ -1529,6 +1619,7 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.
 function onClick(ev){const t=ev.target;keepAwake();
   const q=sel=>t.closest(sel);let el;
   if(tab==='coach'&&coachClick(t))return;
+  if(t.id==='onb-again'){onbStart();return;}
   if((el=q('[data-msub]'))){msub=el.dataset.msub;render();window.scrollTo(0,0);return;}
   if((el=q('[data-tech]'))&&!(el.classList.contains('media')&&q('#sheet'))){techSheet(el.dataset.tech);return;}
   if(q('#vcard .play')||(q('#vcard')&&!q('iframe'))){playVideo();return;}
@@ -1609,7 +1700,7 @@ V.addEventListener('change',ev=>{const t=ev.target;
   if(t.id==='imp-file'&&t.files&&t.files[0]){t.files[0].text().then(importData);}
 });
 
-persist();render();
+persist();render();if(needOnb())onbStart();
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
